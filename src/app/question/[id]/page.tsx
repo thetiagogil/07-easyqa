@@ -1,8 +1,9 @@
-import { Alert, Button, Stack, Typography } from "@mui/joy";
+import { Alert, Button, Stack } from "@mui/joy";
+import { MainContainer } from "@/components/layout/main-container";
 import { AnswerForm } from "@/components/forms/answer-form";
-import { AnswerCard } from "@/components/shared/answer-card";
-import { EmptyState } from "@/components/shared/empty-state";
-import { QuestionCard } from "@/components/shared/question-card";
+import { NoData } from "@/components/shared/no-data";
+import { QuestionEntry } from "@/components/shared/question-entry";
+import { TargetEntry } from "@/components/shared/target-entry";
 import { getAnswersForQuestion, getCurrentUser, getQuestionById } from "@/lib/easyqa/data";
 
 export const dynamic = "force-dynamic";
@@ -22,17 +23,17 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
   const hasAnswered = answers.some((answer) => answer.userId === currentUser?.id);
   const canAnswer =
-    !!currentUser?.profile &&
+    !!currentUser?.profile?.hasDisplayName &&
     question.status === "open" &&
     question.userId !== currentUser.id &&
     !hasAnswered;
 
   return (
-    <Stack>
-      <QuestionCard question={question} returnTo={`/question/${question.id}`} />
+    <MainContainer navbarProps={{ title: "question", hasBackButton: true }} noPad>
+      <QuestionEntry question={question} />
 
       {!currentUser ? (
-        <Stack p={2} borderBottom="1px solid" borderColor="divider">
+        <Stack p={2} borderBottom="1px solid">
           <Alert
             variant="soft"
             color="neutral"
@@ -46,31 +47,23 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           </Alert>
         </Stack>
       ) : canAnswer ? (
-        <AnswerForm questionId={question.id} />
+        <AnswerForm questionId={question.id} profile={currentUser.profile} />
       ) : null}
 
-      <Stack>
-        {answers.length ? (
-          answers.map((answer) => (
-            <AnswerCard
-              key={answer.id}
-              answer={answer}
-              question={question}
-              currentUser={currentUser}
-            />
-          ))
-        ) : (
-          <EmptyState title="No answers yet" body="The first useful answer will show here." />
-        )}
-      </Stack>
-
-      {question.status === "closed" ? (
-        <Stack p={2}>
-          <Typography level="body-xs" textColor="text.tertiary">
-            This question is closed because an answer was accepted.
-          </Typography>
-        </Stack>
-      ) : null}
-    </Stack>
+      {answers.length ? (
+        answers.map((answer) => (
+          <TargetEntry
+            key={answer.id}
+            targetType="answer"
+            target={answer}
+            answeredQuestion={question}
+            currentUser={currentUser}
+            returnTo={`/question/${question.id}`}
+          />
+        ))
+      ) : (
+        <NoData />
+      )}
+    </MainContainer>
   );
 }

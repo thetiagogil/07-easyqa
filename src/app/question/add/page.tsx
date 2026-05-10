@@ -1,4 +1,5 @@
-import { Stack, Typography } from "@mui/joy";
+import { Stack } from "@mui/joy";
+import { MainContainer } from "@/components/layout/main-container";
 import { QuestionForm } from "@/components/forms/question-form";
 import { requireProfile } from "@/lib/easyqa/data";
 
@@ -8,14 +9,10 @@ export default async function AddQuestionPage() {
   await requireProfile();
 
   return (
-    <Stack p={2} gap={3}>
-      <Stack gap={1}>
-        <Typography level="h2">Ask a question</Typography>
-        <Typography level="body-sm" textColor="text.tertiary">
-          The database will attach your authenticated profile automatically.
-        </Typography>
+    <MainContainer navbarProps={{ title: "add question", hasBackButton: true }} noPad>
+      <Stack p={2} gap={3}>
+        <QuestionForm />
       </Stack>
-      <QuestionForm />
-    </Stack>
+    </MainContainer>
   );
 }

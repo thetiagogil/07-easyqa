@@ -1,6 +1,8 @@
-import { Alert, Button, Link, Stack, Typography } from "@mui/joy";
-import { EmptyState } from "@/components/shared/empty-state";
-import { QuestionCard } from "@/components/shared/question-card";
+import { Alert, Tab, TabList, Tabs } from "@mui/joy";
+import tabClasses from "@mui/joy/Tab/tabClasses";
+import { MainContainer } from "@/components/layout/main-container";
+import { NoData } from "@/components/shared/no-data";
+import { TargetEntry } from "@/components/shared/target-entry";
 import { isSupabaseConfigured } from "@/lib/env";
 import { getQuestions } from "@/lib/easyqa/data";
 import type { QuestionSort } from "@/types/easyqa";
@@ -18,53 +20,48 @@ export default async function Home({ searchParams }: HomeProps) {
   const questions = await getQuestions(sort);
 
   return (
-    <Stack>
-      <Stack p={2} gap={1} borderBottom="1px solid" borderColor="divider">
-        <Typography level="h2">Questions</Typography>
-        <Typography
-          level="body-sm"
-          textColor="text.tertiary"
-          sx={{ whiteSpace: "normal", overflowWrap: "break-word" }}
+    <MainContainer navbarProps={{ title: "home", showLoginButton: true }} noPad>
+      <Tabs value={sort} sx={{ bgcolor: "transparent" }}>
+        <TabList
+          sticky="top"
+          sx={{
+            top: 56,
+            justifyContent: "center",
+            [`&& .${tabClasses.root}`]: {
+              flex: 1,
+              bgcolor: "transparent",
+              "&:hover": { bgcolor: "transparent" },
+              [`&.${tabClasses.selected}`]: { color: "primary.plainColor" },
+            },
+          }}
         >
-          Ask clearly. Answer carefully.
-        </Typography>
-        <Stack direction="row" gap={1} mt={1}>
-          <Button component="a" href="/?sort=new" size="sm" variant={sort === "new" ? "solid" : "outlined"}>
-            New
-          </Button>
-          <Button component="a" href="/?sort=top" size="sm" variant={sort === "top" ? "solid" : "outlined"}>
-            Top
-          </Button>
-        </Stack>
-        {!isConfigured ? (
-          <Alert color="warning" variant="soft">
-            Supabase is not configured. Add `.env.local` from `.env.local.example`.
-          </Alert>
-        ) : null}
-      </Stack>
+          <Tab component="a" href="/?sort=new" value="new">
+            new
+          </Tab>
+          <Tab component="a" href="/?sort=top" value="top">
+            top
+          </Tab>
+        </TabList>
+      </Tabs>
+
+      {isConfigured ? null : (
+        <Alert color="warning" variant="soft" sx={{ borderRadius: 0 }}>
+          Supabase is not configured. Add `.env.local` from `.env.local.example`.
+        </Alert>
+      )}
 
       {questions.length ? (
         questions.map((question) => (
-          <QuestionCard
+          <TargetEntry
             key={question.id}
-            question={question}
+            targetType="question"
+            target={question}
             returnTo={`/?sort=${sort}`}
-            compact
           />
         ))
       ) : (
-        <EmptyState
-          title="No questions yet"
-          body={
-            <>
-              <Link component="a" href="/question/add">
-                Ask the first question
-              </Link>
-              .
-            </>
-          }
-        />
+        <NoData />
       )}
-    </Stack>
+    </MainContainer>
   );
 }

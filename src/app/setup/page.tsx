@@ -1,6 +1,7 @@
-import { Stack, Typography } from "@mui/joy";
+import { SignOutButton } from "@/components/actions/sign-out-button";
 import { ProfileForm } from "@/components/forms/profile-form";
 import { requireUser } from "@/lib/easyqa/data";
+import { Stack, Typography } from "@mui/joy";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -10,14 +11,16 @@ export default async function SetupPage() {
   if (currentUser.profile?.hasDisplayName) redirect("/");
 
   return (
-    <Stack p={2} gap={3}>
-      <Stack gap={1}>
-        <Typography level="h2">Set up profile</Typography>
-        <Typography level="body-sm" textColor="text.tertiary">
-          Your profile lives in the shared core schema and is reused across apps.
+    <Stack minHeight="100vh" justifyContent="center" alignItems="center" p={2}>
+      <Stack width="100%" maxWidth={400} gap={4}>
+        <Typography level="h3" textAlign="center">
+          Hi, please choose a name!
         </Typography>
+
+        <ProfileForm profile={currentUser.profile} />
+
+        <SignOutButton label="Use another account" size="sm" />
       </Stack>
-      <ProfileForm profile={currentUser.profile} />
     </Stack>
   );
 }

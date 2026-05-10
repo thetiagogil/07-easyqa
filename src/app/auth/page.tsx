@@ -1,5 +1,7 @@
-import { Stack, Typography } from "@mui/joy";
+import { Stack } from "@mui/joy";
+import { MainContainer } from "@/components/layout/main-container";
 import { AuthForm } from "@/components/forms/auth-form";
+import { safeRedirectPath } from "@/lib/auth/redirect";
 import { getCurrentUser } from "@/lib/easyqa/data";
 import { redirect } from "next/navigation";
 
@@ -14,16 +16,13 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
   if (currentUser?.profile?.hasDisplayName) redirect("/");
   if (currentUser && !currentUser.profile?.hasDisplayName) redirect("/setup");
   const { next } = await searchParams;
+  const safeNext = safeRedirectPath(next, "/");
 
   return (
-    <Stack p={2} gap={3}>
-      <Stack gap={1}>
-        <Typography level="h2">Sign in</Typography>
-        <Typography level="body-sm" textColor="text.tertiary">
-          Use Supabase Auth so writes run under your own user and RLS policies.
-        </Typography>
+    <MainContainer navbarProps={{ title: "login", hasBackButton: true }} noPad>
+      <Stack p={2} gap={3}>
+        <AuthForm next={safeNext} />
       </Stack>
-      <AuthForm next={next ?? "/"} />
-    </Stack>
+    </MainContainer>
   );
 }

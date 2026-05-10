@@ -1,12 +1,16 @@
 "use client";
 
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Button } from "@mui/joy";
+import { Button, type ButtonProps } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/browser";
 
-export function SignOutButton() {
+type SignOutButtonProps = Omit<ButtonProps, "children" | "onClick"> & {
+  label?: string;
+};
+
+export function SignOutButton({ label = "Log out", ...props }: SignOutButtonProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
 
@@ -19,14 +23,15 @@ export function SignOutButton() {
 
   return (
     <Button
+      {...props}
       variant="outlined"
       color="neutral"
       loading={pending}
       onClick={signOut}
       endDecorator={<LogoutIcon />}
-      sx={{ justifyContent: "space-between" }}
+      sx={{ justifyContent: "space-between", ...props.sx }}
     >
-      Sign out
+      {label}
     </Button>
   );
 }

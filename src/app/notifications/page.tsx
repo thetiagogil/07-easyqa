@@ -1,6 +1,7 @@
-import { List, Stack, Typography } from "@mui/joy";
+import { List } from "@mui/joy";
 import { MarkReadButton } from "@/components/actions/mark-read-button";
-import { EmptyState } from "@/components/shared/empty-state";
+import { MainContainer } from "@/components/layout/main-container";
+import { NoData } from "@/components/shared/no-data";
 import { NotificationRow } from "@/components/shared/notification-row";
 import { getNotifications, getUnreadNotificationCount, requireProfile } from "@/lib/easyqa/data";
 
@@ -14,24 +15,14 @@ export default async function NotificationsPage() {
   ]);
 
   return (
-    <Stack>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        p={2}
-        borderBottom="1px solid"
-        borderColor="divider"
-      >
-        <Stack>
-          <Typography level="h2">Notifications</Typography>
-          <Typography level="body-sm" textColor="text.tertiary">
-            {unreadCount} unread
-          </Typography>
-        </Stack>
-        <MarkReadButton disabled={unreadCount === 0} />
-      </Stack>
-
+    <MainContainer
+      navbarProps={{
+        title: "notifications",
+        hasBackButton: true,
+        endItem: <MarkReadButton disabled={unreadCount === 0} />,
+      }}
+      noPad
+    >
       {notifications.length ? (
         <List sx={{ p: 0 }}>
           {notifications.map((notification) => (
@@ -39,8 +30,8 @@ export default async function NotificationsPage() {
           ))}
         </List>
       ) : (
-        <EmptyState title="No notifications" body="Answers, accepted answers, and follows appear here." />
+        <NoData />
       )}
-    </Stack>
+    </MainContainer>
   );
 }

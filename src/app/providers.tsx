@@ -1,6 +1,8 @@
 "use client";
 
-import createCache, { type Options as EmotionCacheOptions } from "@emotion/cache";
+import createCache, {
+  type Options as EmotionCacheOptions,
+} from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
@@ -30,10 +32,16 @@ const theme = extendTheme({
           900: "#064e3b",
         },
         background: {
-          body: "#09090b",
-          surface: "#101014",
-          level1: "#15151b",
-          level2: "#1c1c24",
+          body: "rgb(9, 8, 24)",
+        },
+        success: {
+          500: "#22c55e",
+        },
+        danger: {
+          500: "#ef4444",
+        },
+        warning: {
+          500: "#f59e0b",
         },
       },
     },
@@ -44,12 +52,50 @@ const theme = extendTheme({
     lg: "8px",
     xl: "8px",
   },
+  components: {
+    JoyStack: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.neutral[700],
+          transition: "0.3s",
+        }),
+      },
+      defaultProps: {
+        color: "secondary",
+      },
+    },
+    JoyListItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.neutral[700],
+        }),
+      },
+    },
+    JoyInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.body,
+        }),
+      },
+    },
+    JoyTextarea: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.body,
+        }),
+      },
+    },
+  },
 });
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeRegistry options={{ key: "joy" }}>
-      <CssVarsProvider theme={theme} defaultMode="dark" disableTransitionOnChange>
+      <CssVarsProvider
+        theme={theme}
+        defaultMode="dark"
+        disableTransitionOnChange
+      >
         <CssBaseline />
         {children}
       </CssVarsProvider>

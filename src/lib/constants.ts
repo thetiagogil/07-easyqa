@@ -10,3 +10,4 @@ export const LIMITS = {
 };
 
 export const BORDERS = "1px solid";
+export const MAIN_BORDERS = BORDERS;

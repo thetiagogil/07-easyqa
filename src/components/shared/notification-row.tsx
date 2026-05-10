@@ -1,17 +1,33 @@
+import CheckIcon from "@mui/icons-material/Check";
 import { Link, ListItem, ListItemContent, Stack, Typography } from "@mui/joy";
+import { MAIN_BORDERS } from "@/lib/constants";
 import type { Notification } from "@/types/easyqa";
 import { RelativeTime } from "./time";
 
 export function NotificationRow({ notification }: { notification: Notification }) {
   return (
-    <ListItem sx={{ borderBottom: "1px solid", borderColor: "divider", opacity: notification.isRead ? 0.55 : 1 }}>
-      <ListItemContent>
-        <Stack gap={0.5} py={1}>
+    <ListItem
+      sx={{
+        borderBottom: MAIN_BORDERS,
+        opacity: notification.isRead ? 0.5 : undefined,
+        p: 0,
+      }}
+    >
+      <ListItemContent
+        component={Stack}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        p={2}
+      >
+        <Stack>
           <Typography level="body-sm">{renderNotification(notification)}</Typography>
-          <Typography level="body-xs" textColor="text.tertiary">
+          <Typography level="body-xs" color="neutral">
             <RelativeTime value={notification.createdAt} />
           </Typography>
         </Stack>
+
+        <Stack>{notification.isRead ? <CheckIcon /> : null}</Stack>
       </ListItemContent>
     </ListItem>
   );

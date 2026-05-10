@@ -1,108 +1,181 @@
 "use client";
 
-import { Alert, Button, FormControl, FormLabel, Input, Stack, Tab, TabList, Tabs, Typography } from "@mui/joy";
+import {
+  Alert,
+  Button,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/joy";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/browser";
 
 type Mode = "signin" | "signup";
+
+const minimumPasswordLength = 8;
 
 export function AuthForm({ next = "/" }: { next?: string }) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
+  const emailValue = email.trim().toLowerCase();
+  const continuePath = useMemo(
+    () => `/auth/continue?next=${encodeURIComponent(next)}`,
+    [next],
+  );
+
+  const switchMode = (value: Mode) => {
+    setMode(value);
+    setError(null);
+    setMessage(null);
+    setPassword("");
+    setConfirmPassword("");
+  };
+
+  const validate = () => {
+    if (!emailValue) return "Email is required.";
+    if (password.length < minimumPasswordLength) {
+      return `Password must be at least ${minimumPasswordLength} characters.`;
+    }
+    if (mode === "signup" && password !== confirmPassword) {
+      return "Passwords do not match.";
+    }
+
+    return null;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setPending(true);
     setError(null);
     setMessage(null);
 
-    let result;
     try {
       const supabase = createClient();
-      result =
+      const result =
         mode === "signin"
-          ? await supabase.auth.signInWithPassword({ email, password })
+          ? await supabase.auth.signInWithPassword({ email: emailValue, password })
           : await supabase.auth.signUp({
-              email,
+              email: emailValue,
               password,
               options: {
                 emailRedirectTo:
                   typeof window !== "undefined"
-                    ? `${window.location.origin}/auth/callback`
+                    ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+                        continuePath,
+                      )}`
                     : undefined,
               },
             });
+
+      if (result.error) {
+        setError(result.error.message);
+        return;
+      }
+
+      if (mode === "signup" && !result.data.session) {
+        setMessage(`Check ${emailValue} to confirm your account, then sign in.`);
+        return;
+      }
+
+      router.replace(continuePath);
+      router.refresh();
     } catch (err) {
-      setPending(false);
       setError(err instanceof Error ? err.message : "Supabase is not configured.");
-      return;
+    } finally {
+      setPending(false);
     }
-
-    setPending(false);
-
-    if (result.error) {
-      setError(result.error.message);
-      return;
-    }
-
-    if (mode === "signup" && !result.data.session) {
-      setMessage("Check your email to confirm your account, then sign in.");
-      return;
-    }
-
-    router.push(mode === "signup" ? "/setup" : next);
-    router.refresh();
   };
 
   return (
-    <Stack component="form" onSubmit={handleSubmit} gap={2}>
-      <Tabs
-        value={mode}
-        onChange={(_, value) => {
-          if (value === "signin" || value === "signup") setMode(value);
-        }}
-      >
-        <TabList>
-          <Tab value="signin">Sign in</Tab>
-          <Tab value="signup">Create account</Tab>
-        </TabList>
-      </Tabs>
+    <Stack gap={3}>
+      <Stack gap={0.75}>
+        <Typography level="h3">{mode === "signin" ? "Welcome back" : "Create account"}</Typography>
+        <Typography level="body-sm" textColor="neutral.500">
+          {mode === "signin"
+            ? "Sign in with your email and password to continue."
+            : "Create an account with email and password. Profile setup comes next."}
+        </Typography>
+      </Stack>
 
-      {error ? <Alert color="danger">{error}</Alert> : null}
-      {message ? <Alert color="success">{message}</Alert> : null}
+      <Stack component="form" onSubmit={handleSubmit} gap={2}>
+        {error ? <Alert color="danger">{error}</Alert> : null}
+        {message ? <Alert color="success">{message}</Alert> : null}
 
-      <FormControl required>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          value={email}
-          autoComplete="email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </FormControl>
+        <FormControl required>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            value={email}
+            autoComplete="email"
+            placeholder="email@example.com"
+            disabled={pending}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </FormControl>
 
-      <FormControl required>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          value={password}
-          autoComplete={mode === "signin" ? "current-password" : "new-password"}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </FormControl>
+        <FormControl required>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            value={password}
+            autoComplete={mode === "signin" ? "current-password" : "new-password"}
+            placeholder="password"
+            disabled={pending}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          {mode === "signup" ? (
+            <FormHelperText>Use a password you do not reuse elsewhere.</FormHelperText>
+          ) : null}
+        </FormControl>
 
-      <Button type="submit" loading={pending}>
-        {mode === "signin" ? "Sign in" : "Create account"}
-      </Button>
+        {mode === "signup" ? (
+          <FormControl required>
+            <FormLabel>Confirm password</FormLabel>
+            <Input
+              type="password"
+              value={confirmPassword}
+              autoComplete="new-password"
+              placeholder="confirm password"
+              disabled={pending}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+            />
+          </FormControl>
+        ) : null}
 
-      <Typography level="body-xs" textColor="text.tertiary">
-        Google login is intentionally not enabled in this version.
+        <Button type="submit" loading={pending}>
+          {mode === "signin" ? "Log in" : "Create account"}
+        </Button>
+      </Stack>
+
+      <Typography level="body-sm" textAlign="center" textColor="neutral.500">
+        {mode === "signin" ? "Need an account?" : "Already have an account?"}{" "}
+        <Link
+          component="button"
+          type="button"
+          onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
+          sx={{ verticalAlign: "baseline" }}
+        >
+          {mode === "signin" ? "Sign up" : "Log in"}
+        </Link>
       </Typography>
     </Stack>
   );

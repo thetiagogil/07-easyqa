@@ -1,6 +1,4 @@
-import { AppShell } from "@/components/layout/app-shell";
 import { APP_NAME } from "@/lib/constants";
-import { getCurrentUser, getUnreadNotificationCount } from "@/lib/easyqa/data";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -17,25 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <Providers>
-          <RootFrame>{children}</RootFrame>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
-  );
-}
-
-async function RootFrame({ children }: { children: React.ReactNode }) {
-  const currentUser = await getCurrentUser();
-  const unreadCount = currentUser?.profile
-    ? await getUnreadNotificationCount(currentUser.id)
-    : 0;
-
-  return (
-    <AppShell currentUser={currentUser} unreadCount={unreadCount}>
-      {children}
-    </AppShell>
   );
 }

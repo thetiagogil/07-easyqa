@@ -1,9 +1,11 @@
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, Link, Stack, Tab, TabList, Tabs, Typography } from "@mui/joy";
+import { IconButton, Stack, Tab, TabList, Tabs, Typography } from "@mui/joy";
+import tabClasses from "@mui/joy/Tab/tabClasses";
 import { FollowButton } from "@/components/actions/follow-button";
-import { EmptyState } from "@/components/shared/empty-state";
+import { MainContainer } from "@/components/layout/main-container";
+import { NoData } from "@/components/shared/no-data";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
-import { QuestionCard } from "@/components/shared/question-card";
+import { TargetEntry } from "@/components/shared/target-entry";
 import {
   getAnsweredQuestionsByProfile,
   getCurrentUser,
@@ -31,29 +33,28 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
   const isOwnProfile = currentUser?.id === profile.id;
 
   return (
-    <Stack>
-      <Stack p={2} gap={2} borderBottom="1px solid" borderColor="divider">
-        <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
-          <ProfileAvatar profile={profile} size={78} />
+    <MainContainer navbarProps={{ title: "profile", hasBackButton: true }} noPad>
+      <Stack p={2} gap={2}>
+        <Stack direction="row" justifyContent="space-between">
+          <ProfileAvatar profile={profile} size={80} />
+
           {isOwnProfile ? (
-            <Button
-              component="a"
-              href="/profile/edit"
-              size="sm"
-              variant="outlined"
-              startDecorator={<EditIcon />}
-            >
-              Edit
-            </Button>
-          ) : currentUser?.profile ? (
-            <FollowButton profileId={profile.id} isFollowing={!!profile.isViewerFollowing} />
+            <Stack>
+              <IconButton component="a" href="/profile/edit" variant="outlined" size="sm">
+                <EditIcon />
+              </IconButton>
+            </Stack>
+          ) : currentUser?.profile?.hasDisplayName ? (
+            <Stack>
+              <FollowButton profileId={profile.id} isFollowing={!!profile.isViewerFollowing} />
+            </Stack>
           ) : null}
         </Stack>
 
         <Stack gap={0.5}>
           <Typography level="h2">{profile.displayName}</Typography>
           {profile.username ? (
-            <Typography level="body-sm" textColor="text.tertiary">
+            <Typography level="body-sm" textColor="neutral.600">
               @{profile.username}
             </Typography>
           ) : null}
@@ -61,8 +62,22 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
         </Stack>
       </Stack>
 
-      <Tabs value={tab}>
-        <TabList>
+      <Tabs value={tab} sx={{ bgcolor: "transparent" }}>
+        <TabList
+          sx={{
+            justifyContent: "center",
+            [`&& .${tabClasses.root}`]: {
+              flex: 1,
+              bgcolor: "transparent",
+              "&:hover": {
+                bgcolor: "transparent",
+              },
+              [`&.${tabClasses.selected}`]: {
+                color: "primary.plainColor",
+              },
+            },
+          }}
+        >
           <Tab component="a" href={`/profile/${profile.id}?tab=questions`} value="questions">
             Questions
           </Tab>
@@ -74,25 +89,16 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
 
       {activeQuestions.length ? (
         activeQuestions.map((question) => (
-          <QuestionCard
+          <TargetEntry
             key={question.id}
-            question={question}
+            targetType="question"
+            target={question}
             returnTo={`/profile/${profile.id}?tab=${tab}`}
-            compact
           />
         ))
       ) : (
-        <EmptyState
-          title={tab === "answers" ? "No answered questions" : "No questions"}
-          body={
-            isOwnProfile && tab === "questions" ? (
-              <Link component="a" href="/question/add">
-                Ask a question
-              </Link>
-            ) : undefined
-          }
-        />
+        <NoData />
       )}
-    </Stack>
+    </MainContainer>
   );
 }

@@ -7,7 +7,13 @@ import { updateProfileAction, type ActionState } from "@/lib/easyqa/actions";
 import type { Profile } from "@/types/easyqa";
 import { SubmitButton } from "./submit-button";
 
-export function ProfileForm({ profile }: { profile?: Profile | null }) {
+export function ProfileForm({
+  profile,
+  submitLabel = "Confirm",
+}: {
+  profile?: Profile | null;
+  submitLabel?: string;
+}) {
   const [state, formAction] = useActionState<ActionState, FormData>(updateProfileAction, {});
 
   return (
@@ -15,13 +21,13 @@ export function ProfileForm({ profile }: { profile?: Profile | null }) {
       {state.error ? <Alert color="danger">{state.error}</Alert> : null}
 
       <FormControl required>
-        <FormLabel>Display name</FormLabel>
+        <FormLabel>Name</FormLabel>
         <Input
           name="displayName"
           defaultValue={profile?.hasDisplayName ? profile.displayName : ""}
+          placeholder="your name"
           slotProps={{ input: { maxLength: LIMITS.profileName } }}
         />
-        <FormHelperText>Shown beside your questions and answers.</FormHelperText>
       </FormControl>
 
       <FormControl>
@@ -29,7 +35,7 @@ export function ProfileForm({ profile }: { profile?: Profile | null }) {
         <Input
           name="username"
           defaultValue={profile?.username ?? ""}
-          placeholder="lowercase_handle"
+          placeholder="username"
           slotProps={{ input: { maxLength: 30 } }}
         />
         <FormHelperText>Optional. Use lowercase letters, numbers, and underscores.</FormHelperText>
@@ -40,13 +46,14 @@ export function ProfileForm({ profile }: { profile?: Profile | null }) {
         <Textarea
           name="bio"
           defaultValue={profile?.bio ?? ""}
+          placeholder="tell people what you know about"
           minRows={4}
           maxRows={6}
           slotProps={{ textarea: { maxLength: LIMITS.profileBio } }}
         />
       </FormControl>
 
-      <SubmitButton>Save profile</SubmitButton>
+      <SubmitButton>{submitLabel}</SubmitButton>
     </Stack>
   );
 }

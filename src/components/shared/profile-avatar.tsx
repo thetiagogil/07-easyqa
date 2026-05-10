@@ -16,9 +16,8 @@ export function ProfileAvatar({
         width: size,
         height: size,
         fontSize: Math.max(12, size * 0.38),
-        fontWeight: 800,
-        color: "primary.400",
-        bgcolor: "background.level2",
+        fontWeight: 700,
+        color: "primary.500",
       }}
     >
       {initials(profile.displayName)}
