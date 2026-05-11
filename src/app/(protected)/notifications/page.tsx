@@ -3,12 +3,11 @@ import { MarkReadButton } from "@/components/actions/mark-read-button";
 import { MainContainer } from "@/components/layout/main-container";
 import { NoData } from "@/components/shared/no-data";
 import { NotificationRow } from "@/components/shared/notification-row";
-import { getNotifications, getUnreadNotificationCount, requireProfile } from "@/lib/easyqa/data";
+import { getNotifications, getUnreadNotificationCount } from "@/lib/easyqa/data";
 
 export const dynamic = "force-dynamic";
 
 export default async function NotificationsPage() {
-  await requireProfile();
   const [notifications, unreadCount] = await Promise.all([
     getNotifications(),
     getUnreadNotificationCount(),
