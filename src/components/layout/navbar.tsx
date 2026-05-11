@@ -1,10 +1,11 @@
 "use client";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Button, IconButton, Link, Stack, Typography } from "@mui/joy";
+import { IconButton, Link, Stack, Typography } from "@mui/joy";
 import type { SxProps } from "@mui/joy/styles/types";
 import NextLink from "next/link";
 import type { ReactNode } from "react";
+import { AuthLinkButton } from "@/components/actions/auth-button";
 import { MAIN_BORDERS } from "@/lib/constants";
 import type { CurrentUser } from "@/types/easyqa";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
@@ -135,9 +136,7 @@ export function Navbar({
         >
           {endItem ??
             (showLoginButton && !currentUser ? (
-              <Button component={NextLink} href="/auth" size="sm" variant="soft">
-                Log in
-              </Button>
+              <AuthLinkButton>log in</AuthLinkButton>
             ) : null)}
         </Stack>
       </Stack>

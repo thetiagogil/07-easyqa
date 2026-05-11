@@ -34,8 +34,7 @@ export function VoteControls({
       </form>
       <Typography
         level="body-sm"
-        fontWeight={800}
-        sx={{ width: 28, textAlign: "center" }}
+        sx={{ width: 20, textAlign: "center" }}
         color={
           target.viewerVoteValue === 1
             ? "success"

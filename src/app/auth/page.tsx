@@ -19,7 +19,7 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
   const safeNext = safeRedirectPath(next, "/");
 
   return (
-    <MainContainer navbarProps={{ title: "login", hasBackButton: true }} noPad>
+    <MainContainer navbarProps={{ title: "log in", hasBackButton: true }} noPad>
       <PageStack>
         <AuthForm next={safeNext} />
       </PageStack>

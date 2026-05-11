@@ -13,6 +13,7 @@ import {
 } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { AUTH_BUTTON_PROPS } from "@/components/actions/auth-button";
 import { createClient } from "@/lib/supabase/browser";
 
 type Mode = "signin" | "signup";
@@ -92,7 +93,7 @@ export function AuthForm({ next = "/" }: { next?: string }) {
       }
 
       if (mode === "signup" && !result.data.session) {
-        setMessage(`Check ${emailValue} to confirm your account, then sign in.`);
+        setMessage(`Check ${emailValue} to confirm your account, then log in.`);
         return;
       }
 
@@ -108,11 +109,11 @@ export function AuthForm({ next = "/" }: { next?: string }) {
   return (
     <Stack gap={3}>
       <Stack gap={0.75}>
-        <Typography level="h3">{mode === "signin" ? "Welcome back" : "Create account"}</Typography>
+        <Typography level="h3">{mode === "signin" ? "log in" : "sign up"}</Typography>
         <Typography level="body-sm" textColor="neutral.500">
           {mode === "signin"
-            ? "Sign in with your email and password to continue."
-            : "Create an account with email and password. Profile setup comes next."}
+            ? "Use your email and password to continue."
+            : "Use email and password. Profile setup comes next."}
         </Typography>
       </Stack>
 
@@ -161,8 +162,8 @@ export function AuthForm({ next = "/" }: { next?: string }) {
           </FormControl>
         ) : null}
 
-        <Button type="submit" loading={pending} fullWidth>
-          {mode === "signin" ? "Log in" : "Create account"}
+        <Button {...AUTH_BUTTON_PROPS} type="submit" loading={pending} fullWidth>
+          {mode === "signin" ? "log in" : "sign up"}
         </Button>
       </Stack>
 
@@ -174,7 +175,7 @@ export function AuthForm({ next = "/" }: { next?: string }) {
           onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
           sx={{ verticalAlign: "baseline" }}
         >
-          {mode === "signin" ? "Sign up" : "Log in"}
+          {mode === "signin" ? "sign up" : "log in"}
         </Link>
       </Typography>
     </Stack>

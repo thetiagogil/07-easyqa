@@ -1,4 +1,5 @@
-import { Alert, Button, Stack } from "@mui/joy";
+import { Alert, Stack } from "@mui/joy";
+import { AuthLinkButton } from "@/components/actions/auth-button";
 import { MainContainer } from "@/components/layout/main-container";
 import { AnswerForm } from "@/components/forms/answer-form";
 import { NoData } from "@/components/shared/no-data";
@@ -38,13 +39,9 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           <Alert
             variant="soft"
             color="neutral"
-            endDecorator={
-              <Button component="a" href="/auth" size="sm">
-                Sign in
-              </Button>
-            }
+            endDecorator={<AuthLinkButton>log in</AuthLinkButton>}
           >
-            Sign in to answer this question.
+            You need to log in to answer this question.
           </Alert>
         </Stack>
       ) : canAnswer ? (

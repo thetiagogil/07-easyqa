@@ -13,14 +13,14 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
   const isClosed = question.status === "closed";
 
   return (
-    <Stack borderBottom={MAIN_BORDERS} p={{ xs: 2, sm: 2.5 }} gap={2}>
+    <Stack borderBottom={MAIN_BORDERS} p={2} gap={1}>
       <EntryMeta profile={question.author} action="asked a question" createdAt={question.createdAt} />
 
       <Stack gap={1}>
-        <Typography level="title-md" fontWeight={800}>
+        <Typography level="title-sm">
           {question.title}
         </Typography>
-        <Typography level="body-sm" textColor="neutral.300" whiteSpace="pre-line">
+        <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
           {question.content}
         </Typography>
       </Stack>
