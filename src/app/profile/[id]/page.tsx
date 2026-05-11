@@ -77,7 +77,6 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
             key={question.id}
             targetType="question"
             target={question}
-            returnTo={`/profile/${profile.id}?tab=${tab}`}
           />
         ))
       ) : (

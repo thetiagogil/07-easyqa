@@ -12,7 +12,6 @@ type TargetEntryProps = {
   target: Question | Answer;
   answeredQuestion?: Question;
   currentUser?: CurrentUser | null;
-  returnTo?: string;
 };
 
 export function TargetEntry({
@@ -20,7 +19,6 @@ export function TargetEntry({
   target,
   answeredQuestion,
   currentUser,
-  returnTo,
 }: TargetEntryProps) {
   const question = targetType === "question" ? (target as Question) : null;
   const answer = targetType === "answer" ? (target as Answer) : null;
@@ -38,8 +36,6 @@ export function TargetEntry({
 
   if (!author) return null;
 
-  const targetHref = question ? `/question/${question.id}` : `/question/${answer?.questionId}`;
-  const returnPath = returnTo ?? targetHref;
   const sharedSize = 24;
 
   return (
@@ -86,9 +82,9 @@ export function TargetEntry({
 
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <VoteControls
+            key={`${targetType}-${target.id}-${target.voteScore}-${target.viewerVoteValue ?? "none"}`}
             target={target}
             targetType={targetType}
-            returnTo={returnPath}
             disabled={isClosed}
           />
 

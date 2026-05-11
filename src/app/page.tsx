@@ -43,7 +43,6 @@ export default async function Home({ searchParams }: HomeProps) {
             key={question.id}
             targetType="question"
             target={question}
-            returnTo={`/?sort=${sort}`}
           />
         ))
       ) : (

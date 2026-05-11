@@ -56,7 +56,6 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
             target={answer}
             answeredQuestion={question}
             currentUser={currentUser}
-            returnTo={`/question/${question.id}`}
           />
         ))
       ) : (

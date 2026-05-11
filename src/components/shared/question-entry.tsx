@@ -27,9 +27,9 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
 
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <VoteControls
+          key={`question-${question.id}-${question.voteScore}-${question.viewerVoteValue ?? "none"}`}
           target={question}
           targetType="question"
-          returnTo={`/question/${question.id}`}
           disabled={isClosed}
         />
 

@@ -3,41 +3,40 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton, Stack, Typography } from "@mui/joy";
-import { useOptimistic, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { submitVoteAction } from "@/lib/easyqa/actions/votes";
 import type { Answer, Question, TargetType, VoteValue } from "@/types/easyqa";
 
 type VoteControlsProps = {
   targetType: TargetType;
   target: Question | Answer;
-  returnTo: string;
   disabled?: boolean;
 };
 
 export function VoteControls({
   targetType,
   target,
-  returnTo,
   disabled,
 }: VoteControlsProps) {
   const [isPending, startTransition] = useTransition();
-  const [optimisticVote, addOptimisticVote] = useOptimistic<
-    VoteState,
-    VoteValue
-  >(
-    {
-      voteScore: target.voteScore,
-      viewerVoteValue: target.viewerVoteValue,
-    },
-    applyVote,
-  );
+  const [voteState, setVoteState] = useState<VoteState>({
+    voteScore: target.voteScore,
+    viewerVoteValue: target.viewerVoteValue,
+  });
 
   const handleVote = (value: VoteValue) => {
     if (disabled || isPending) return;
 
     startTransition(async () => {
-      addOptimisticVote(value);
-      await submitVoteAction(targetType, target.id, value, returnTo);
+      const previousState = voteState;
+      setVoteState((current) => applyVote(current, value));
+
+      try {
+        await submitVoteAction(targetType, target.id, value);
+      } catch (error) {
+        setVoteState(previousState);
+        throw error;
+      }
     });
   };
 
@@ -47,7 +46,7 @@ export function VoteControls({
         type="button"
         size="sm"
         variant="plain"
-        color={optimisticVote.viewerVoteValue === 1 ? "success" : "neutral"}
+        color={voteState.viewerVoteValue === 1 ? "success" : "neutral"}
         disabled={disabled}
         aria-disabled={isPending || disabled}
         aria-label="Upvote"
@@ -60,20 +59,20 @@ export function VoteControls({
         level="body-sm"
         sx={{ width: 20, textAlign: "center" }}
         color={
-          optimisticVote.viewerVoteValue === 1
+          voteState.viewerVoteValue === 1
             ? "success"
-            : optimisticVote.viewerVoteValue === -1
+            : voteState.viewerVoteValue === -1
               ? "danger"
               : "neutral"
         }
       >
-        {optimisticVote.voteScore}
+        {voteState.voteScore}
       </Typography>
       <IconButton
         type="button"
         size="sm"
         variant="plain"
-        color={optimisticVote.viewerVoteValue === -1 ? "danger" : "neutral"}
+        color={voteState.viewerVoteValue === -1 ? "danger" : "neutral"}
         disabled={disabled}
         aria-disabled={isPending || disabled}
         aria-label="Downvote"

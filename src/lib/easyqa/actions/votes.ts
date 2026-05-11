@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { TargetType, VoteValue } from "@/types/easyqa";
 import { easyqa } from "../schemas";
@@ -10,7 +9,6 @@ export async function submitVoteAction(
   targetType: TargetType,
   targetId: number,
   value: VoteValue,
-  returnTo: string,
 ) {
   const client = await createClient();
   await requireReadyProfile(client);
@@ -22,7 +20,7 @@ export async function submitVoteAction(
   });
 
   if (error) throw new Error(error.message);
-
-  revalidatePath("/");
-  revalidatePath(returnTo);
+  // Do not revalidate list/detail routes here. Vote score changes should not
+  // resort the visible feed while the user is reading it; fresh ordering is
+  // picked up on navigation or the next explicit route fetch.
 }
