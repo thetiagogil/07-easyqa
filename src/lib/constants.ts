@@ -9,5 +9,6 @@ export const LIMITS = {
   pageSize: 20,
 };
 
-export const BORDERS = "1px solid";
-export const MAIN_BORDERS = BORDERS;
+export const APP_BORDER_COLOR = "var(--joy-palette-divider)";
+export const APP_RADIUS = "8px";
+export const MAIN_BORDERS = `1px solid ${APP_BORDER_COLOR}`;

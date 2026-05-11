@@ -1,4 +1,5 @@
 import { Avatar } from "@mui/joy";
+import { MAIN_BORDERS } from "@/lib/constants";
 import type { Profile } from "@/types/easyqa";
 
 export function ProfileAvatar({
@@ -17,7 +18,9 @@ export function ProfileAvatar({
         height: size,
         fontSize: Math.max(12, size * 0.38),
         fontWeight: 700,
-        color: "primary.500",
+        color: "primary.300",
+        bgcolor: "background.level2",
+        border: MAIN_BORDERS,
       }}
     >
       {initials(profile.displayName)}

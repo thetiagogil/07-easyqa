@@ -1,5 +1,5 @@
 import CheckIcon from "@mui/icons-material/Check";
-import { Link, ListItem, ListItemContent, Stack, Typography } from "@mui/joy";
+import { Box, Link, ListItem, ListItemContent, Stack, Typography } from "@mui/joy";
 import { MAIN_BORDERS } from "@/lib/constants";
 import type { Notification } from "@/types/easyqa";
 import { RelativeTime } from "./time";
@@ -9,8 +9,10 @@ export function NotificationRow({ notification }: { notification: Notification }
     <ListItem
       sx={{
         borderBottom: MAIN_BORDERS,
-        opacity: notification.isRead ? 0.5 : undefined,
+        opacity: notification.isRead ? 0.62 : undefined,
         p: 0,
+        transition: "0.3s",
+        "&:hover": { bgcolor: "background.level1" },
       }}
     >
       <ListItemContent
@@ -18,16 +20,31 @@ export function NotificationRow({ notification }: { notification: Notification }
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        p={2}
+        p={{ xs: 2, sm: 2.5 }}
+        gap={2}
       >
-        <Stack>
-          <Typography level="body-sm">{renderNotification(notification)}</Typography>
-          <Typography level="body-xs" color="neutral">
-            <RelativeTime value={notification.createdAt} />
-          </Typography>
+        <Stack direction="row" alignItems="flex-start" gap={1.25} minWidth={0}>
+          <Box
+            sx={{
+              width: 8,
+              height: 8,
+              mt: 0.75,
+              borderRadius: "50%",
+              bgcolor: notification.isRead ? "transparent" : "primary.500",
+              flexShrink: 0,
+            }}
+          />
+          <Stack minWidth={0}>
+            <Typography level="body-sm">{renderNotification(notification)}</Typography>
+            <Typography level="body-xs" textColor="neutral.500">
+              <RelativeTime value={notification.createdAt} />
+            </Typography>
+          </Stack>
         </Stack>
 
-        <Stack>{notification.isRead ? <CheckIcon /> : null}</Stack>
+        <Stack color="neutral.500">
+          {notification.isRead ? <CheckIcon fontSize="small" /> : null}
+        </Stack>
       </ListItemContent>
     </ListItem>
   );
@@ -36,7 +53,7 @@ export function NotificationRow({ notification }: { notification: Notification }
 function renderNotification(notification: Notification) {
   const actorName = notification.actor?.displayName ?? "Someone";
   const actorLink = notification.actorId ? (
-    <Link component="a" href={`/profile/${notification.actorId}`} color="primary">
+    <Link component="a" href={`/profile/${notification.actorId}`} color="primary" fontWeight={700}>
       {actorName}
     </Link>
   ) : (

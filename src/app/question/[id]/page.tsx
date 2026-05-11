@@ -4,6 +4,7 @@ import { AnswerForm } from "@/components/forms/answer-form";
 import { NoData } from "@/components/shared/no-data";
 import { QuestionEntry } from "@/components/shared/question-entry";
 import { TargetEntry } from "@/components/shared/target-entry";
+import { MAIN_BORDERS } from "@/lib/constants";
 import { getAnswersForQuestion, getCurrentUser, getQuestionById } from "@/lib/easyqa/data";
 
 export const dynamic = "force-dynamic";
@@ -33,7 +34,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
       <QuestionEntry question={question} />
 
       {!currentUser ? (
-        <Stack p={2} borderBottom="1px solid">
+        <Stack p={{ xs: 2, sm: 2.5 }} borderBottom={MAIN_BORDERS}>
           <Alert
             variant="soft"
             color="neutral"
@@ -62,7 +63,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           />
         ))
       ) : (
-        <NoData />
+        <NoData title="No answers yet" description="Be the first to share a useful answer." />
       )}
     </MainContainer>
   );

@@ -35,13 +35,13 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  p: 2,
+                  p: { xs: 2, sm: 2.5 },
                   gap: 2,
                   textDecoration: "none",
                   backgroundColor: "transparent",
                   transition: "0.3s",
                   "&:hover": {
-                    backgroundColor: "neutral.700",
+                    backgroundColor: "background.level1",
                   },
                 }}
               >
@@ -58,7 +58,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
           ))}
         </List>
       ) : (
-        <NoData />
+        <NoData title="No profiles found" description="Try another name or username." />
       )}
     </MainContainer>
   );
@@ -69,11 +69,11 @@ function SearchForm({ defaultValue }: { defaultValue: string }) {
     <Box component="form" action="/explore" width="100%">
       <Input
         name="q"
-        placeholder="search users..."
+        placeholder="Search profiles"
         fullWidth
         startDecorator={<SearchIcon />}
         defaultValue={defaultValue}
-        aria-label="search users"
+        aria-label="Search profiles"
       />
     </Box>
   );

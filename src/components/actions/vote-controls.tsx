@@ -18,7 +18,7 @@ export function VoteControls({
   disabled,
 }: VoteControlsProps) {
   return (
-    <Stack direction="row" alignItems="center" gap={1}>
+    <Stack direction="row" alignItems="center" gap={0.5}>
       <form action={submitVoteAction.bind(null, targetType, target.id, 1, returnTo)}>
         <IconButton
           type="submit"
@@ -34,7 +34,8 @@ export function VoteControls({
       </form>
       <Typography
         level="body-sm"
-        sx={{ width: 20, textAlign: "center" }}
+        fontWeight={800}
+        sx={{ width: 28, textAlign: "center" }}
         color={
           target.viewerVoteValue === 1
             ? "success"

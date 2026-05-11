@@ -126,7 +126,7 @@ export function AuthForm({ next = "/" }: { next?: string }) {
             type="email"
             value={email}
             autoComplete="email"
-            placeholder="email@example.com"
+            placeholder="you@example.com"
             disabled={pending}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -138,7 +138,7 @@ export function AuthForm({ next = "/" }: { next?: string }) {
             type="password"
             value={password}
             autoComplete={mode === "signin" ? "current-password" : "new-password"}
-            placeholder="password"
+            placeholder="Enter your password"
             disabled={pending}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -154,14 +154,14 @@ export function AuthForm({ next = "/" }: { next?: string }) {
               type="password"
               value={confirmPassword}
               autoComplete="new-password"
-              placeholder="confirm password"
+              placeholder="Confirm your password"
               disabled={pending}
               onChange={(event) => setConfirmPassword(event.target.value)}
             />
           </FormControl>
         ) : null}
 
-        <Button type="submit" loading={pending}>
+        <Button type="submit" loading={pending} fullWidth>
           {mode === "signin" ? "Log in" : "Create account"}
         </Button>
       </Stack>

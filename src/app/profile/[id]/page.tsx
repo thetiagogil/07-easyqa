@@ -1,10 +1,11 @@
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, Stack, Tab, TabList, Tabs, Typography } from "@mui/joy";
-import tabClasses from "@mui/joy/Tab/tabClasses";
+import { IconButton, Stack, Typography } from "@mui/joy";
 import { FollowButton } from "@/components/actions/follow-button";
 import { MainContainer } from "@/components/layout/main-container";
 import { NoData } from "@/components/shared/no-data";
+import { PageStack } from "@/components/shared/page-stack";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
+import { RouteTabs } from "@/components/shared/route-tabs";
 import { TargetEntry } from "@/components/shared/target-entry";
 import {
   getAnsweredQuestionsByProfile,
@@ -34,7 +35,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
 
   return (
     <MainContainer navbarProps={{ title: "profile", hasBackButton: true }} noPad>
-      <Stack p={2} gap={2}>
+      <PageStack>
         <Stack direction="row" justifyContent="space-between">
           <ProfileAvatar profile={profile} size={80} />
 
@@ -54,38 +55,21 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
         <Stack gap={0.5}>
           <Typography level="h2">{profile.displayName}</Typography>
           {profile.username ? (
-            <Typography level="body-sm" textColor="neutral.600">
+            <Typography level="body-sm" textColor="neutral.500">
               @{profile.username}
             </Typography>
           ) : null}
           {profile.bio ? <Typography level="body-sm">{profile.bio}</Typography> : null}
         </Stack>
-      </Stack>
+      </PageStack>
 
-      <Tabs value={tab} sx={{ bgcolor: "transparent" }}>
-        <TabList
-          sx={{
-            justifyContent: "center",
-            [`&& .${tabClasses.root}`]: {
-              flex: 1,
-              bgcolor: "transparent",
-              "&:hover": {
-                bgcolor: "transparent",
-              },
-              [`&.${tabClasses.selected}`]: {
-                color: "primary.plainColor",
-              },
-            },
-          }}
-        >
-          <Tab component="a" href={`/profile/${profile.id}?tab=questions`} value="questions">
-            Questions
-          </Tab>
-          <Tab component="a" href={`/profile/${profile.id}?tab=answers`} value="answers">
-            Answers
-          </Tab>
-        </TabList>
-      </Tabs>
+      <RouteTabs
+        value={tab}
+        tabs={[
+          { label: "Questions", href: `/profile/${profile.id}?tab=questions`, value: "questions" },
+          { label: "Answers", href: `/profile/${profile.id}?tab=answers`, value: "answers" },
+        ]}
+      />
 
       {activeQuestions.length ? (
         activeQuestions.map((question) => (
@@ -97,7 +81,14 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
           />
         ))
       ) : (
-        <NoData />
+        <NoData
+          title={tab === "answers" ? "No answers yet" : "No questions yet"}
+          description={
+            tab === "answers"
+              ? "Answered questions will appear here."
+              : "Questions from this profile will appear here."
+          }
+        />
       )}
     </MainContainer>
   );

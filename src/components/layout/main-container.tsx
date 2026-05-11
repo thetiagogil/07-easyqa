@@ -31,17 +31,16 @@ export async function MainContainer({
 
   return (
     <Stack
-      position="sticky"
-      top={0}
-      minHeight="100vh"
+      minHeight="100dvh"
       width="100%"
       maxWidth={{ xs: "100%", sm: 500 }}
-      borderRight={{ xs: "", sm: MAIN_BORDERS }}
-      borderLeft={{ xs: "", sm: MAIN_BORDERS }}
+      borderRight={{ xs: "none", sm: MAIN_BORDERS }}
+      borderLeft={{ xs: "none", sm: MAIN_BORDERS }}
+      bgcolor="background.body"
       margin="auto"
     >
       <Navbar {...navbarProps} currentUser={currentUser} />
-      <Stack component="main" flexGrow={1} p={noPad ? 0 : 2} sx={sx}>
+      <Stack component="main" flexGrow={1} p={noPad ? 0 : { xs: 2, sm: 2.5 }} sx={sx}>
         {children}
       </Stack>
       <Footer currentUser={currentUser} unreadCount={unreadCount} />

@@ -17,9 +17,9 @@ export function FollowButton({
       <Button
         type="submit"
         size="sm"
-        variant="outlined"
-        color={isFollowing ? "primary" : "neutral"}
-        sx={{ width: 80, fontSize: 12, transition: "0.3s" }}
+        variant={isFollowing ? "soft" : "solid"}
+        color={isFollowing ? "neutral" : "primary"}
+        sx={{ width: 96, transition: "0.3s" }}
       >
         {isFollowing ? "Following" : "Follow"}
       </Button>

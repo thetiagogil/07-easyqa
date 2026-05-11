@@ -27,7 +27,7 @@ export function Loading({
         right={0}
         bottom={0}
         zIndex={1300}
-        bgcolor="rgba(9, 8, 24, 0.6)"
+        bgcolor="rgba(12, 16, 14, 0.72)"
       >
         <CircularProgress color="primary" size="lg" role="status" thickness={4} aria-busy="true" />
       </Stack>

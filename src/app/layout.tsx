@@ -1,6 +1,5 @@
 import { APP_NAME } from "@/lib/constants";
 import type { Metadata } from "next";
-import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {

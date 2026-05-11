@@ -1,9 +1,9 @@
-import { Chip, Link, Stack, Typography } from "@mui/joy";
+import { Stack, Typography } from "@mui/joy";
 import { VoteControls } from "@/components/actions/vote-controls";
 import { MAIN_BORDERS } from "@/lib/constants";
 import type { Question } from "@/types/easyqa";
-import { ProfileAvatar } from "./profile-avatar";
-import { RelativeTime } from "./time";
+import { EntryMeta } from "./entry-meta";
+import { QuestionStatusChip } from "./question-status-chip";
 
 type QuestionEntryProps = {
   question: Question;
@@ -13,35 +13,14 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
   const isClosed = question.status === "closed";
 
   return (
-    <Stack borderBottom={MAIN_BORDERS} p={2} gap={1}>
-      <Stack direction="row" flexBasis="100%" alignItems="center" gap={1}>
-        <Link component="a" href={`/profile/${question.author.id}`} underline="none">
-          <ProfileAvatar profile={question.author} size={32} />
-        </Link>
-
-        <Typography level="body-sm">
-          <Link
-            component="a"
-            href={`/profile/${question.author.id}`}
-            color="primary"
-            fontWeight="bold"
-            marginRight={1}
-          >
-            {question.author.displayName}
-          </Link>
-          asked a question
-        </Typography>
-        <Typography level="body-sm" textColor="neutral.600" fontSize={10}>
-          •
-        </Typography>
-        <Typography level="body-sm" textColor="neutral.600">
-          <RelativeTime value={question.createdAt} />
-        </Typography>
-      </Stack>
+    <Stack borderBottom={MAIN_BORDERS} p={{ xs: 2, sm: 2.5 }} gap={2}>
+      <EntryMeta profile={question.author} action="asked a question" createdAt={question.createdAt} />
 
       <Stack gap={1}>
-        <Typography level="title-sm">{question.title}</Typography>
-        <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
+        <Typography level="title-md" fontWeight={800}>
+          {question.title}
+        </Typography>
+        <Typography level="body-sm" textColor="neutral.300" whiteSpace="pre-line">
           {question.content}
         </Typography>
       </Stack>
@@ -54,13 +33,7 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
           disabled={isClosed}
         />
 
-        <Chip
-          variant="outlined"
-          color={question.status === "open" ? "neutral" : "success"}
-          disabled={isClosed}
-        >
-          {question.status}
-        </Chip>
+        <QuestionStatusChip status={question.status} />
       </Stack>
     </Stack>
   );

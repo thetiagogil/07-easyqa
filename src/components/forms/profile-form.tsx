@@ -25,7 +25,7 @@ export function ProfileForm({
         <Input
           name="displayName"
           defaultValue={profile?.hasDisplayName ? profile.displayName : ""}
-          placeholder="your name"
+          placeholder="Display name"
           slotProps={{ input: { maxLength: LIMITS.profileName } }}
         />
       </FormControl>
@@ -35,7 +35,7 @@ export function ProfileForm({
         <Input
           name="username"
           defaultValue={profile?.username ?? ""}
-          placeholder="username"
+          placeholder="easyqa_user"
           slotProps={{ input: { maxLength: 30 } }}
         />
         <FormHelperText>Optional. Use lowercase letters, numbers, and underscores.</FormHelperText>
@@ -46,14 +46,14 @@ export function ProfileForm({
         <Textarea
           name="bio"
           defaultValue={profile?.bio ?? ""}
-          placeholder="tell people what you know about"
+          placeholder="A short note about what you know"
           minRows={4}
           maxRows={6}
           slotProps={{ textarea: { maxLength: LIMITS.profileBio } }}
         />
       </FormControl>
 
-      <SubmitButton>{submitLabel}</SubmitButton>
+      <SubmitButton fullWidth>{submitLabel}</SubmitButton>
     </Stack>
   );
 }

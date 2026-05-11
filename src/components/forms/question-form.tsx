@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, FormControl, FormLabel, Input, Stack, Textarea } from "@mui/joy";
+import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
 import { LIMITS } from "@/lib/constants";
 import { createQuestionAction, type ActionState } from "@/lib/easyqa/actions";
@@ -17,23 +17,24 @@ export function QuestionForm() {
         <FormLabel>Title</FormLabel>
         <Input
           name="title"
-          placeholder="ask one clear question"
+          placeholder="Ask one clear question"
           slotProps={{ input: { maxLength: LIMITS.questionTitle } }}
         />
+        <FormHelperText>Keep it specific enough to answer directly.</FormHelperText>
       </FormControl>
 
       <FormControl required>
         <FormLabel>Content</FormLabel>
         <Textarea
           name="content"
-          placeholder="add context, constraints, and what you tried"
+          placeholder="Add context, constraints, and what you tried"
           minRows={7}
           maxRows={14}
           slotProps={{ textarea: { maxLength: LIMITS.questionContent } }}
         />
       </FormControl>
 
-      <SubmitButton size="sm">Submit</SubmitButton>
+      <SubmitButton fullWidth>Post question</SubmitButton>
     </Stack>
   );
 }

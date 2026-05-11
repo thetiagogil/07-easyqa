@@ -1,5 +1,6 @@
 "use client";
 
+import { APP_RADIUS } from "@/lib/constants";
 import { extendTheme } from "@mui/joy/styles";
 
 export const theme = extendTheme({
@@ -24,8 +25,25 @@ export const theme = extendTheme({
           800: "#065f46",
           900: "#064e3b",
         },
+        neutral: {
+          50: "#f8f7ff",
+          100: "#ece9ff",
+          200: "#d7d1ff",
+          300: "#b9afe8",
+          400: "#968bbd",
+          500: "#776c99",
+          600: "#5d537b",
+          700: "#403858",
+          800: "#29233d",
+          900: "#171326",
+        },
         background: {
           body: "rgb(9, 8, 24)",
+          surface: "rgb(13, 12, 31)",
+          level1: "rgb(18, 16, 42)",
+          level2: "rgb(25, 22, 56)",
+          level3: "rgb(35, 30, 74)",
+          popup: "rgb(18, 16, 42)",
         },
         success: {
           500: "#22c55e",
@@ -36,21 +54,22 @@ export const theme = extendTheme({
         warning: {
           500: "#f59e0b",
         },
+        divider: "rgba(185, 175, 232, 0.18)",
       },
     },
   },
   radius: {
-    sm: "4px",
-    md: "6px",
-    lg: "8px",
-    xl: "8px",
+    xs: APP_RADIUS,
+    sm: APP_RADIUS,
+    md: APP_RADIUS,
+    lg: APP_RADIUS,
+    xl: APP_RADIUS,
   },
   components: {
     JoyStack: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: theme.palette.neutral[700],
-          transition: "0.3s",
+          color: theme.palette.text.primary,
         }),
       },
       defaultProps: {
@@ -60,21 +79,140 @@ export const theme = extendTheme({
     JoyListItem: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: theme.palette.neutral[700],
+          color: theme.palette.text.primary,
+        }),
+      },
+    },
+    JoyList: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoyListDivider: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoyButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          fontWeight: 700,
+          borderRadius: APP_RADIUS,
+          transition: "0.3s",
+          borderColor: theme.palette.divider,
+          "&:hover": {
+            borderColor: theme.palette.divider,
+          },
+        }),
+      },
+    },
+    JoyIconButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          transition: "0.3s",
+          borderColor: theme.palette.divider,
+          "&:hover": {
+            borderColor: theme.palette.divider,
+          },
+        }),
+      },
+    },
+    JoyLink: {
+      styleOverrides: {
+        root: {
+          transition: "0.3s",
+        },
+      },
+    },
+    JoyTab: {
+      styleOverrides: {
+        root: {
+          transition: "0.3s",
+        },
+      },
+    },
+    JoyChip: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          transition: "0.3s",
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoyCard: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoySheet: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
         }),
       },
     },
     JoyInput: {
       styleOverrides: {
         root: ({ theme }) => ({
-          backgroundColor: theme.palette.background.body,
+          borderRadius: APP_RADIUS,
+          backgroundColor: theme.palette.background.level1,
+          borderColor: theme.palette.divider,
+          boxShadow: "none",
         }),
       },
     },
     JoyTextarea: {
       styleOverrides: {
         root: ({ theme }) => ({
-          backgroundColor: theme.palette.background.body,
+          borderRadius: APP_RADIUS,
+          backgroundColor: theme.palette.background.level1,
+          borderColor: theme.palette.divider,
+          boxShadow: "none",
+        }),
+      },
+    },
+    JoySelect: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          backgroundColor: theme.palette.background.level1,
+          borderColor: theme.palette.divider,
+          boxShadow: "none",
+        }),
+      },
+    },
+    JoyMenu: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoyModalDialog: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
+        }),
+      },
+    },
+    JoyAlert: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: APP_RADIUS,
+          borderColor: theme.palette.divider,
         }),
       },
     },

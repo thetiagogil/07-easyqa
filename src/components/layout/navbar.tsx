@@ -33,10 +33,11 @@ const NavbarContainer = ({ children }: { children: ReactNode }) => (
     direction="row"
     justifyContent="space-between"
     alignItems="center"
-    borderTop={{ xs: "", sm: MAIN_BORDERS }}
+    borderTop={{ xs: "none", sm: MAIN_BORDERS }}
     borderBottom={MAIN_BORDERS}
     py={1}
     px={2}
+    gap={1}
     zIndex={10}
   >
     {children}
@@ -73,37 +74,72 @@ export function Navbar({
   if (fullItem) {
     return (
       <NavbarContainer>
-        {hasBackButton ? <BackButton sx={{ mr: 2 }} /> : null}
-        {fullItem}
+        <Stack direction="row" alignItems="center" gap={1.5} width="100%">
+          {hasBackButton ? <BackButton /> : null}
+          {fullItem}
+        </Stack>
       </NavbarContainer>
     );
   }
 
   return (
     <NavbarContainer>
-      <Stack flexDirection="row" justifyContent="start" alignItems="center" flex={1} minWidth={0}>
-        {startItem ? (
-          startItem
-        ) : hasBackButton ? (
-          <BackButton />
-        ) : profile ? (
-          <Link component={NextLink} href={`/profile/${profile.id}`} underline="none">
-            <ProfileAvatar profile={profile} size={32} />
-          </Link>
-        ) : null}
-      </Stack>
+      <Stack
+        width="100%"
+        minHeight={40}
+        position="relative"
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          position="absolute"
+          left={0}
+          top={0}
+          bottom={0}
+          minWidth={0}
+        >
+          {startItem ? (
+            startItem
+          ) : hasBackButton ? (
+            <BackButton />
+          ) : profile ? (
+            <Link component={NextLink} href={`/profile/${profile.id}`} underline="none">
+              <ProfileAvatar profile={profile} size={32} />
+            </Link>
+          ) : null}
+        </Stack>
 
-      <Stack flexDirection="row" justifyContent="center" alignItems="center" flex={1} minWidth={0}>
-        {centerItem ? centerItem : <Typography level="body-md">{title}</Typography>}
-      </Stack>
+        <Stack direction="row" justifyContent="center" alignItems="center" minWidth={0} px={7}>
+          {centerItem ? (
+            centerItem
+          ) : (
+            <Typography level="title-sm" fontWeight={800} noWrap sx={{ textTransform: "capitalize" }}>
+              {title}
+            </Typography>
+          )}
+        </Stack>
 
-      <Stack flexDirection="row" justifyContent="end" alignItems="center" flex={1} minWidth={0}>
-        {endItem ??
-          (showLoginButton && !currentUser ? (
-            <Button component={NextLink} href="/auth" size="sm">
-              Login
-            </Button>
-          ) : null)}
+        <Stack
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center"
+          position="absolute"
+          right={0}
+          top={0}
+          bottom={0}
+          minWidth={0}
+        >
+          {endItem ??
+            (showLoginButton && !currentUser ? (
+              <Button component={NextLink} href="/auth" size="sm" variant="soft">
+                Log in
+              </Button>
+            ) : null)}
+        </Stack>
       </Stack>
     </NavbarContainer>
   );

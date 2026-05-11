@@ -1,8 +1,9 @@
-import { Alert, Tab, TabList, Tabs } from "@mui/joy";
-import tabClasses from "@mui/joy/Tab/tabClasses";
+import { Alert } from "@mui/joy";
 import { MainContainer } from "@/components/layout/main-container";
 import { NoData } from "@/components/shared/no-data";
+import { RouteTabs } from "@/components/shared/route-tabs";
 import { TargetEntry } from "@/components/shared/target-entry";
+import { APP_RADIUS, MAIN_BORDERS } from "@/lib/constants";
 import { isSupabaseConfigured } from "@/lib/env";
 import { getQuestions } from "@/lib/easyqa/data";
 import type { QuestionSort } from "@/types/easyqa";
@@ -21,31 +22,17 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <MainContainer navbarProps={{ title: "home", showLoginButton: true }} noPad>
-      <Tabs value={sort} sx={{ bgcolor: "transparent" }}>
-        <TabList
-          sticky="top"
-          sx={{
-            top: 56,
-            justifyContent: "center",
-            [`&& .${tabClasses.root}`]: {
-              flex: 1,
-              bgcolor: "transparent",
-              "&:hover": { bgcolor: "transparent" },
-              [`&.${tabClasses.selected}`]: { color: "primary.plainColor" },
-            },
-          }}
-        >
-          <Tab component="a" href="/?sort=new" value="new">
-            new
-          </Tab>
-          <Tab component="a" href="/?sort=top" value="top">
-            top
-          </Tab>
-        </TabList>
-      </Tabs>
+      <RouteTabs
+        value={sort}
+        sticky
+        tabs={[
+          { label: "new", href: "/?sort=new", value: "new" },
+          { label: "top", href: "/?sort=top", value: "top" },
+        ]}
+      />
 
       {isConfigured ? null : (
-        <Alert color="warning" variant="soft" sx={{ borderRadius: 0 }}>
+        <Alert color="warning" variant="soft" sx={{ borderRadius: APP_RADIUS, borderBottom: MAIN_BORDERS }}>
           Supabase is not configured. Add `.env.local` from `.env.local.example`.
         </Alert>
       )}
@@ -60,7 +47,7 @@ export default async function Home({ searchParams }: HomeProps) {
           />
         ))
       ) : (
-        <NoData />
+        <NoData title="No questions yet" description="Ask the first question to start the feed." />
       )}
     </MainContainer>
   );

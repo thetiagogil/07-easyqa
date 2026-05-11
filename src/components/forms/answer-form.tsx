@@ -2,7 +2,7 @@
 
 import { Alert, FormControl, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
-import { LIMITS } from "@/lib/constants";
+import { LIMITS, MAIN_BORDERS } from "@/lib/constants";
 import { createAnswerAction, type ActionState } from "@/lib/easyqa/actions";
 import type { Profile } from "@/types/easyqa";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
@@ -21,7 +21,14 @@ export function AnswerForm({
   );
 
   return (
-    <Stack component="form" action={formAction} gap={3} p={2} borderBottom="1px solid">
+    <Stack
+      component="form"
+      action={formAction}
+      gap={2}
+      p={{ xs: 2, sm: 2.5 }}
+      borderBottom={MAIN_BORDERS}
+      bgcolor="background.level1"
+    >
       {state.error ? <Alert color="danger">{state.error}</Alert> : null}
       {state.success ? <Alert color="success">{state.success}</Alert> : null}
 
@@ -30,30 +37,25 @@ export function AnswerForm({
         <FormControl required sx={{ flexGrow: 1 }}>
           <Textarea
             name="content"
-            variant="plain"
+            variant="outlined"
             minRows={3}
             maxRows={10}
-            placeholder="write your answer..."
+            placeholder="Write your answer"
             slotProps={{ textarea: { maxLength: LIMITS.answerContent } }}
             sx={{
               flexGrow: 1,
               fontSize: 14,
-              border: "none",
               boxShadow: "none",
-              py: 0,
               "& textarea": {
-                textAlign: "justify",
                 textTransform: "none",
-                pt: 0.5,
               },
-              "::before": { boxShadow: "none" },
             }}
           />
         </FormControl>
       </Stack>
 
       <Stack direction="row" justifyContent="flex-end">
-        <SubmitButton size="sm">Submit</SubmitButton>
+        <SubmitButton size="sm">Post answer</SubmitButton>
       </Stack>
     </Stack>
   );

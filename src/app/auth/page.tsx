@@ -1,6 +1,6 @@
-import { Stack } from "@mui/joy";
 import { MainContainer } from "@/components/layout/main-container";
 import { AuthForm } from "@/components/forms/auth-form";
+import { PageStack } from "@/components/shared/page-stack";
 import { safeRedirectPath } from "@/lib/auth/redirect";
 import { getCurrentUser } from "@/lib/easyqa/data";
 import { redirect } from "next/navigation";
@@ -20,9 +20,9 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
 
   return (
     <MainContainer navbarProps={{ title: "login", hasBackButton: true }} noPad>
-      <Stack p={2} gap={3}>
+      <PageStack>
         <AuthForm next={safeNext} />
-      </Stack>
+      </PageStack>
     </MainContainer>
   );
 }

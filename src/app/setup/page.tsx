@@ -11,15 +11,18 @@ export default async function SetupPage() {
   if (currentUser.profile?.hasDisplayName) redirect("/");
 
   return (
-    <Stack minHeight="100vh" justifyContent="center" alignItems="center" p={2}>
+    <Stack minHeight="100dvh" justifyContent="center" alignItems="center" p={2}>
       <Stack width="100%" maxWidth={400} gap={4}>
-        <Typography level="h3" textAlign="center">
-          Hi, please choose a name!
-        </Typography>
+        <Stack gap={1} textAlign="center">
+          <Typography level="h3">Set up your profile</Typography>
+          <Typography level="body-sm" textColor="neutral.500">
+            Choose how your name appears next to questions and answers.
+          </Typography>
+        </Stack>
 
         <ProfileForm profile={currentUser.profile} />
 
-        <SignOutButton label="Use another account" size="sm" />
+        <SignOutButton label="Use another account" size="sm" fullWidth />
       </Stack>
     </Stack>
   );

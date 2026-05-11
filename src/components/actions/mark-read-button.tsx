@@ -5,7 +5,7 @@ export function MarkReadButton({ disabled }: { disabled?: boolean }) {
   return (
     <form action={markNotificationsReadAction}>
       <Button type="submit" size="sm" variant="soft" color="neutral" disabled={disabled}>
-        read all
+        Mark read
       </Button>
     </form>
   );

@@ -3,8 +3,8 @@ import { AcceptAnswerButton } from "@/components/actions/accept-answer-button";
 import { VoteControls } from "@/components/actions/vote-controls";
 import { MAIN_BORDERS } from "@/lib/constants";
 import type { Answer, CurrentUser, Question } from "@/types/easyqa";
-import { ProfileAvatar } from "./profile-avatar";
-import { RelativeTime } from "./time";
+import { EntryMeta } from "./entry-meta";
+import { QuestionStatusChip } from "./question-status-chip";
 
 type TargetEntryProps = {
   targetType: "question" | "answer";
@@ -31,7 +31,7 @@ export function TargetEntry({
     answeredQuestion.status !== "closed" &&
     !answer.accepted;
   const isClosed =
-    (question?.status === "closed") || (!!answer && answeredQuestion?.status === "closed");
+    question?.status === "closed" || (!!answer && answeredQuestion?.status === "closed");
   const notAcceptedAnswer =
     !!answer && answeredQuestion?.status === "closed" && !answer.accepted;
 
@@ -39,51 +39,48 @@ export function TargetEntry({
 
   return (
     <Stack
-      direction="row"
       borderBottom={MAIN_BORDERS}
-      p={2}
-      gap={1}
-      sx={notAcceptedAnswer ? { opacity: 0.5 } : undefined}
+      p={{ xs: 2, sm: 2.5 }}
+      gap={1.5}
+      sx={{
+        opacity: notAcceptedAnswer ? 0.52 : undefined,
+        transition: "0.3s",
+        "&:hover": { bgcolor: "background.level1" },
+      }}
     >
-      <Stack>
-        <Link component="a" href={`/profile/${author.id}`} underline="none">
-          <ProfileAvatar profile={author} size={24} />
-        </Link>
-      </Stack>
+      <EntryMeta
+        profile={author}
+        action={question ? "asked" : "answered"}
+        createdAt={target.createdAt}
+        avatarSize={30}
+      />
 
-      <Stack flexBasis="100%" gap={1}>
-        <Stack direction="row" minHeight={24} alignItems="center" gap={1}>
-          <Typography level="body-sm">
-            <Link
-              component="a"
-              href={`/profile/${author.id}`}
-              color="primary"
-              fontWeight="bold"
-              marginRight={1}
-            >
-              {author.displayName}
-            </Link>
-            {question ? "asked" : "answered"}
-          </Typography>
-          <Typography level="body-sm" textColor="neutral.600" fontSize={10}>
-            •
-          </Typography>
-          <Typography level="body-sm" textColor="neutral.600">
-            <RelativeTime value={target.createdAt} />
-          </Typography>
-        </Stack>
-
+      <Stack gap={1}>
         {question ? (
           <Link component="a" href={`/question/${question.id}`} underline="none">
-            <Typography level="body-md">{question.title}</Typography>
+            <Typography level="title-sm" fontWeight={800}>
+              {question.title}
+            </Typography>
+            <Typography
+              level="body-sm"
+              textColor="neutral.400"
+              sx={{
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
+              {question.content}
+            </Typography>
           </Link>
         ) : (
-          <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
+          <Typography level="body-sm" textColor="neutral.300" whiteSpace="pre-line">
             {target.content}
           </Typography>
         )}
 
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" justifyContent="space-between" alignItems="center" gap={1}>
           <VoteControls
             target={target}
             targetType={targetType}
@@ -91,27 +88,21 @@ export function TargetEntry({
             disabled={isClosed}
           />
 
-          {question ? (
-            <Chip
-              variant="outlined"
-              color={question.status === "open" ? "primary" : "neutral"}
-              disabled={isClosed}
-            >
-              {question.status}
-            </Chip>
-          ) : null}
+          <Stack direction="row" alignItems="center" gap={1}>
+            {question ? <QuestionStatusChip status={question.status} /> : null}
 
-          {answer?.accepted ? (
-            <Chip variant="outlined" color="success">
-              Accepted
-            </Chip>
-          ) : null}
+            {answer?.accepted ? (
+              <Chip size="sm" variant="soft" color="success" sx={{ fontWeight: 700 }}>
+                Accepted
+              </Chip>
+            ) : null}
 
-          {answer && canAccept ? (
-            <AcceptAnswerButton answerId={answer.id} questionId={answer.questionId} color="neutral">
-              Accept answer
-            </AcceptAnswerButton>
-          ) : null}
+            {answer && canAccept ? (
+              <AcceptAnswerButton answerId={answer.id} questionId={answer.questionId} color="neutral">
+                Accept
+              </AcceptAnswerButton>
+            ) : null}
+          </Stack>
         </Stack>
       </Stack>
     </Stack>

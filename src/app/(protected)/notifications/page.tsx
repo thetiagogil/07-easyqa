@@ -29,7 +29,7 @@ export default async function NotificationsPage() {
           ))}
         </List>
       ) : (
-        <NoData />
+        <NoData title="No notifications" description="Answers, follows, and accepted answers will appear here." />
       )}
     </MainContainer>
   );

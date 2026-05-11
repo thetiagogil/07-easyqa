@@ -1,16 +1,16 @@
 "use client";
 
+import { MAIN_BORDERS } from "@/lib/constants";
+import type { CurrentUser } from "@/types/easyqa";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import ExploreIcon from "@mui/icons-material/Explore";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Badge, Box, Button, Link, Stack } from "@mui/joy";
+import { Badge, Box, IconButton, Link, Stack } from "@mui/joy";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import { MAIN_BORDERS } from "@/lib/constants";
-import type { CurrentUser } from "@/types/easyqa";
 
 type FooterProps = {
   currentUser: CurrentUser | null;
@@ -19,8 +19,10 @@ type FooterProps = {
 
 export function Footer({ currentUser, unreadCount }: FooterProps) {
   const pathname = usePathname();
-  const profile = currentUser?.profile?.hasDisplayName ? currentUser.profile : null;
-  const size = 24;
+  const profile = currentUser?.profile?.hasDisplayName
+    ? currentUser.profile
+    : null;
+  const size = 22;
 
   const footerItems = [
     {
@@ -37,17 +39,19 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
       label: "question",
       path: "/question/add",
       icon: (
-        <Button
+        <IconButton
           component="span"
+          color="primary"
+          variant="solid"
           sx={{
-            height: 48,
-            width: 48,
-            borderRadius: "50%",
-            boxShadow: "0px 0px 16px 0px #7ADC9E",
+            height: 42,
+            width: 42,
+            borderRadius: "100%",
+            boxShadow: "0 10px 30px rgba(16, 185, 129, 0.24)",
           }}
         >
           <AddRoundedIcon />
-        </Button>
+        </IconButton>
       ),
     },
     {
@@ -74,7 +78,7 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
       <Box
         position="sticky"
         bottom={0}
-        borderBottom={{ xs: "", sm: MAIN_BORDERS }}
+        borderBottom={{ xs: "none", sm: MAIN_BORDERS }}
         zIndex={10}
       />
     );
@@ -86,10 +90,10 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
       bottom={0}
       bgcolor="background.body"
       borderTop={MAIN_BORDERS}
-      borderBottom={{ xs: "", sm: MAIN_BORDERS }}
+      borderBottom={{ xs: "none", sm: MAIN_BORDERS }}
       zIndex={10}
     >
-      <Stack component="nav" direction="row" py={1}>
+      <Stack component="nav" direction="row" py={0.75}>
         {footerItems.map((item) => (
           <Link
             key={item.path}
@@ -97,12 +101,13 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
             href={item.path}
             aria-label={item.label}
             sx={{
-              color: pathname === item.path ? "primary.500" : "neutral.400",
+              color: pathname === item.path ? "primary.400" : "neutral.500",
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
+              minHeight: 46,
               "&:hover": {
-                color: "primary.700",
+                color: "primary.300",
               },
             }}
           >
