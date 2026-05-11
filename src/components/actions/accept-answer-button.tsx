@@ -1,6 +1,6 @@
 import { Button } from "@mui/joy";
 import type { ReactNode } from "react";
-import { acceptAnswerAction } from "@/lib/easyqa/actions";
+import { acceptAnswerAction } from "@/lib/server/actions";
 
 export function AcceptAnswerButton({
   answerId,

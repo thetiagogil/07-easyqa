@@ -3,7 +3,7 @@ import type { SxProps } from "@mui/joy/styles/types";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { MAIN_BORDERS } from "@/lib/constants";
-import { getCurrentUser, getUnreadNotificationCount } from "@/lib/easyqa/data";
+import { getCurrentUser, getUnreadNotificationCount } from "@/lib/server/data";
 import { Footer } from "./footer";
 import { Navbar, type NavbarProps } from "./navbar";
 

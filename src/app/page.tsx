@@ -5,7 +5,7 @@ import { RouteTabs } from "@/components/shared/route-tabs";
 import { TargetEntry } from "@/components/shared/target-entry";
 import { APP_RADIUS, MAIN_BORDERS } from "@/lib/constants";
 import { isSupabaseConfigured } from "@/lib/env";
-import { getQuestions } from "@/lib/easyqa/data";
+import { getQuestions } from "@/lib/server/data";
 import type { QuestionSort } from "@/types/easyqa";
 
 export const dynamic = "force-dynamic";

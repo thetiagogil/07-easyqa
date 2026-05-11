@@ -1,5 +1,5 @@
 import { Button } from "@mui/joy";
-import { markNotificationsReadAction } from "@/lib/easyqa/actions";
+import { markNotificationsReadAction } from "@/lib/server/actions";
 
 export function MarkReadButton({ disabled }: { disabled?: boolean }) {
   return (

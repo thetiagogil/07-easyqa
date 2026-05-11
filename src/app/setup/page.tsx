@@ -1,6 +1,6 @@
 import { SignOutButton } from "@/components/actions/sign-out-button";
 import { ProfileForm } from "@/components/forms/profile-form";
-import { requireUser } from "@/lib/easyqa/data";
+import { requireUser } from "@/lib/server/data";
 import { Stack, Typography } from "@mui/joy";
 import { redirect } from "next/navigation";
 

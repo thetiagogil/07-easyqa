@@ -3,7 +3,7 @@
 import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
 import { LIMITS } from "@/lib/constants";
-import { createQuestionAction, type ActionState } from "@/lib/easyqa/actions";
+import { createQuestionAction, type ActionState } from "@/lib/server/actions";
 import { SubmitButton } from "./submit-button";
 
 export function QuestionForm() {

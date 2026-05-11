@@ -4,7 +4,7 @@ import { MainContainer } from "@/components/layout/main-container";
 import { NoData } from "@/components/shared/no-data";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
 import { MAIN_BORDERS } from "@/lib/constants";
-import { searchProfiles } from "@/lib/easyqa/data";
+import { searchProfiles } from "@/lib/server/data";
 
 export const dynamic = "force-dynamic";
 

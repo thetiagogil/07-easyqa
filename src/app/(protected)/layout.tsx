@@ -1,4 +1,4 @@
-import { requireProfile } from "@/lib/easyqa/data";
+import { requireProfile } from "@/lib/server/data";
 
 export default async function ProtectedLayout({
   children,

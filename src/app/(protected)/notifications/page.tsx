@@ -3,7 +3,7 @@ import { MarkReadButton } from "@/components/actions/mark-read-button";
 import { MainContainer } from "@/components/layout/main-container";
 import { NoData } from "@/components/shared/no-data";
 import { NotificationRow } from "@/components/shared/notification-row";
-import { getNotifications, getUnreadNotificationCount } from "@/lib/easyqa/data";
+import { getNotifications, getUnreadNotificationCount } from "@/lib/server/data";
 
 export const dynamic = "force-dynamic";
 

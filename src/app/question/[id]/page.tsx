@@ -6,7 +6,7 @@ import { NoData } from "@/components/shared/no-data";
 import { QuestionEntry } from "@/components/shared/question-entry";
 import { TargetEntry } from "@/components/shared/target-entry";
 import { MAIN_BORDERS } from "@/lib/constants";
-import { getAnswersForQuestion, getCurrentUser, getQuestionById } from "@/lib/easyqa/data";
+import { getAnswersForQuestion, getCurrentUser, getQuestionById } from "@/lib/server/data";
 
 export const dynamic = "force-dynamic";
 

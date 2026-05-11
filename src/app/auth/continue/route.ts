@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { safeRedirectPath } from "@/lib/routing/redirect";
-import { getCurrentUser } from "@/lib/easyqa/data";
+import { getCurrentUser } from "@/lib/server/data";
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);

@@ -2,7 +2,7 @@ import { MainContainer } from "@/components/layout/main-container";
 import { AuthForm } from "@/components/forms/auth-form";
 import { PageStack } from "@/components/shared/page-stack";
 import { safeRedirectPath } from "@/lib/routing/redirect";
-import { getCurrentUser } from "@/lib/easyqa/data";
+import { getCurrentUser } from "@/lib/server/data";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";

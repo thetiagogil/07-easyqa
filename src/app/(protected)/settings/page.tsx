@@ -5,7 +5,7 @@ import { MainContainer } from "@/components/layout/main-container";
 import { PageStack } from "@/components/shared/page-stack";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { APP_RADIUS, MAIN_BORDERS } from "@/lib/constants";
-import { requireProfile } from "@/lib/easyqa/data";
+import { requireProfile } from "@/lib/server/data";
 
 export const dynamic = "force-dynamic";
 

@@ -3,7 +3,7 @@
 import { Alert, Stack, Textarea, Typography } from "@mui/joy";
 import { useActionState, useState } from "react";
 import { LIMITS, MAIN_BORDERS } from "@/lib/constants";
-import { createAnswerAction, type ActionState } from "@/lib/easyqa/actions";
+import { createAnswerAction, type ActionState } from "@/lib/server/actions";
 import type { Profile } from "@/types/easyqa";
 import { ProfileAvatar } from "@/components/shared/profile-avatar";
 import { SubmitButton } from "./submit-button";

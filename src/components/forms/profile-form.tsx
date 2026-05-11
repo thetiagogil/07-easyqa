@@ -3,7 +3,7 @@
 import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
 import { LIMITS } from "@/lib/constants";
-import { updateProfileAction, type ActionState } from "@/lib/easyqa/actions";
+import { updateProfileAction, type ActionState } from "@/lib/server/actions";
 import type { Profile } from "@/types/easyqa";
 import { SubmitButton } from "./submit-button";
 

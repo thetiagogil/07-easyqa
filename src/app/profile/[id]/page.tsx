@@ -12,7 +12,7 @@ import {
   getCurrentUser,
   getProfileById,
   getQuestionsByProfile,
-} from "@/lib/easyqa/data";
+} from "@/lib/server/data";
 
 export const dynamic = "force-dynamic";
 

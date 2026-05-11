@@ -1,5 +1,5 @@
 import { Button } from "@mui/joy";
-import { followProfileAction, unfollowProfileAction } from "@/lib/easyqa/actions";
+import { followProfileAction, unfollowProfileAction } from "@/lib/server/actions";
 
 export function FollowButton({
   profileId,
