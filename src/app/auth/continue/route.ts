@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { safeRedirectPath } from "@/lib/auth/redirect";
+import { safeRedirectPath } from "@/lib/routing/redirect";
 import { getCurrentUser } from "@/lib/easyqa/data";
 
 export async function GET(request: NextRequest) {

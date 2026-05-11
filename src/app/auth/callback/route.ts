@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { safeRedirectPath } from "@/lib/auth/redirect";
+import { safeRedirectPath } from "@/lib/routing/redirect";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
