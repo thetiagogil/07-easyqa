@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Alert,
   Button,
   FormControl,
   FormHelperText,
@@ -14,6 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AUTH_BUTTON_PROPS } from "@/shared/components/auth/auth-link-button";
+import { ActionStatus } from "@/shared/components/action-status";
 import { createClient } from "@/lib/supabase/browser";
 
 type Mode = "signin" | "signup";
@@ -115,8 +115,12 @@ export function AuthForm({ next = "/" }: { next?: string }) {
       </Stack>
 
       <Stack component="form" onSubmit={handleSubmit} gap={2}>
-        {error ? <Alert color="danger">{error}</Alert> : null}
-        {message ? <Alert color="success">{message}</Alert> : null}
+        <ActionStatus
+          pending={pending}
+          pendingMessage={mode === "signin" ? "Signing in..." : "Creating account..."}
+          error={error ?? undefined}
+          success={message ?? undefined}
+        />
 
         <FormControl required>
           <FormLabel>Email</FormLabel>

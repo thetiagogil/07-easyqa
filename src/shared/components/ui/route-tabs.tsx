@@ -1,5 +1,8 @@
+"use client";
+
 import { Tab, TabList, Tabs } from "@mui/joy";
 import tabClasses from "@mui/joy/Tab/tabClasses";
+import NextLink from "next/link";
 
 type RouteTab = {
   label: string;
@@ -40,7 +43,7 @@ export function RouteTabs({
         }}
       >
         {tabs.map((tab) => (
-          <Tab key={tab.value} component="a" href={tab.href} value={tab.value}>
+          <Tab key={tab.value} component={NextLink} href={tab.href} value={tab.value}>
             {tab.label}
           </Tab>
         ))}

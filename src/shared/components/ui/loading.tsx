@@ -1,11 +1,12 @@
 import CircularProgress from "@mui/joy/CircularProgress";
-import { Stack } from "@mui/joy";
+import { Stack, Typography } from "@mui/joy";
 
 type LoadingProps = {
   isLoading?: boolean;
   minHeight?: string | number;
   justifyContent?: string;
   variant?: "overlay";
+  message?: string;
 };
 
 export function Loading({
@@ -13,6 +14,7 @@ export function Loading({
   minHeight = 80,
   justifyContent = "flex-start",
   variant,
+  message,
 }: LoadingProps) {
   if (!isLoading) return null;
 
@@ -28,8 +30,17 @@ export function Loading({
         bottom={0}
         zIndex={1300}
         bgcolor="rgba(12, 16, 14, 0.72)"
+        gap={message ? 1.5 : 0}
+        role="status"
+        aria-live="polite"
+        aria-busy="true"
       >
-        <CircularProgress color="primary" size="lg" role="status" thickness={4} aria-busy="true" />
+        <CircularProgress color="primary" size="lg" thickness={4} />
+        {message ? (
+          <Typography level="body-sm" textColor="neutral.300">
+            {message}
+          </Typography>
+        ) : null}
       </Stack>
     );
   }
@@ -41,8 +52,17 @@ export function Loading({
       flexGrow={1}
       minHeight={minHeight}
       margin={2}
+      gap={message ? 1.5 : 0}
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
     >
-      <CircularProgress color="primary" size="md" role="status" thickness={2} aria-busy="true" />
+      <CircularProgress color="primary" size="md" thickness={2} />
+      {message ? (
+        <Typography level="body-sm" textColor="neutral.500">
+          {message}
+        </Typography>
+      ) : null}
     </Stack>
   );
 }

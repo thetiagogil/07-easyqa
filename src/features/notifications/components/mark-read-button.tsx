@@ -1,12 +1,18 @@
-import { Button } from "@mui/joy";
 import { markNotificationsReadAction } from "@/features/notifications/server/actions";
+import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function MarkReadButton({ disabled }: { disabled?: boolean }) {
   return (
     <form action={markNotificationsReadAction}>
-      <Button type="submit" size="sm" variant="soft" color="neutral" disabled={disabled}>
+      <SubmitButton
+        size="sm"
+        variant="soft"
+        color="neutral"
+        disabled={disabled}
+        pendingLabel="Saving"
+      >
         Mark read
-      </Button>
+      </SubmitButton>
     </form>
   );
 }

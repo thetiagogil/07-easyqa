@@ -1,11 +1,11 @@
 import { Alert } from "@mui/joy";
+import { Suspense } from "react";
+import { QuestionFeedContent } from "@/features/questions/components/question-feed-content";
 import { MainContainer } from "@/shared/components/layout/main-container";
-import { NoData } from "@/shared/components/ui/no-data";
+import { Loading } from "@/shared/components/ui/loading";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";
-import { TargetEntry } from "@/shared/components/target-entry";
 import { APP_RADIUS, MAIN_BORDERS } from "@/shared/constants/app";
 import { isSupabaseConfigured } from "@/lib/env";
-import { getQuestions } from "@/features/questions/server/queries";
 import type { QuestionSort } from "@/types/easyqa";
 
 type QuestionFeedPageProps = {
@@ -16,7 +16,6 @@ export async function QuestionFeedPage({ searchParams }: QuestionFeedPageProps) 
   const params = await searchParams;
   const sort: QuestionSort = params.sort === "top" ? "top" : "new";
   const isConfigured = isSupabaseConfigured();
-  const questions = await getQuestions(sort);
 
   return (
     <MainContainer navbarProps={{ title: "home", showLoginButton: true }} noPad>
@@ -35,11 +34,9 @@ export async function QuestionFeedPage({ searchParams }: QuestionFeedPageProps) 
         </Alert>
       )}
 
-      {questions.length ? (
-        questions.map((question) => <TargetEntry key={question.id} targetType="question" target={question} />)
-      ) : (
-        <NoData title="No questions yet" description="Ask the first question to start the feed." />
-      )}
+      <Suspense key={sort} fallback={<Loading minHeight={260} justifyContent="center" />}>
+        <QuestionFeedContent sort={sort} />
+      </Suspense>
     </MainContainer>
   );
 }

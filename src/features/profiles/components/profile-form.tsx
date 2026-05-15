@@ -1,7 +1,8 @@
 "use client";
 
-import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
+import { FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
+import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS } from "@/shared/constants/app";
 import { updateProfileAction } from "@/features/profiles/server/actions";
 import type { ActionState } from "@/shared/types";
@@ -15,11 +16,23 @@ export function ProfileForm({
   profile?: Profile | null;
   submitLabel?: string;
 }) {
-  const [state, formAction] = useActionState<ActionState, FormData>(updateProfileAction, {});
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
+    updateProfileAction,
+    {},
+  );
+  const isSaveAction = submitLabel.toLowerCase().includes("save");
+  const pendingMessage = isSaveAction
+    ? "Saving profile..."
+    : "Setting up profile...";
+  const pendingLabel = isSaveAction ? "Saving..." : "Setting up...";
 
   return (
     <Stack component="form" action={formAction} gap={2}>
-      {state.error ? <Alert color="danger">{state.error}</Alert> : null}
+      <ActionStatus
+        pending={isPending}
+        pendingMessage={pendingMessage}
+        error={state.error}
+      />
 
       <FormControl required>
         <FormLabel>Name</FormLabel>
@@ -54,7 +67,9 @@ export function ProfileForm({
         />
       </FormControl>
 
-      <SubmitButton fullWidth>{submitLabel}</SubmitButton>
+      <SubmitButton fullWidth pendingLabel={pendingLabel}>
+        {submitLabel}
+      </SubmitButton>
     </Stack>
   );
 }

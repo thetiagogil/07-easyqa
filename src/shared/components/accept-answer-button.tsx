@@ -1,6 +1,6 @@
-import { Button } from "@mui/joy";
 import type { ReactNode } from "react";
 import { acceptAnswerAction } from "@/shared/server/actions";
+import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function AcceptAnswerButton({
   answerId,
@@ -15,9 +15,9 @@ export function AcceptAnswerButton({
 }) {
   return (
     <form action={acceptAnswerAction.bind(null, answerId, questionId)}>
-      <Button type="submit" size="sm" variant="soft" color={color}>
+      <SubmitButton size="sm" variant="soft" color={color} pendingLabel="Saving">
         {children}
-      </Button>
+      </SubmitButton>
     </form>
   );
 }

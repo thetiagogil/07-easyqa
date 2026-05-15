@@ -1,18 +1,26 @@
 "use client";
 
-import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
+import { FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
+import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS } from "@/shared/constants/app";
 import { createQuestionAction } from "@/shared/server/actions";
 import type { ActionState } from "@/shared/types";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function QuestionForm() {
-  const [state, formAction] = useActionState<ActionState, FormData>(createQuestionAction, {});
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
+    createQuestionAction,
+    {},
+  );
 
   return (
     <Stack component="form" action={formAction} gap={2}>
-      {state.error ? <Alert color="danger">{state.error}</Alert> : null}
+      <ActionStatus
+        pending={isPending}
+        pendingMessage="Posting question..."
+        error={state.error}
+      />
 
       <FormControl required>
         <FormLabel>Title</FormLabel>
@@ -35,7 +43,9 @@ export function QuestionForm() {
         />
       </FormControl>
 
-      <SubmitButton fullWidth>Post question</SubmitButton>
+      <SubmitButton fullWidth pendingLabel="Posting...">
+        Post question
+      </SubmitButton>
     </Stack>
   );
 }

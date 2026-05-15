@@ -1,7 +1,8 @@
 "use client";
 
-import { Alert, Stack, Textarea, Typography } from "@mui/joy";
+import { Stack, Textarea, Typography } from "@mui/joy";
 import { useActionState, useState } from "react";
+import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS, MAIN_BORDERS } from "@/shared/constants/app";
 import { createAnswerAction } from "@/shared/server/actions";
 import type { ActionState } from "@/shared/types";
@@ -16,7 +17,7 @@ export function AnswerForm({
   questionId: number;
   profile?: Profile | null;
 }) {
-  const [state, formAction] = useActionState<ActionState, FormData>(
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     createAnswerAction.bind(null, questionId),
     {},
   );
@@ -33,8 +34,12 @@ export function AnswerForm({
       p={2}
       borderBottom={MAIN_BORDERS}
     >
-      {state.error ? <Alert color="danger">{state.error}</Alert> : null}
-      {state.success ? <Alert color="success">{state.success}</Alert> : null}
+      <ActionStatus
+        pending={isPending}
+        pendingMessage="Posting answer..."
+        error={state.error}
+        success={state.success}
+      />
 
       <Stack direction="row" alignItems="flex-start" gap={1}>
         {profile ? <ProfileAvatar profile={profile} size={32} /> : null}
@@ -72,7 +77,7 @@ export function AnswerForm({
             {content.length} / {LIMITS.answerContent}
           </Typography>
 
-          <SubmitButton size="sm" disabled={!isValidLength}>
+          <SubmitButton size="sm" disabled={!isValidLength} pendingLabel="Posting...">
             Submit
           </SubmitButton>
         </Stack>

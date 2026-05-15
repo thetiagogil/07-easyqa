@@ -1,18 +1,10 @@
-import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, Stack, Typography } from "@mui/joy";
-import { FollowButton } from "@/features/profiles/components/follow-button";
+import { Suspense } from "react";
+import { ProfileHeader } from "@/features/profiles/components/profile-header";
+import { ProfileTabContent } from "@/features/profiles/components/profile-tab-content";
 import { MainContainer } from "@/shared/components/layout/main-container";
-import { NoData } from "@/shared/components/ui/no-data";
-import { PageStack } from "@/shared/components/ui/page-stack";
-import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
+import { Loading } from "@/shared/components/ui/loading";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";
-import { TargetEntry } from "@/shared/components/target-entry";
-import {
-  getAnsweredQuestionsByProfile,
-  getProfileById,
-  getQuestionsByProfile,
-} from "@/features/profiles/server/queries";
-import { getCurrentUser } from "@/shared/server/auth";
+import type { ProfileTab } from "@/features/profiles/types";
 
 type ProfilePageProps = {
   params: Promise<{ id: string }>;
@@ -21,66 +13,25 @@ type ProfilePageProps = {
 
 export async function ProfilePage({ params, searchParams }: ProfilePageProps) {
   const [{ id }, query] = await Promise.all([params, searchParams]);
-  const tab = query.tab === "answers" ? "answers" : "questions";
-  const [currentUser, profile, questions, answeredQuestions] = await Promise.all([
-    getCurrentUser(),
-    getProfileById(id),
-    getQuestionsByProfile(id),
-    getAnsweredQuestionsByProfile(id),
-  ]);
-  const activeQuestions = tab === "answers" ? answeredQuestions : questions;
-  const isOwnProfile = currentUser?.id === profile.id;
+  const tab: ProfileTab = query.tab === "answers" ? "answers" : "questions";
 
   return (
     <MainContainer navbarProps={{ title: "profile", hasBackButton: true }} noPad>
-      <PageStack>
-        <Stack direction="row" justifyContent="space-between">
-          <ProfileAvatar profile={profile} size={80} />
-
-          {isOwnProfile ? (
-            <Stack>
-              <IconButton component="a" href="/profile/edit" variant="outlined" size="sm">
-                <EditIcon />
-              </IconButton>
-            </Stack>
-          ) : currentUser?.profile?.hasDisplayName ? (
-            <Stack>
-              <FollowButton profileId={profile.id} isFollowing={!!profile.isViewerFollowing} />
-            </Stack>
-          ) : null}
-        </Stack>
-
-        <Stack gap={0.5}>
-          <Typography level="h2">{profile.displayName}</Typography>
-          {profile.username ? (
-            <Typography level="body-sm" textColor="neutral.500">
-              @{profile.username}
-            </Typography>
-          ) : null}
-          {profile.bio ? <Typography level="body-sm">{profile.bio}</Typography> : null}
-        </Stack>
-      </PageStack>
+      <Suspense fallback={<Loading minHeight={220} justifyContent="center" />}>
+        <ProfileHeader profileId={id} />
+      </Suspense>
 
       <RouteTabs
         value={tab}
         tabs={[
-          { label: "Questions", href: `/profile/${profile.id}?tab=questions`, value: "questions" },
-          { label: "Answers", href: `/profile/${profile.id}?tab=answers`, value: "answers" },
+          { label: "Questions", href: `/profile/${id}?tab=questions`, value: "questions" },
+          { label: "Answers", href: `/profile/${id}?tab=answers`, value: "answers" },
         ]}
       />
 
-      {activeQuestions.length ? (
-        activeQuestions.map((question) => <TargetEntry key={question.id} targetType="question" target={question} />)
-      ) : (
-        <NoData
-          title={tab === "answers" ? "No answers yet" : "No questions yet"}
-          description={
-            tab === "answers"
-              ? "Answered questions will appear here."
-              : "Questions from this profile will appear here."
-          }
-        />
-      )}
+      <Suspense key={`${id}-${tab}`} fallback={<Loading minHeight={260} justifyContent="center" />}>
+        <ProfileTabContent profileId={id} tab={tab} />
+      </Suspense>
     </MainContainer>
   );
 }

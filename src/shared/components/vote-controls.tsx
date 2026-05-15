@@ -2,6 +2,7 @@
 
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import CircularProgress from "@mui/joy/CircularProgress";
 import { IconButton, Stack, Typography } from "@mui/joy";
 import { useState, useTransition } from "react";
 import { submitVoteAction } from "@/shared/server/actions";
@@ -41,13 +42,13 @@ export function VoteControls({
   };
 
   return (
-    <Stack direction="row" alignItems="center" gap={0.5}>
+    <Stack direction="row" alignItems="center" gap={0.5} aria-busy={isPending || undefined}>
       <IconButton
         type="button"
         size="sm"
         variant="plain"
         color={voteState.viewerVoteValue === 1 ? "success" : "neutral"}
-        disabled={disabled}
+        disabled={disabled || isPending}
         aria-disabled={isPending || disabled}
         aria-label="Upvote"
         onClick={() => handleVote(1)}
@@ -55,25 +56,43 @@ export function VoteControls({
       >
         <ArrowUpwardIcon />
       </IconButton>
-      <Typography
-        level="body-sm"
-        sx={{ width: 20, textAlign: "center" }}
-        color={
-          voteState.viewerVoteValue === 1
-            ? "success"
-            : voteState.viewerVoteValue === -1
-              ? "danger"
-              : "neutral"
-        }
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        gap={0.5}
+        minWidth={34}
+        aria-live="polite"
       >
-        {voteState.voteScore}
-      </Typography>
+        <Typography
+          level="body-sm"
+          sx={{ width: 20, textAlign: "center" }}
+          color={
+            voteState.viewerVoteValue === 1
+              ? "success"
+              : voteState.viewerVoteValue === -1
+                ? "danger"
+                : "neutral"
+          }
+        >
+          {voteState.voteScore}
+        </Typography>
+        {isPending ? (
+          <CircularProgress
+            color="neutral"
+            size="sm"
+            thickness={2}
+            aria-label="Saving vote"
+            sx={{ "--CircularProgress-size": "12px" }}
+          />
+        ) : null}
+      </Stack>
       <IconButton
         type="button"
         size="sm"
         variant="plain"
         color={voteState.viewerVoteValue === -1 ? "danger" : "neutral"}
-        disabled={disabled}
+        disabled={disabled || isPending}
         aria-disabled={isPending || disabled}
         aria-label="Downvote"
         onClick={() => handleVote(-1)}

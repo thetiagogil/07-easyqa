@@ -1,5 +1,5 @@
-import { Button } from "@mui/joy";
 import { followProfileAction, unfollowProfileAction } from "@/features/profiles/server/actions";
+import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function FollowButton({
   profileId,
@@ -14,15 +14,15 @@ export function FollowButton({
 
   return (
     <form action={action}>
-      <Button
-        type="submit"
+      <SubmitButton
         size="sm"
         variant={isFollowing ? "soft" : "solid"}
         color={isFollowing ? "neutral" : "primary"}
+        pendingLabel="Saving"
         sx={{ width: 96, transition: "0.3s" }}
       >
         {isFollowing ? "Following" : "Follow"}
-      </Button>
+      </SubmitButton>
     </form>
   );
 }
