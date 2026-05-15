@@ -1,6 +1,6 @@
 import { Chip, Link, Stack, Typography } from "@mui/joy";
-import { AcceptAnswerButton } from "@/shared/components/qa/accept-answer-button";
-import { VoteControls } from "@/shared/components/qa/vote-controls";
+import { AcceptAnswerButton } from "@/shared/components/accept-answer-button";
+import { VoteControls } from "@/shared/components/vote-controls";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Answer, CurrentUser, Question } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";

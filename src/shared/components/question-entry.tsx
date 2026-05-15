@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/joy";
-import { VoteControls } from "@/shared/components/qa/vote-controls";
+import { VoteControls } from "@/shared/components/vote-controls";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Question } from "@/types/easyqa";
 import { EntryMeta } from "./entry-meta";

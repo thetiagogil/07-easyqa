@@ -1,6 +1,6 @@
 import { Button } from "@mui/joy";
 import type { ReactNode } from "react";
-import { acceptAnswerAction } from "@/shared/server/qa/actions";
+import { acceptAnswerAction } from "@/shared/server/actions";
 
 export function AcceptAnswerButton({
   answerId,

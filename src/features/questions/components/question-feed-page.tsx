@@ -2,7 +2,7 @@ import { Alert } from "@mui/joy";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { NoData } from "@/shared/components/ui/no-data";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";
-import { TargetEntry } from "@/shared/components/qa/target-entry";
+import { TargetEntry } from "@/shared/components/target-entry";
 import { APP_RADIUS, MAIN_BORDERS } from "@/shared/constants/app";
 import { isSupabaseConfigured } from "@/lib/env";
 import { getQuestions } from "@/features/questions/server/queries";

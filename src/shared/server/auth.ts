@@ -3,7 +3,7 @@ import { isSupabaseConfigured } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import type { CurrentUser, Profile } from "@/types/easyqa";
 import { core, type AppSupabaseClient } from "@/lib/database/schemas";
-import { mapProfile } from "@/shared/server/qa/mappers";
+import { mapProfile } from "@/shared/server/mappers";
 
 export async function getCurrentUser(): Promise<CurrentUser | null> {
   if (!isSupabaseConfigured()) return null;

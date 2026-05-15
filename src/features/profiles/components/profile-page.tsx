@@ -6,7 +6,7 @@ import { NoData } from "@/shared/components/ui/no-data";
 import { PageStack } from "@/shared/components/ui/page-stack";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";
-import { TargetEntry } from "@/shared/components/qa/target-entry";
+import { TargetEntry } from "@/shared/components/target-entry";
 import {
   getAnsweredQuestionsByProfile,
   getProfileById,

@@ -4,7 +4,7 @@ import { isSupabaseConfigured } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import { easyqa } from "@/lib/database/schemas";
 import { getCurrentAuthUser } from "@/shared/server/auth";
-import { hydrateAnswers, hydrateQuestions } from "@/shared/server/qa/hydrate";
+import { hydrateAnswers, hydrateQuestions } from "@/shared/server/hydrate";
 import type { Answer, Question, QuestionSort } from "@/types/easyqa";
 
 export async function getQuestions(sort: QuestionSort = "new"): Promise<Question[]> {

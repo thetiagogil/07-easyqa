@@ -1,4 +1,4 @@
-import { ProfileExplorePage } from "@/features/profiles/components/profile-explore-page";
+import { ExplorePage as ExploreFeaturePage } from "@/features/explore/components/explore-page";
 
 export const dynamic = "force-dynamic";
 
@@ -7,5 +7,5 @@ type ExplorePageProps = {
 };
 
 export default function ExplorePage(props: ExplorePageProps) {
-  return <ProfileExplorePage {...props} />;
+  return <ExploreFeaturePage {...props} />;
 }

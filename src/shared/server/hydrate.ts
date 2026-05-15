@@ -10,7 +10,7 @@ import {
   mapQuestion,
   normalizeVoteValue,
   profileMap,
-} from "./mappers";
+} from "@/shared/server/mappers";
 import { core, easyqa, type AppSupabaseClient } from "@/lib/database/schemas";
 
 export async function hydrateQuestions(

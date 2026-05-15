@@ -1,11 +1,11 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Input } from "@mui/joy";
 
-type ProfileSearchFormProps = {
+type ExploreSearchFormProps = {
   defaultValue: string;
 };
 
-export function ProfileSearchForm({ defaultValue }: ProfileSearchFormProps) {
+export function ExploreSearchForm({ defaultValue }: ExploreSearchFormProps) {
   return (
     <Box component="form" action="/explore" width="100%">
       <Input

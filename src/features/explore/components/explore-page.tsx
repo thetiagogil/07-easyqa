@@ -3,23 +3,23 @@ import { MainContainer } from "@/shared/components/layout/main-container";
 import { NoData } from "@/shared/components/ui/no-data";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { MAIN_BORDERS } from "@/shared/constants/app";
-import { searchProfiles } from "@/features/profiles/server/queries";
-import { ProfileSearchForm } from "./profile-search-form";
+import { searchExploreProfiles } from "@/features/explore/server/queries";
+import { ExploreSearchForm } from "./explore-search-form";
 
-type ProfileExplorePageProps = {
+type ExplorePageProps = {
   searchParams: Promise<{ q?: string }>;
 };
 
-export async function ProfileExplorePage({ searchParams }: ProfileExplorePageProps) {
+export async function ExplorePage({ searchParams }: ExplorePageProps) {
   const { q } = await searchParams;
-  const profiles = await searchProfiles(q);
+  const profiles = await searchExploreProfiles(q);
 
   return (
     <MainContainer
       navbarProps={{
         title: "explore",
         hasBackButton: true,
-        fullItem: <ProfileSearchForm defaultValue={q ?? ""} />,
+        fullItem: <ExploreSearchForm defaultValue={q ?? ""} />,
       }}
       noPad
     >

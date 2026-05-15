@@ -4,7 +4,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton, Stack, Typography } from "@mui/joy";
 import { useState, useTransition } from "react";
-import { submitVoteAction } from "@/shared/server/qa/actions";
+import { submitVoteAction } from "@/shared/server/actions";
 import type { Answer, Question, TargetType, VoteValue } from "@/types/easyqa";
 
 type VoteControlsProps = {

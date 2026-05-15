@@ -19,7 +19,6 @@ export function RouteTabs({
   return (
     <Tabs value={value} sx={{ bgcolor: "transparent" }}>
       <TabList
-        disableUnderline
         sticky={sticky ? "top" : undefined}
         sx={{
           top: sticky ? 57 : undefined,

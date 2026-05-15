@@ -5,8 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import type { Profile, Question } from "@/types/easyqa";
 import { core, easyqa } from "@/lib/database/schemas";
 import { getCurrentAuthUser } from "@/shared/server/auth";
-import { hydrateQuestions } from "@/shared/server/qa/hydrate";
-import { mapProfile } from "@/shared/server/qa/mappers";
+import { hydrateQuestions } from "@/shared/server/hydrate";
+import { mapProfile } from "@/shared/server/mappers";
 
 export async function getProfileById(id: string): Promise<Profile> {
   if (!isSupabaseConfigured()) notFound();
@@ -37,28 +37,6 @@ export async function getProfileById(id: string): Promise<Profile> {
   }
 
   return profile;
-}
-
-export async function searchProfiles(search?: string): Promise<Profile[]> {
-  if (!isSupabaseConfigured()) return [];
-
-  const client = await createClient();
-  const searchTerm = search?.trim();
-
-  let query = core(client)
-    .from("profiles")
-    .select("*")
-    .order("display_name", { ascending: true })
-    .limit(LIMITS.pageSize);
-
-  if (searchTerm) {
-    query = query.or(`display_name.ilike.%${searchTerm}%,username.ilike.%${searchTerm}%`);
-  }
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  return (data ?? []).map(mapProfile);
 }
 
 export async function getQuestionsByProfile(profileId: string): Promise<Question[]> {

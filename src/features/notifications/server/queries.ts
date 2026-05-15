@@ -4,8 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import type { Notification } from "@/types/easyqa";
 import { easyqa } from "@/lib/database/schemas";
 import { requireProfile } from "@/shared/server/auth";
-import { getProfilesByIds } from "@/shared/server/qa/hydrate";
-import { mapNotification } from "@/shared/server/qa/mappers";
+import { getProfilesByIds } from "@/shared/server/hydrate";
+import { mapNotification } from "@/shared/server/mappers";
 
 export async function getNotifications(): Promise<Notification[]> {
   if (!isSupabaseConfigured()) return [];

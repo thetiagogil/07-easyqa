@@ -3,7 +3,7 @@
 import { Alert, FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
 import { useActionState } from "react";
 import { LIMITS } from "@/shared/constants/app";
-import { createQuestionAction } from "@/shared/server/qa/actions";
+import { createQuestionAction } from "@/shared/server/actions";
 import type { ActionState } from "@/shared/types";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
