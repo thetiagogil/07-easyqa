@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemContent, Typography } from "@mui/joy";
+import { Box, List, ListItem, ListItemContent, Typography } from "@mui/joy";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { NoData } from "@/shared/components/ui/no-data";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
@@ -45,12 +45,28 @@ export async function ProfileExplorePage({ searchParams }: ProfileExplorePagePro
               >
                 <ProfileAvatar profile={profile} size={32} />
 
-                <Typography level="title-sm" color="primary" fontWeight={700}>
-                  {profile.displayName}
-                </Typography>
-                <Typography level="body-sm" noWrap>
-                  {profile.bio ?? profile.username}
-                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    minWidth: 0,
+                    width: "100%",
+                  }}
+                >
+                  <Typography
+                    level="title-sm"
+                    color="primary"
+                    fontWeight={700}
+                    noWrap
+                    sx={{ flexShrink: 0, maxWidth: { xs: "62%", sm: "68%" } }}
+                  >
+                    {profile.displayName}
+                  </Typography>
+                  <Typography level="body-sm" noWrap sx={{ flex: 1, minWidth: 0 }}>
+                    {profile.bio ?? profile.username}
+                  </Typography>
+                </Box>
               </ListItemContent>
             </ListItem>
           ))}
