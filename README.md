@@ -20,6 +20,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Frontend Architecture
+
+Application code is organized around thin App Router files and feature-owned views:
+
+- `src/app` keeps route wrappers, layouts, route handlers, and Next.js boundaries.
+- `src/features` owns page/view code and feature server modules.
+- `src/shared` owns intentionally reused UI, constants, app-wide server helpers, and cross-feature Q&A primitives.
+- `src/lib` owns infrastructure such as Supabase clients, database schema helpers, routing helpers, and environment parsing.
+- `src/types` owns generated and global app types.
+
 ## Database Contract
 
 The app uses:

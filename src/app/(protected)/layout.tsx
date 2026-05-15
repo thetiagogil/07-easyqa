@@ -1,4 +1,4 @@
-import { requireProfile } from "@/lib/server/data";
+import { requireProfile } from "@/shared/server/auth";
 
 export default async function ProtectedLayout({
   children,

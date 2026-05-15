@@ -1,6 +1,6 @@
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME } from "@/shared/constants/app";
+import { Providers } from "@/shared/components/providers/app-providers";
 import type { Metadata } from "next";
-import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: APP_NAME,

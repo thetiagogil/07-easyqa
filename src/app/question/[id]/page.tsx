@@ -1,12 +1,4 @@
-import { Alert, Stack } from "@mui/joy";
-import { AuthLinkButton } from "@/components/actions/auth-button";
-import { MainContainer } from "@/components/layout/main-container";
-import { AnswerForm } from "@/components/forms/answer-form";
-import { NoData } from "@/components/shared/no-data";
-import { QuestionEntry } from "@/components/shared/question-entry";
-import { TargetEntry } from "@/components/shared/target-entry";
-import { MAIN_BORDERS } from "@/lib/constants";
-import { getAnswersForQuestion, getCurrentUser, getQuestionById } from "@/lib/server/data";
+import { QuestionDetailPage } from "@/features/questions/components/question-detail-page";
 
 export const dynamic = "force-dynamic";
 
@@ -14,53 +6,6 @@ type QuestionPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function QuestionPage({ params }: QuestionPageProps) {
-  const { id } = await params;
-  const questionId = Number(id);
-  const [currentUser, question, answers] = await Promise.all([
-    getCurrentUser(),
-    getQuestionById(questionId),
-    getAnswersForQuestion(questionId),
-  ]);
-
-  const hasAnswered = answers.some((answer) => answer.userId === currentUser?.id);
-  const canAnswer =
-    !!currentUser?.profile?.hasDisplayName &&
-    question.status === "open" &&
-    question.userId !== currentUser.id &&
-    !hasAnswered;
-
-  return (
-    <MainContainer navbarProps={{ title: "question", hasBackButton: true }} noPad>
-      <QuestionEntry question={question} />
-
-      {!currentUser ? (
-        <Stack p={{ xs: 2, sm: 2.5 }} borderBottom={MAIN_BORDERS}>
-          <Alert
-            variant="soft"
-            color="neutral"
-            endDecorator={<AuthLinkButton>log in</AuthLinkButton>}
-          >
-            You need to log in to answer this question.
-          </Alert>
-        </Stack>
-      ) : canAnswer ? (
-        <AnswerForm questionId={question.id} profile={currentUser.profile} />
-      ) : null}
-
-      {answers.length ? (
-        answers.map((answer) => (
-          <TargetEntry
-            key={answer.id}
-            targetType="answer"
-            target={answer}
-            answeredQuestion={question}
-            currentUser={currentUser}
-          />
-        ))
-      ) : (
-        <NoData title="No answers yet" description="Be the first to share a useful answer." />
-      )}
-    </MainContainer>
-  );
+export default function QuestionPage(props: QuestionPageProps) {
+  return <QuestionDetailPage {...props} />;
 }
