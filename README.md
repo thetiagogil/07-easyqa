@@ -1,4 +1,4 @@
-EASYQA is a Next.js, TypeScript, Joy UI app backed by the shared Supabase project.
+Easyqa is a Next.js, TypeScript, Joy UI app backed by the shared Supabase project.
 
 ## Environment
 

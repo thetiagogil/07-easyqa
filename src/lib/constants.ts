@@ -1,4 +1,4 @@
-export const APP_NAME = "EASYQA";
+export const APP_NAME = "Easyqa";
 
 export const LIMITS = {
   profileName: 100,

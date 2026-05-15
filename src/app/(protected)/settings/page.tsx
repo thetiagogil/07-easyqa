@@ -16,7 +16,7 @@ export default async function SettingsPage() {
     <MainContainer navbarProps={{ title: "settings", hasBackButton: true }} noPad>
       <PageStack>
         <Stack gap={1.5}>
-          <SectionHeading title="Connections" description="Account providers connected to EASYQA." />
+          <SectionHeading title="Connections" description="Account providers connected to Easyqa." />
           <List
             variant="outlined"
             sx={{
