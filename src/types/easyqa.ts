@@ -1,4 +1,4 @@
-import type { Tables } from "./database.types";
+import type { Tables } from "@thetiagogil/shared-db-types";
 
 export type ProfileRow = Tables<{ schema: "core" }, "profiles">;
 export type QuestionRow = Tables<{ schema: "easyqa" }, "questions">;
