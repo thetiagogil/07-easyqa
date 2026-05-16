@@ -1,5 +1,8 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/browser";
+import { ActionStatus } from "@/shared/components/action-status";
+import { AUTH_BUTTON_PROPS } from "@/shared/components/auth/auth-link-button";
 import {
   Button,
   Divider,
@@ -13,9 +16,6 @@ import {
 } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AUTH_BUTTON_PROPS } from "@/shared/components/auth/auth-link-button";
-import { ActionStatus } from "@/shared/components/action-status";
-import { createClient } from "@/lib/supabase/browser";
 
 type Mode = "signin" | "signup";
 
@@ -76,7 +76,10 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
       const supabase = createClient();
       const result =
         mode === "signin"
-          ? await supabase.auth.signInWithPassword({ email: emailValue, password })
+          ? await supabase.auth.signInWithPassword({
+              email: emailValue,
+              password,
+            })
           : await supabase.auth.signUp({
               email: emailValue,
               password,
@@ -103,7 +106,9 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
       router.replace(continuePath);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Supabase is not configured.");
+      setError(
+        err instanceof Error ? err.message : "Supabase is not configured.",
+      );
     } finally {
       setPending(false);
     }
@@ -112,7 +117,9 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
   return (
     <Stack gap={3}>
       <Stack gap={0.75}>
-        <Typography level="h3">{mode === "signin" ? "log in" : "sign up"}</Typography>
+        <Typography level="h3">
+          {mode === "signin" ? "log in" : "sign up"}
+        </Typography>
         <Typography level="body-sm" textColor="neutral.500">
           {mode === "signin"
             ? "Use your email and password to continue."
@@ -123,7 +130,9 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
       <Stack component="form" onSubmit={handleSubmit} gap={2}>
         <ActionStatus
           pending={pending}
-          pendingMessage={mode === "signin" ? "Signing in..." : "Creating account..."}
+          pendingMessage={
+            mode === "signin" ? "Signing in..." : "Creating account..."
+          }
           error={error ?? undefined}
           success={message ?? undefined}
         />
@@ -145,13 +154,17 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
           <Input
             type="password"
             value={password}
-            autoComplete={mode === "signin" ? "current-password" : "new-password"}
+            autoComplete={
+              mode === "signin" ? "current-password" : "new-password"
+            }
             placeholder="Enter your password"
             disabled={pending}
             onChange={(event) => setPassword(event.target.value)}
           />
           {mode === "signup" ? (
-            <FormHelperText>Use a password you do not reuse elsewhere.</FormHelperText>
+            <FormHelperText>
+              Use a password you do not reuse elsewhere.
+            </FormHelperText>
           ) : null}
         </FormControl>
 
@@ -169,10 +182,44 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
           </FormControl>
         ) : null}
 
-        <Button {...AUTH_BUTTON_PROPS} type="submit" loading={pending} fullWidth>
+        <Button
+          {...AUTH_BUTTON_PROPS}
+          type="submit"
+          loading={pending}
+          fullWidth
+        >
           {mode === "signin" ? "log in" : "sign up"}
         </Button>
       </Stack>
+
+      {mode === "signin" ? (
+        <Stack gap={3}>
+          <Divider>or</Divider>
+          <Stack
+            component="form"
+            action="/api/auth/demo"
+            method="post"
+            gap={1.25}
+          >
+            <input type="hidden" name="next" value={next} />
+            <Button
+              {...AUTH_BUTTON_PROPS}
+              type="submit"
+              variant="outlined"
+              fullWidth
+            >
+              Continue with demo user
+            </Button>
+            <Typography
+              level="body-xs"
+              textAlign="center"
+              textColor="neutral.500"
+            >
+              Shared demo data may be reset periodically.
+            </Typography>
+          </Stack>
+        </Stack>
+      ) : null}
 
       <Typography level="body-sm" textAlign="center" textColor="neutral.500">
         {mode === "signin" ? "Need an account?" : "Already have an account?"}{" "}
@@ -185,21 +232,6 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
           {mode === "signin" ? "sign up" : "log in"}
         </Link>
       </Typography>
-
-      {mode === "signin" ? (
-        <Stack gap={2}>
-          <Divider>or</Divider>
-          <Stack component="form" action="/api/auth/demo" method="post" gap={1.25}>
-            <input type="hidden" name="next" value={next} />
-            <Button {...AUTH_BUTTON_PROPS} type="submit" variant="outlined" fullWidth>
-              Continue with demo user
-            </Button>
-            <Typography level="body-xs" textAlign="center" textColor="neutral.500">
-              Shared demo data may be reset periodically.
-            </Typography>
-          </Stack>
-        </Stack>
-      ) : null}
     </Stack>
   );
 }
