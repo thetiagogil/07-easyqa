@@ -2,6 +2,7 @@
 
 import {
   Button,
+  Divider,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -20,14 +21,19 @@ type Mode = "signin" | "signup";
 
 const minimumPasswordLength = 8;
 
-export function AuthForm({ next = "/" }: { next?: string }) {
+type AuthFormProps = {
+  initialError?: string | null;
+  next?: string;
+};
+
+export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(initialError);
   const [pending, setPending] = useState(false);
 
   const emailValue = email.trim().toLowerCase();
@@ -179,6 +185,21 @@ export function AuthForm({ next = "/" }: { next?: string }) {
           {mode === "signin" ? "sign up" : "log in"}
         </Link>
       </Typography>
+
+      {mode === "signin" ? (
+        <Stack gap={2}>
+          <Divider>or</Divider>
+          <Stack component="form" action="/api/auth/demo" method="post" gap={1.25}>
+            <input type="hidden" name="next" value={next} />
+            <Button {...AUTH_BUTTON_PROPS} type="submit" variant="outlined" fullWidth>
+              Continue with demo user
+            </Button>
+            <Typography level="body-xs" textAlign="center" textColor="neutral.500">
+              Shared demo data may be reset periodically.
+            </Typography>
+          </Stack>
+        </Stack>
+      ) : null}
     </Stack>
   );
 }
