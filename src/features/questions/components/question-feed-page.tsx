@@ -12,7 +12,9 @@ type QuestionFeedPageProps = {
   searchParams: Promise<{ sort?: string }>;
 };
 
-export async function QuestionFeedPage({ searchParams }: QuestionFeedPageProps) {
+export async function QuestionFeedPage({
+  searchParams,
+}: QuestionFeedPageProps) {
   const params = await searchParams;
   const sort: QuestionSort = params.sort === "top" ? "top" : "new";
   const isConfigured = isSupabaseConfigured();
@@ -29,12 +31,20 @@ export async function QuestionFeedPage({ searchParams }: QuestionFeedPageProps) 
       />
 
       {isConfigured ? null : (
-        <Alert color="warning" variant="soft" sx={{ borderRadius: APP_RADIUS, borderBottom: MAIN_BORDERS }}>
-          Supabase is not configured. Add `.env.local` from `.env.local.example`.
+        <Alert
+          color="warning"
+          variant="soft"
+          sx={{ borderRadius: APP_RADIUS, borderBottom: MAIN_BORDERS }}
+        >
+          Supabase is not configured. Add `.env.local` from
+          `.env.local.example`.
         </Alert>
       )}
 
-      <Suspense key={sort} fallback={<Loading minHeight={260} justifyContent="center" />}>
+      <Suspense
+        key={sort}
+        fallback={<Loading minHeight={260} justifyContent="center" />}
+      >
         <QuestionFeedContent sort={sort} />
       </Suspense>
     </MainContainer>

@@ -6,7 +6,10 @@ type QuestionStatusChipProps = {
   openColor?: "primary" | "neutral";
 };
 
-export function QuestionStatusChip({ status, openColor = "neutral" }: QuestionStatusChipProps) {
+export function QuestionStatusChip({
+  status,
+  openColor = "neutral",
+}: QuestionStatusChipProps) {
   const isClosed = status === "closed";
 
   return (

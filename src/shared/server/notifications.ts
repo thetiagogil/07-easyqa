@@ -3,7 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import { easyqa } from "@/lib/database/schemas";
 import { getCurrentUser } from "@/shared/server/auth";
 
-export async function getUnreadNotificationCount(userId?: string): Promise<number> {
+export async function getUnreadNotificationCount(
+  userId?: string,
+): Promise<number> {
   if (!isSupabaseConfigured()) return 0;
 
   const resolvedUserId = userId ?? (await getCurrentUser())?.id;

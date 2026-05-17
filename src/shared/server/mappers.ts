@@ -84,7 +84,9 @@ export function profileMap(rows: ProfileRow[]) {
   return new Map(rows.map((row) => [row.id, row]));
 }
 
-export function normalizeVoteValue(value: number | null | undefined): VoteValue | null {
+export function normalizeVoteValue(
+  value: number | null | undefined,
+): VoteValue | null {
   if (value === 1 || value === -1) return value;
   return null;
 }

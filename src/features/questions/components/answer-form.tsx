@@ -24,7 +24,8 @@ export function AnswerForm({
   const [content, setContent] = useState("");
   const isContentMaxed = content.length >= LIMITS.answerContent;
   const isContentAlmostMaxed = content.length >= LIMITS.answerContent * 0.8;
-  const isValidLength = content.trim().length > 0 && content.length <= LIMITS.answerContent;
+  const isValidLength =
+    content.trim().length > 0 && content.length <= LIMITS.answerContent;
 
   return (
     <Stack
@@ -69,15 +70,30 @@ export function AnswerForm({
       </Stack>
 
       {content ? (
-        <Stack direction="row" justifyContent="flex-end" alignItems="center" gap={1}>
+        <Stack
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center"
+          gap={1}
+        >
           <Typography
             level="body-sm"
-            color={isContentMaxed ? "danger" : isContentAlmostMaxed ? "warning" : "neutral"}
+            color={
+              isContentMaxed
+                ? "danger"
+                : isContentAlmostMaxed
+                  ? "warning"
+                  : "neutral"
+            }
           >
             {content.length} / {LIMITS.answerContent}
           </Typography>
 
-          <SubmitButton size="sm" disabled={!isValidLength} pendingLabel="Posting...">
+          <SubmitButton
+            size="sm"
+            disabled={!isValidLength}
+            pendingLabel="Posting..."
+          >
             Submit
           </SubmitButton>
         </Stack>

@@ -17,13 +17,30 @@ export function EntryMeta({
   avatarSize = 32,
 }: EntryMetaProps) {
   return (
-    <Stack direction="row" flexBasis="100%" alignItems="center" gap={1} minWidth={0}>
-      <Link component="a" href={`/profile/${profile.id}`} underline="none" flexShrink={0}>
+    <Stack
+      direction="row"
+      flexBasis="100%"
+      alignItems="center"
+      gap={1}
+      minWidth={0}
+    >
+      <Link
+        component="a"
+        href={`/profile/${profile.id}`}
+        underline="none"
+        flexShrink={0}
+      >
         <ProfileAvatar profile={profile} size={avatarSize} />
       </Link>
 
       <Typography level="body-sm" noWrap minWidth={0}>
-        <Link component="a" href={`/profile/${profile.id}`} color="primary" fontWeight={700} marginRight={1}>
+        <Link
+          component="a"
+          href={`/profile/${profile.id}`}
+          color="primary"
+          fontWeight={700}
+          marginRight={1}
+        >
           {profile.displayName}
         </Link>
         <Typography component="span" level="body-sm" textColor="neutral.400">

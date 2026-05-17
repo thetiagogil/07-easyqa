@@ -24,13 +24,21 @@ export async function ProfileHeader({ profileId }: ProfileHeaderProps) {
 
         {isOwnProfile ? (
           <Stack>
-            <IconButton component="a" href="/profile/edit" variant="outlined" size="sm">
+            <IconButton
+              component="a"
+              href="/profile/edit"
+              variant="outlined"
+              size="sm"
+            >
               <EditIcon />
             </IconButton>
           </Stack>
         ) : currentUser?.profile?.hasDisplayName ? (
           <Stack>
-            <FollowButton profileId={profile.id} isFollowing={!!profile.isViewerFollowing} />
+            <FollowButton
+              profileId={profile.id}
+              isFollowing={!!profile.isViewerFollowing}
+            />
           </Stack>
         ) : null}
       </Stack>
@@ -42,7 +50,9 @@ export async function ProfileHeader({ profileId }: ProfileHeaderProps) {
             @{profile.username}
           </Typography>
         ) : null}
-        {profile.bio ? <Typography level="body-sm">{profile.bio}</Typography> : null}
+        {profile.bio ? (
+          <Typography level="body-sm">{profile.bio}</Typography>
+        ) : null}
       </Stack>
     </PageStack>
   );

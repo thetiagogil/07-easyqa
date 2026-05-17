@@ -25,7 +25,9 @@ export async function createQuestionAction(
   }
 
   if (!content || content.length > LIMITS.questionContent) {
-    return { error: `Question details must be 1-${LIMITS.questionContent} characters.` };
+    return {
+      error: `Question details must be 1-${LIMITS.questionContent} characters.`,
+    };
   }
 
   const { data, error } = await easyqa(client).rpc("create_question", {
@@ -80,7 +82,11 @@ export async function acceptAnswerAction(answerId: number, questionId: number) {
   revalidatePath(`/question/${questionId}`);
 }
 
-export async function submitVoteAction(targetType: TargetType, targetId: number, value: VoteValue) {
+export async function submitVoteAction(
+  targetType: TargetType,
+  targetId: number,
+  value: VoteValue,
+) {
   const client = await createClient();
   await requireReadyProfile(client);
 

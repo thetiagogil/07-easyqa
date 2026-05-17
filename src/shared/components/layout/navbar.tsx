@@ -70,7 +70,9 @@ export function Navbar({
   showLoginButton,
   currentUser,
 }: NavbarComponentProps) {
-  const profile = currentUser?.profile?.hasDisplayName ? currentUser.profile : null;
+  const profile = currentUser?.profile?.hasDisplayName
+    ? currentUser.profile
+    : null;
 
   if (fullItem) {
     return (
@@ -108,17 +110,32 @@ export function Navbar({
           ) : hasBackButton ? (
             <BackButton />
           ) : profile ? (
-            <Link component={NextLink} href={`/profile/${profile.id}`} underline="none">
+            <Link
+              component={NextLink}
+              href={`/profile/${profile.id}`}
+              underline="none"
+            >
               <ProfileAvatar profile={profile} size={32} />
             </Link>
           ) : null}
         </Stack>
 
-        <Stack direction="row" justifyContent="center" alignItems="center" minWidth={0} px={7}>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          minWidth={0}
+          px={7}
+        >
           {centerItem ? (
             centerItem
           ) : (
-            <Typography level="title-sm" fontWeight={800} noWrap sx={{ textTransform: "capitalize" }}>
+            <Typography
+              level="title-sm"
+              fontWeight={800}
+              noWrap
+              sx={{ textTransform: "capitalize" }}
+            >
               {title}
             </Typography>
           )}

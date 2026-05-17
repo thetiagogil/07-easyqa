@@ -24,11 +24,17 @@ export async function NotificationsPage() {
       {notifications.length ? (
         <List sx={{ p: 0 }}>
           {notifications.map((notification) => (
-            <NotificationRow key={notification.id} notification={notification} />
+            <NotificationRow
+              key={notification.id}
+              notification={notification}
+            />
           ))}
         </List>
       ) : (
-        <NoData title="No notifications" description="Answers, follows, and accepted answers will appear here." />
+        <NoData
+          title="No notifications"
+          description="Answers, follows, and accepted answers will appear here."
+        />
       )}
     </MainContainer>
   );

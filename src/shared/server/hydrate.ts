@@ -22,12 +22,21 @@ export async function hydrateQuestions(
     client,
     rows.map((question) => question.user_id),
   );
-  const votesByTargetId = await getViewerVotes(client, viewerId, "question", rows.map((q) => q.id));
+  const votesByTargetId = await getViewerVotes(
+    client,
+    viewerId,
+    "question",
+    rows.map((q) => q.id),
+  );
 
   return rows.flatMap((question) => {
     const author = profilesById.get(question.user_id);
     if (!author) return [];
-    return mapQuestion(question, author, votesByTargetId.get(question.id) ?? null);
+    return mapQuestion(
+      question,
+      author,
+      votesByTargetId.get(question.id) ?? null,
+    );
   });
 }
 
@@ -40,7 +49,12 @@ export async function hydrateAnswers(
     client,
     rows.map((answer) => answer.user_id),
   );
-  const votesByTargetId = await getViewerVotes(client, viewerId, "answer", rows.map((a) => a.id));
+  const votesByTargetId = await getViewerVotes(
+    client,
+    viewerId,
+    "answer",
+    rows.map((a) => a.id),
+  );
 
   return rows.flatMap((answer) => {
     const author = profilesById.get(answer.user_id);
@@ -49,13 +63,19 @@ export async function hydrateAnswers(
   });
 }
 
-export async function getProfilesByIds(client: AppSupabaseClient, ids: string[]) {
+export async function getProfilesByIds(
+  client: AppSupabaseClient,
+  ids: string[],
+) {
   const uniqueIds = Array.from(new Set(ids));
   if (!uniqueIds.length) {
     return { profilesById: new Map<string, ProfileRow>() };
   }
 
-  const { data, error } = await core(client).from("profiles").select("*").in("id", uniqueIds);
+  const { data, error } = await core(client)
+    .from("profiles")
+    .select("*")
+    .in("id", uniqueIds);
   if (error) throw error;
 
   return { profilesById: profileMap(data ?? []) };
@@ -67,7 +87,8 @@ async function getViewerVotes(
   targetType: TargetType,
   targetIds: number[],
 ) {
-  if (!viewerId || !targetIds.length) return new Map<number, VoteValue | null>();
+  if (!viewerId || !targetIds.length)
+    return new Map<number, VoteValue | null>();
 
   const { data, error } = await easyqa(client)
     .from("votes")
@@ -78,5 +99,10 @@ async function getViewerVotes(
 
   if (error) throw error;
 
-  return new Map((data ?? []).map((vote) => [vote.target_id, normalizeVoteValue(vote.value)]));
+  return new Map(
+    (data ?? []).map((vote) => [
+      vote.target_id,
+      normalizeVoteValue(vote.value),
+    ]),
+  );
 }

@@ -17,35 +17,45 @@ export async function updateProfileAction(
   const client = await createClient();
   const user = await requireAuthUser(client);
   const displayName = String(formData.get("displayName") ?? "").trim();
-  const usernameInput = String(formData.get("username") ?? "").trim().toLowerCase();
+  const usernameInput = String(formData.get("username") ?? "")
+    .trim()
+    .toLowerCase();
   const bioInput = String(formData.get("bio") ?? "").trim();
 
   if (!displayName || displayName.length > LIMITS.profileName) {
-    return { error: `Display name must be 1-${LIMITS.profileName} characters.` };
+    return {
+      error: `Display name must be 1-${LIMITS.profileName} characters.`,
+    };
   }
 
   if (usernameInput && !/^[a-z0-9_]{3,30}$/.test(usernameInput)) {
-    return { error: "Username must be 3-30 lowercase letters, numbers, or underscores." };
+    return {
+      error:
+        "Username must be 3-30 lowercase letters, numbers, or underscores.",
+    };
   }
 
   if (bioInput.length > LIMITS.profileBio) {
     return { error: `Bio must be ${LIMITS.profileBio} characters or fewer.` };
   }
 
-  const { error } = await core(client).from("profiles").upsert(
-    {
-      id: user.id,
-      display_name: displayName,
-      username: usernameInput || null,
-      bio: bioInput || null,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: "id" },
-  );
+  const { error } = await core(client)
+    .from("profiles")
+    .upsert(
+      {
+        id: user.id,
+        display_name: displayName,
+        username: usernameInput || null,
+        bio: bioInput || null,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "id" },
+    );
 
   if (error) return { error: error.message };
 
-  const { error: settingsError } = await easyqa(client).rpc("ensure_my_settings");
+  const { error: settingsError } =
+    await easyqa(client).rpc("ensure_my_settings");
   if (settingsError) return { error: settingsError.message };
 
   revalidatePath("/");
@@ -66,7 +76,10 @@ export async function followProfileAction(profileId: string, returnTo: string) {
   revalidatePath(returnTo);
 }
 
-export async function unfollowProfileAction(profileId: string, returnTo: string) {
+export async function unfollowProfileAction(
+  profileId: string,
+  returnTo: string,
+) {
   const client = await createClient();
   await requireReadyProfile(client);
 

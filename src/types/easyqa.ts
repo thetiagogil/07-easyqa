@@ -11,7 +11,10 @@ export type UserSettingsRow = Tables<{ schema: "easyqa" }, "user_settings">;
 export type QuestionStatus = "open" | "closed";
 export type TargetType = "question" | "answer";
 export type VoteValue = 1 | -1;
-export type NotificationType = "answer_received" | "answer_accepted" | "followed";
+export type NotificationType =
+  | "answer_received"
+  | "answer_accepted"
+  | "followed";
 
 export type Profile = {
   id: string;

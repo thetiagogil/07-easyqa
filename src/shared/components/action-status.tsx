@@ -15,7 +15,13 @@ export function ActionStatus({
 }: ActionStatusProps) {
   if (pending) {
     return (
-      <Alert color="neutral" variant="soft" role="status" aria-live="polite" aria-busy="true">
+      <Alert
+        color="neutral"
+        variant="soft"
+        role="status"
+        aria-live="polite"
+        aria-busy="true"
+      >
         {pendingMessage}
       </Alert>
     );

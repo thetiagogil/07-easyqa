@@ -43,7 +43,12 @@ export function RouteTabs({
         }}
       >
         {tabs.map((tab) => (
-          <Tab key={tab.value} component={NextLink} href={tab.href} value={tab.value}>
+          <Tab
+            key={tab.value}
+            component={NextLink}
+            href={tab.href}
+            value={tab.value}
+          >
             {tab.label}
           </Tab>
         ))}

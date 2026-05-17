@@ -6,7 +6,10 @@ import { NoData } from "@/shared/components/ui/no-data";
 import { QuestionEntry } from "@/shared/components/question-entry";
 import { TargetEntry } from "@/shared/components/target-entry";
 import { MAIN_BORDERS } from "@/shared/constants/app";
-import { getAnswersForQuestion, getQuestionById } from "@/features/questions/server/queries";
+import {
+  getAnswersForQuestion,
+  getQuestionById,
+} from "@/features/questions/server/queries";
 import { getCurrentUser } from "@/shared/server/auth";
 
 type QuestionDetailPageProps = {
@@ -22,7 +25,9 @@ export async function QuestionDetailPage({ params }: QuestionDetailPageProps) {
     getAnswersForQuestion(questionId),
   ]);
 
-  const hasAnswered = answers.some((answer) => answer.userId === currentUser?.id);
+  const hasAnswered = answers.some(
+    (answer) => answer.userId === currentUser?.id,
+  );
   const canAnswer =
     !!currentUser?.profile?.hasDisplayName &&
     question.status === "open" &&
@@ -30,7 +35,10 @@ export async function QuestionDetailPage({ params }: QuestionDetailPageProps) {
     !hasAnswered;
 
   return (
-    <MainContainer navbarProps={{ title: "question", hasBackButton: true }} noPad>
+    <MainContainer
+      navbarProps={{ title: "question", hasBackButton: true }}
+      noPad
+    >
       <QuestionEntry question={question} />
 
       {!currentUser ? (
@@ -58,7 +66,10 @@ export async function QuestionDetailPage({ params }: QuestionDetailPageProps) {
           />
         ))
       ) : (
-        <NoData title="No answers yet" description="Be the first to share a useful answer." />
+        <NoData
+          title="No answers yet"
+          description="Be the first to share a useful answer."
+        />
       )}
     </MainContainer>
   );

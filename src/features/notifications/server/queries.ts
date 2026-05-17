@@ -25,13 +25,17 @@ export async function getNotifications(): Promise<Notification[]> {
 
   const { profilesById } = await getProfilesByIds(
     client,
-    data.map((notification) => notification.actor_id).filter(Boolean) as string[],
+    data
+      .map((notification) => notification.actor_id)
+      .filter(Boolean) as string[],
   );
 
   return data.map((notification) =>
     mapNotification(
       notification,
-      notification.actor_id ? profilesById.get(notification.actor_id) ?? null : null,
+      notification.actor_id
+        ? (profilesById.get(notification.actor_id) ?? null)
+        : null,
     ),
   );
 }

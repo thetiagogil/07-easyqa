@@ -14,12 +14,14 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
 
   return (
     <Stack borderBottom={MAIN_BORDERS} p={2} gap={1}>
-      <EntryMeta profile={question.author} action="asked a question" createdAt={question.createdAt} />
+      <EntryMeta
+        profile={question.author}
+        action="asked a question"
+        createdAt={question.createdAt}
+      />
 
       <Stack gap={1}>
-        <Typography level="title-sm">
-          {question.title}
-        </Typography>
+        <Typography level="title-sm">{question.title}</Typography>
         <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
           {question.content}
         </Typography>

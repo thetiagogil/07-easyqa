@@ -8,9 +8,15 @@ export async function EditProfilePage() {
   const currentUser = await requireProfile();
 
   return (
-    <MainContainer navbarProps={{ title: "edit profile", hasBackButton: true }} noPad>
+    <MainContainer
+      navbarProps={{ title: "edit profile", hasBackButton: true }}
+      noPad
+    >
       <PageStack>
-        <SectionHeading title="Profile" description="Update the public information shown with your activity." />
+        <SectionHeading
+          title="Profile"
+          description="Update the public information shown with your activity."
+        />
         <ProfileForm profile={currentUser.profile} submitLabel="Save" />
       </PageStack>
     </MainContainer>

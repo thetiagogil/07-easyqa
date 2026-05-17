@@ -5,7 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 import { mapProfile } from "@/shared/server/mappers";
 import type { Profile } from "@/types/easyqa";
 
-export async function searchExploreProfiles(search?: string): Promise<Profile[]> {
+export async function searchExploreProfiles(
+  search?: string,
+): Promise<Profile[]> {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -18,7 +20,9 @@ export async function searchExploreProfiles(search?: string): Promise<Profile[]>
     .limit(LIMITS.pageSize);
 
   if (searchTerm) {
-    query = query.or(`display_name.ilike.%${searchTerm}%,username.ilike.%${searchTerm}%`);
+    query = query.or(
+      `display_name.ilike.%${searchTerm}%,username.ilike.%${searchTerm}%`,
+    );
   }
 
   const { data, error } = await query;

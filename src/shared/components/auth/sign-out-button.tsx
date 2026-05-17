@@ -10,7 +10,10 @@ type SignOutButtonProps = Omit<ButtonProps, "children" | "onClick"> & {
   label?: string;
 };
 
-export function SignOutButton({ label = "Log out", ...props }: SignOutButtonProps) {
+export function SignOutButton({
+  label = "Log out",
+  ...props
+}: SignOutButtonProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
 

@@ -26,7 +26,10 @@ export async function ExplorePage({ searchParams }: ExplorePageProps) {
       {profiles.length ? (
         <List sx={{ p: 0 }}>
           {profiles.map((profile) => (
-            <ListItem key={profile.id} sx={{ borderBottom: MAIN_BORDERS, p: 0 }}>
+            <ListItem
+              key={profile.id}
+              sx={{ borderBottom: MAIN_BORDERS, p: 0 }}
+            >
               <ListItemContent
                 component="a"
                 href={`/profile/${profile.id}`}
@@ -63,7 +66,11 @@ export async function ExplorePage({ searchParams }: ExplorePageProps) {
                   >
                     {profile.displayName}
                   </Typography>
-                  <Typography level="body-sm" noWrap sx={{ flex: 1, minWidth: 0 }}>
+                  <Typography
+                    level="body-sm"
+                    noWrap
+                    sx={{ flex: 1, minWidth: 0 }}
+                  >
                     {profile.bio ?? profile.username}
                   </Typography>
                 </Box>
@@ -72,7 +79,10 @@ export async function ExplorePage({ searchParams }: ExplorePageProps) {
           ))}
         </List>
       ) : (
-        <NoData title="No profiles found" description="Try another name or username." />
+        <NoData
+          title="No profiles found"
+          description="Try another name or username."
+        />
       )}
     </MainContainer>
   );

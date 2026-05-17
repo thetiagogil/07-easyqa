@@ -1,10 +1,21 @@
 import CheckIcon from "@mui/icons-material/Check";
-import { Box, Link, ListItem, ListItemContent, Stack, Typography } from "@mui/joy";
+import {
+  Box,
+  Link,
+  ListItem,
+  ListItemContent,
+  Stack,
+  Typography,
+} from "@mui/joy";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Notification } from "@/types/easyqa";
 import { RelativeTime } from "@/shared/components/ui/relative-time";
 
-export function NotificationRow({ notification }: { notification: Notification }) {
+export function NotificationRow({
+  notification,
+}: {
+  notification: Notification;
+}) {
   return (
     <ListItem
       sx={{
@@ -35,7 +46,9 @@ export function NotificationRow({ notification }: { notification: Notification }
             }}
           />
           <Stack minWidth={0}>
-            <Typography level="body-sm">{renderNotification(notification)}</Typography>
+            <Typography level="body-sm">
+              {renderNotification(notification)}
+            </Typography>
             <Typography level="body-xs" textColor="neutral.500">
               <RelativeTime value={notification.createdAt} />
             </Typography>
@@ -53,7 +66,12 @@ export function NotificationRow({ notification }: { notification: Notification }
 function renderNotification(notification: Notification) {
   const actorName = notification.actor?.displayName ?? "Someone";
   const actorLink = notification.actorId ? (
-    <Link component="a" href={`/profile/${notification.actorId}`} color="primary" fontWeight={700}>
+    <Link
+      component="a"
+      href={`/profile/${notification.actorId}`}
+      color="primary"
+      fontWeight={700}
+    >
       {actorName}
     </Link>
   ) : (
@@ -68,7 +86,11 @@ function renderNotification(notification: Notification) {
     return (
       <>
         {actorLink} accepted your{" "}
-        <Link component="a" href={`/question/${notification.questionId}`} color="primary">
+        <Link
+          component="a"
+          href={`/question/${notification.questionId}`}
+          color="primary"
+        >
           answer
         </Link>
         .
@@ -79,7 +101,11 @@ function renderNotification(notification: Notification) {
   return (
     <>
       {actorLink} answered your{" "}
-      <Link component="a" href={`/question/${notification.questionId}`} color="primary">
+      <Link
+        component="a"
+        href={`/question/${notification.questionId}`}
+        color="primary"
+      >
         question
       </Link>
       .

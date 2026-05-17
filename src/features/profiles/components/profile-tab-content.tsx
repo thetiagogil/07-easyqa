@@ -11,7 +11,10 @@ type ProfileTabContentProps = {
   tab: ProfileTab;
 };
 
-export async function ProfileTabContent({ profileId, tab }: ProfileTabContentProps) {
+export async function ProfileTabContent({
+  profileId,
+  tab,
+}: ProfileTabContentProps) {
   const questions =
     tab === "answers"
       ? await getAnsweredQuestionsByProfile(profileId)

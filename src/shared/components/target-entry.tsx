@@ -30,7 +30,8 @@ export function TargetEntry({
     answeredQuestion.status !== "closed" &&
     !answer.accepted;
   const isClosed =
-    question?.status === "closed" || (!!answer && answeredQuestion?.status === "closed");
+    question?.status === "closed" ||
+    (!!answer && answeredQuestion?.status === "closed");
   const notAcceptedAnswer =
     !!answer && answeredQuestion?.status === "closed" && !answer.accepted;
 
@@ -53,12 +54,28 @@ export function TargetEntry({
       </Stack>
 
       <Stack flexBasis="100%" minWidth={0} gap={1}>
-        <Stack direction="row" height={sharedSize} alignItems="center" gap={1} minWidth={0}>
+        <Stack
+          direction="row"
+          height={sharedSize}
+          alignItems="center"
+          gap={1}
+          minWidth={0}
+        >
           <Typography level="body-sm" noWrap minWidth={0}>
-            <Link component="a" href={`/profile/${author.id}`} color="primary" fontWeight={700} marginRight={1}>
+            <Link
+              component="a"
+              href={`/profile/${author.id}`}
+              color="primary"
+              fontWeight={700}
+              marginRight={1}
+            >
               {author.displayName}
             </Link>
-            <Typography component="span" level="body-sm" textColor="neutral.400">
+            <Typography
+              component="span"
+              level="body-sm"
+              textColor="neutral.400"
+            >
               {question ? "asked" : "answered"}
             </Typography>
           </Typography>
@@ -71,7 +88,11 @@ export function TargetEntry({
         </Stack>
 
         {question ? (
-          <Link component="a" href={`/question/${question.id}`} underline="none">
+          <Link
+            component="a"
+            href={`/question/${question.id}`}
+            underline="none"
+          >
             <Typography level="body-md">{question.title}</Typography>
           </Link>
         ) : (
@@ -80,7 +101,11 @@ export function TargetEntry({
           </Typography>
         )}
 
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <VoteControls
             key={`${targetType}-${target.id}-${target.voteScore}-${target.viewerVoteValue ?? "none"}`}
             target={target}
@@ -89,7 +114,12 @@ export function TargetEntry({
           />
 
           <Stack direction="row" alignItems="center" gap={1}>
-            {question ? <QuestionStatusChip status={question.status} openColor="primary" /> : null}
+            {question ? (
+              <QuestionStatusChip
+                status={question.status}
+                openColor="primary"
+              />
+            ) : null}
 
             {answer?.accepted ? (
               <Chip size="sm" variant="outlined" color="success">
@@ -98,7 +128,11 @@ export function TargetEntry({
             ) : null}
 
             {answer && canAccept ? (
-              <AcceptAnswerButton answerId={answer.id} questionId={answer.questionId} color="neutral">
+              <AcceptAnswerButton
+                answerId={answer.id}
+                questionId={answer.questionId}
+                color="neutral"
+              >
                 Accept answer
               </AcceptAnswerButton>
             ) : null}

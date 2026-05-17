@@ -9,7 +9,13 @@ export function NoData({
   description?: string;
 }) {
   return (
-    <Stack alignItems="center" justifyContent="center" gap={1} p={4} textAlign="center">
+    <Stack
+      alignItems="center"
+      justifyContent="center"
+      gap={1}
+      p={4}
+      textAlign="center"
+    >
       <InboxIcon color="disabled" />
       <Typography level="title-sm">{title}</Typography>
       {description ? (

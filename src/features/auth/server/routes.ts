@@ -6,7 +6,10 @@ import { getCurrentUser } from "@/shared/server/auth";
 export async function handleAuthCallback(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  const next = safeRedirectPath(requestUrl.searchParams.get("next"), "/auth/continue");
+  const next = safeRedirectPath(
+    requestUrl.searchParams.get("next"),
+    "/auth/continue",
+  );
 
   if (code) {
     const supabase = await createClient();

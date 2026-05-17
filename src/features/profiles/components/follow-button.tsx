@@ -1,4 +1,7 @@
-import { followProfileAction, unfollowProfileAction } from "@/features/profiles/server/actions";
+import {
+  followProfileAction,
+  unfollowProfileAction,
+} from "@/features/profiles/server/actions";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function FollowButton({

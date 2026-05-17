@@ -14,8 +14,14 @@ export function formatRelativeTime(value: string) {
     ["minute", 1000 * 60],
   ];
 
-  const [unit, unitMs] = units.find(([, ms]) => absMs >= ms) ?? ["second", 1000];
+  const [unit, unitMs] = units.find(([, ms]) => absMs >= ms) ?? [
+    "second",
+    1000,
+  ];
   const valueInUnit = Math.round(diffMs / unitMs);
 
-  return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(valueInUnit, unit);
+  return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(
+    valueInUnit,
+    unit,
+  );
 }

@@ -5,7 +5,10 @@ import { SectionHeading } from "@/shared/components/ui/section-heading";
 
 export function AddQuestionPage() {
   return (
-    <MainContainer navbarProps={{ title: "add question", hasBackButton: true }} noPad>
+    <MainContainer
+      navbarProps={{ title: "add question", hasBackButton: true }}
+      noPad
+    >
       <PageStack>
         <SectionHeading
           title="Ask a question"

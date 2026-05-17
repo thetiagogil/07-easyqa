@@ -1,6 +1,13 @@
 "use client";
 
-import { FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Stack,
+  Textarea,
+} from "@mui/joy";
 import { useActionState } from "react";
 import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS } from "@/shared/constants/app";
@@ -52,7 +59,9 @@ export function ProfileForm({
           placeholder="easyqa_user"
           slotProps={{ input: { maxLength: 30 } }}
         />
-        <FormHelperText>Optional. Use lowercase letters, numbers, and underscores.</FormHelperText>
+        <FormHelperText>
+          Optional. Use lowercase letters, numbers, and underscores.
+        </FormHelperText>
       </FormControl>
 
       <FormControl>

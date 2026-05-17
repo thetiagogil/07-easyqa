@@ -7,7 +7,9 @@ import { getCurrentAuthUser } from "@/shared/server/auth";
 import { hydrateAnswers, hydrateQuestions } from "@/shared/server/hydrate";
 import type { Answer, Question, QuestionSort } from "@/types/easyqa";
 
-export async function getQuestions(sort: QuestionSort = "new"): Promise<Question[]> {
+export async function getQuestions(
+  sort: QuestionSort = "new",
+): Promise<Question[]> {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -48,7 +50,9 @@ export async function getQuestionById(id: number): Promise<Question> {
   return question;
 }
 
-export async function getAnswersForQuestion(questionId: number): Promise<Answer[]> {
+export async function getAnswersForQuestion(
+  questionId: number,
+): Promise<Answer[]> {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();

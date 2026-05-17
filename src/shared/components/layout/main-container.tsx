@@ -41,7 +41,12 @@ export async function MainContainer({
       margin="auto"
     >
       <Navbar {...navbarProps} currentUser={currentUser} />
-      <Stack component="main" flexGrow={1} p={noPad ? 0 : { xs: 2, sm: 2.5 }} sx={sx}>
+      <Stack
+        component="main"
+        flexGrow={1}
+        p={noPad ? 0 : { xs: 2, sm: 2.5 }}
+        sx={sx}
+      >
         {children}
       </Stack>
       <Footer currentUser={currentUser} unreadCount={unreadCount} />

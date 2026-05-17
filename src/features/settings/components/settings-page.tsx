@@ -11,10 +11,16 @@ export async function SettingsPage() {
   const currentUser = await requireProfile();
 
   return (
-    <MainContainer navbarProps={{ title: "settings", hasBackButton: true }} noPad>
+    <MainContainer
+      navbarProps={{ title: "settings", hasBackButton: true }}
+      noPad
+    >
       <PageStack>
         <Stack gap={1.5}>
-          <SectionHeading title="Connections" description="Account providers connected to Easyqa." />
+          <SectionHeading
+            title="Connections"
+            description="Account providers connected to Easyqa."
+          />
           <List
             variant="outlined"
             sx={{
@@ -24,7 +30,15 @@ export async function SettingsPage() {
               overflow: "hidden",
             }}
           >
-            <ListItem sx={{ display: "flex", justifyContent: "space-between", gap: 2, px: 1.25, py: 1 }}>
+            <ListItem
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 2,
+                px: 1.25,
+                py: 1,
+              }}
+            >
               <Stack flexDirection="row" alignItems="center" gap={1}>
                 <Typography>Email</Typography>
                 <CheckCircleIcon color="success" fontSize="small" />
@@ -37,7 +51,10 @@ export async function SettingsPage() {
         </Stack>
 
         <Stack gap={1.5}>
-          <SectionHeading title="App" description="Manage your active session." />
+          <SectionHeading
+            title="App"
+            description="Manage your active session."
+          />
           <SignOutButton fullWidth />
         </Stack>
       </PageStack>

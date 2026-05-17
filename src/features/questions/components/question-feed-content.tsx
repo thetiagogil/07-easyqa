@@ -11,7 +11,12 @@ export async function QuestionFeedContent({ sort }: QuestionFeedContentProps) {
   const questions = await getQuestions(sort);
 
   if (!questions.length) {
-    return <NoData title="No questions yet" description="Ask the first question to start the feed." />;
+    return (
+      <NoData
+        title="No questions yet"
+        description="Ask the first question to start the feed."
+      />
+    );
   }
 
   return questions.map((question) => (

@@ -42,7 +42,12 @@ export function VoteControls({
   };
 
   return (
-    <Stack direction="row" alignItems="center" gap={0.5} aria-busy={isPending || undefined}>
+    <Stack
+      direction="row"
+      alignItems="center"
+      gap={0.5}
+      aria-busy={isPending || undefined}
+    >
       <IconButton
         type="button"
         size="sm"

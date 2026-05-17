@@ -8,7 +8,11 @@ type RouteFeedbackProps = {
   children?: ReactNode;
 };
 
-export function RouteFeedback({ title, description, children }: RouteFeedbackProps) {
+export function RouteFeedback({
+  title,
+  description,
+  children,
+}: RouteFeedbackProps) {
   return (
     <Stack
       component="main"

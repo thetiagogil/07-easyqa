@@ -15,7 +15,12 @@ export function AcceptAnswerButton({
 }) {
   return (
     <form action={acceptAnswerAction.bind(null, answerId, questionId)}>
-      <SubmitButton size="sm" variant="soft" color={color} pendingLabel="Saving">
+      <SubmitButton
+        size="sm"
+        variant="soft"
+        color={color}
+        pendingLabel="Saving"
+      >
         {children}
       </SubmitButton>
     </form>

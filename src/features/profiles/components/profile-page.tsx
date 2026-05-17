@@ -16,7 +16,10 @@ export async function ProfilePage({ params, searchParams }: ProfilePageProps) {
   const tab: ProfileTab = query.tab === "answers" ? "answers" : "questions";
 
   return (
-    <MainContainer navbarProps={{ title: "profile", hasBackButton: true }} noPad>
+    <MainContainer
+      navbarProps={{ title: "profile", hasBackButton: true }}
+      noPad
+    >
       <Suspense fallback={<Loading minHeight={220} justifyContent="center" />}>
         <ProfileHeader profileId={id} />
       </Suspense>
@@ -24,12 +27,23 @@ export async function ProfilePage({ params, searchParams }: ProfilePageProps) {
       <RouteTabs
         value={tab}
         tabs={[
-          { label: "Questions", href: `/profile/${id}?tab=questions`, value: "questions" },
-          { label: "Answers", href: `/profile/${id}?tab=answers`, value: "answers" },
+          {
+            label: "Questions",
+            href: `/profile/${id}?tab=questions`,
+            value: "questions",
+          },
+          {
+            label: "Answers",
+            href: `/profile/${id}?tab=answers`,
+            value: "answers",
+          },
         ]}
       />
 
-      <Suspense key={`${id}-${tab}`} fallback={<Loading minHeight={260} justifyContent="center" />}>
+      <Suspense
+        key={`${id}-${tab}`}
+        fallback={<Loading minHeight={260} justifyContent="center" />}
+      >
         <ProfileTabContent profileId={id} tab={tab} />
       </Suspense>
     </MainContainer>

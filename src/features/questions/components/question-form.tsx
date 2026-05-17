@@ -1,6 +1,13 @@
 "use client";
 
-import { FormControl, FormHelperText, FormLabel, Input, Stack, Textarea } from "@mui/joy";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Stack,
+  Textarea,
+} from "@mui/joy";
 import { useActionState } from "react";
 import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS } from "@/shared/constants/app";
@@ -29,7 +36,9 @@ export function QuestionForm() {
           placeholder="Ask one clear question"
           slotProps={{ input: { maxLength: LIMITS.questionTitle } }}
         />
-        <FormHelperText>Keep it specific enough to answer directly.</FormHelperText>
+        <FormHelperText>
+          Keep it specific enough to answer directly.
+        </FormHelperText>
       </FormControl>
 
       <FormControl required>

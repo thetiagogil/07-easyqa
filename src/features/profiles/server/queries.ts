@@ -39,7 +39,9 @@ export async function getProfileById(id: string): Promise<Profile> {
   return profile;
 }
 
-export async function getQuestionsByProfile(profileId: string): Promise<Question[]> {
+export async function getQuestionsByProfile(
+  profileId: string,
+): Promise<Question[]> {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -58,7 +60,9 @@ export async function getQuestionsByProfile(profileId: string): Promise<Question
   return hydrateQuestions(client, data, viewer?.id ?? null);
 }
 
-export async function getAnsweredQuestionsByProfile(profileId: string): Promise<Question[]> {
+export async function getAnsweredQuestionsByProfile(
+  profileId: string,
+): Promise<Question[]> {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -73,7 +77,9 @@ export async function getAnsweredQuestionsByProfile(profileId: string): Promise<
 
   if (answersError) throw answersError;
 
-  const questionIds = Array.from(new Set((answers ?? []).map((answer) => answer.question_id)));
+  const questionIds = Array.from(
+    new Set((answers ?? []).map((answer) => answer.question_id)),
+  );
   if (!questionIds.length) return [];
 
   const { data: questions, error: questionsError } = await easyqa(client)
