@@ -5,7 +5,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { IconButton, Stack, Typography } from "@mui/joy";
 import { useState, useTransition } from "react";
-import { submitVoteAction } from "@/shared/server/actions";
+import { submitVoteAction } from "@/features/questions/server/actions";
 import type { Answer, Question, TargetType, VoteValue } from "@/types/easyqa";
 
 type VoteControlsProps = {

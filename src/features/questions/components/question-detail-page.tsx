@@ -3,8 +3,8 @@ import { AuthLinkButton } from "@/shared/components/auth/auth-link-button";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { AnswerForm } from "@/features/questions/components/answer-form";
 import { NoData } from "@/shared/components/ui/no-data";
-import { QuestionEntry } from "@/shared/components/question-entry";
-import { TargetEntry } from "@/shared/components/target-entry";
+import { QuestionEntry } from "@/features/questions/components/question-entry";
+import { TargetEntry } from "@/features/questions/components/target-entry";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import {
   getAnswersForQuestion,

@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Profile, Question } from "@/types/easyqa";
 import { core, easyqa } from "@/lib/database/schemas";
 import { getCurrentAuthUser } from "@/shared/server/auth";
-import { hydrateQuestions } from "@/shared/server/hydrate";
+import { hydrateQuestions } from "@/features/questions/server/hydration";
 import { mapProfile } from "@/shared/server/mappers";
 
 export async function getProfileById(id: string): Promise<Profile> {

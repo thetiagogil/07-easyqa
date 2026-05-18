@@ -1,5 +1,5 @@
 import { NoData } from "@/shared/components/ui/no-data";
-import { TargetEntry } from "@/shared/components/target-entry";
+import { TargetEntry } from "@/features/questions/components/target-entry";
 import {
   getAnsweredQuestionsByProfile,
   getQuestionsByProfile,

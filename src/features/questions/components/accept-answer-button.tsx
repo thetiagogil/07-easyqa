@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { acceptAnswerAction } from "@/shared/server/actions";
+import { acceptAnswerAction } from "@/features/questions/server/actions";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
 export function AcceptAnswerButton({

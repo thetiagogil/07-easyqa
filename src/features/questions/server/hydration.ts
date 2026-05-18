@@ -1,17 +1,16 @@
 import type {
   AnswerRow,
-  ProfileRow,
   QuestionRow,
   TargetType,
   VoteValue,
 } from "@/types/easyqa";
+import { getProfilesByIds } from "@/features/profiles/server/lookups";
 import {
   mapAnswer,
   mapQuestion,
   normalizeVoteValue,
-  profileMap,
-} from "@/shared/server/mappers";
-import { core, easyqa, type AppSupabaseClient } from "@/lib/database/schemas";
+} from "@/features/questions/server/mappers";
+import { easyqa, type AppSupabaseClient } from "@/lib/database/schemas";
 
 export async function hydrateQuestions(
   client: AppSupabaseClient,
@@ -61,24 +60,6 @@ export async function hydrateAnswers(
     if (!author) return [];
     return mapAnswer(answer, author, votesByTargetId.get(answer.id) ?? null);
   });
-}
-
-export async function getProfilesByIds(
-  client: AppSupabaseClient,
-  ids: string[],
-) {
-  const uniqueIds = Array.from(new Set(ids));
-  if (!uniqueIds.length) {
-    return { profilesById: new Map<string, ProfileRow>() };
-  }
-
-  const { data, error } = await core(client)
-    .from("profiles")
-    .select("*")
-    .in("id", uniqueIds);
-  if (error) throw error;
-
-  return { profilesById: profileMap(data ?? []) };
 }
 
 async function getViewerVotes(

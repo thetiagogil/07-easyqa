@@ -3,8 +3,10 @@ import { MarkReadButton } from "@/features/notifications/components/mark-read-bu
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { NoData } from "@/shared/components/ui/no-data";
 import { NotificationRow } from "@/features/notifications/components/notification-row";
-import { getNotifications } from "@/features/notifications/server/queries";
-import { getUnreadNotificationCount } from "@/shared/server/notifications";
+import {
+  getNotifications,
+  getUnreadNotificationCount,
+} from "@/features/notifications/server/queries";
 
 export async function NotificationsPage() {
   const [notifications, unreadCount] = await Promise.all([

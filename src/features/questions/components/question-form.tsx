@@ -11,7 +11,7 @@ import {
 import { useActionState } from "react";
 import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS } from "@/shared/constants/app";
-import { createQuestionAction } from "@/shared/server/actions";
+import { createQuestionAction } from "@/features/questions/server/actions";
 import type { ActionState } from "@/shared/types";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 

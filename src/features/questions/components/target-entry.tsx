@@ -1,11 +1,11 @@
 import { Chip, Link, Stack, Typography } from "@mui/joy";
-import { AcceptAnswerButton } from "@/shared/components/accept-answer-button";
-import { VoteControls } from "@/shared/components/vote-controls";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Answer, CurrentUser, Question } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { QuestionStatusChip } from "./question-status-chip";
 import { RelativeTime } from "@/shared/components/ui/relative-time";
+import { AcceptAnswerButton } from "./accept-answer-button";
+import { VoteControls } from "./vote-controls";
 
 type TargetEntryProps = {
   targetType: "question" | "answer";

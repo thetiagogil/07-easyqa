@@ -1,9 +1,9 @@
 import { Stack, Typography } from "@mui/joy";
-import { VoteControls } from "@/shared/components/vote-controls";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Question } from "@/types/easyqa";
 import { EntryMeta } from "./entry-meta";
 import { QuestionStatusChip } from "./question-status-chip";
+import { VoteControls } from "./vote-controls";
 
 type QuestionEntryProps = {
   question: Question;

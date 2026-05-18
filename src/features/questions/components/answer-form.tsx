@@ -4,7 +4,7 @@ import { Stack, Textarea, Typography } from "@mui/joy";
 import { useActionState, useState } from "react";
 import { ActionStatus } from "@/shared/components/action-status";
 import { LIMITS, MAIN_BORDERS } from "@/shared/constants/app";
-import { createAnswerAction } from "@/shared/server/actions";
+import { createAnswerAction } from "@/features/questions/server/actions";
 import type { ActionState } from "@/shared/types";
 import type { Profile } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
