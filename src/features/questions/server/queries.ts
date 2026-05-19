@@ -4,7 +4,10 @@ import { isSupabaseConfigured } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 import { easyqa } from "@/lib/database/schemas";
 import { getCurrentAuthUser } from "@/shared/server/auth";
-import { hydrateAnswers, hydrateQuestions } from "@/features/questions/server/hydration";
+import {
+  hydrateAnswers,
+  hydrateQuestions,
+} from "@/features/questions/server/hydration";
 import type { Answer, Question, QuestionSort } from "@/types/easyqa";
 
 export async function getQuestions(

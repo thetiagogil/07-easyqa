@@ -1,7 +1,4 @@
-import type {
-  Profile,
-  ProfileRow,
-} from "@/types/easyqa";
+import type { Profile, ProfileRow } from "@/types/easyqa";
 
 export function mapProfile(row: ProfileRow): Profile {
   return {
