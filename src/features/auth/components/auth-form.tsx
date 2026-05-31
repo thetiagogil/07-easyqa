@@ -208,7 +208,7 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
               variant="outlined"
               fullWidth
             >
-              Continue with demo user
+              Continue with demo account
             </Button>
             <Typography
               level="body-xs"
