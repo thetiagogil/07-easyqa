@@ -1,8 +1,13 @@
+"use client";
+
+import { useActionState } from "react";
 import {
   followProfileAction,
   unfollowProfileAction,
 } from "@/features/profiles/server/actions";
+import { ActionStatus } from "@/shared/components/action-status";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
+import type { ActionState } from "@/shared/types";
 
 export function FollowButton({
   profileId,
@@ -14,9 +19,13 @@ export function FollowButton({
   const action = isFollowing
     ? unfollowProfileAction.bind(null, profileId, `/profile/${profileId}`)
     : followProfileAction.bind(null, profileId, `/profile/${profileId}`);
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
+    action,
+    {},
+  );
 
   return (
-    <form action={action}>
+    <form action={formAction}>
       <SubmitButton
         size="sm"
         variant={isFollowing ? "soft" : "solid"}
@@ -26,6 +35,13 @@ export function FollowButton({
       >
         {isFollowing ? "Following" : "Follow"}
       </SubmitButton>
+      <ActionStatus
+        compact
+        pending={isPending}
+        pendingMessage="Saving..."
+        error={state.error}
+        success={state.success}
+      />
     </form>
   );
 }

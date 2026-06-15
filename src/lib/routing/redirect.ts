@@ -22,3 +22,32 @@ export function safeRedirectPath(
     return fallback;
   }
 }
+
+type OriginRequest = {
+  headers: Headers;
+  url: string;
+};
+
+function firstHeaderValue(value: string | null) {
+  return value?.split(",")[0]?.trim() || null;
+}
+
+export function getRequestOrigin(request: OriginRequest) {
+  const requestUrl = new URL(request.url);
+  const host =
+    firstHeaderValue(request.headers.get("host")) ??
+    firstHeaderValue(request.headers.get("x-forwarded-host"));
+  const protocol =
+    firstHeaderValue(request.headers.get("x-forwarded-proto")) ??
+    requestUrl.protocol.replace(":", "");
+
+  if (!host || !["http", "https"].includes(protocol)) {
+    return requestUrl.origin;
+  }
+
+  try {
+    return new URL(`${protocol}://${host}`).origin;
+  } catch {
+    return requestUrl.origin;
+  }
+}

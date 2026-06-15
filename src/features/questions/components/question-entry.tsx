@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/joy";
+import { Chip, Stack, Typography } from "@mui/joy";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Question } from "@/types/easyqa";
 import { EntryMeta } from "./entry-meta";
@@ -21,7 +21,7 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
       />
 
       <Stack gap={1}>
-        <Typography level="title-sm">{question.title}</Typography>
+        <Typography level="h3">{question.title}</Typography>
         <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
           {question.content}
         </Typography>
@@ -35,7 +35,13 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
           disabled={isClosed}
         />
 
-        <QuestionStatusChip status={question.status} />
+        <Stack direction="row" alignItems="center" gap={1}>
+          <Chip size="sm" variant="soft" color="neutral">
+            {question.answerCount}{" "}
+            {question.answerCount === 1 ? "answer" : "answers"}
+          </Chip>
+          <QuestionStatusChip status={question.status} />
+        </Stack>
       </Stack>
     </Stack>
   );

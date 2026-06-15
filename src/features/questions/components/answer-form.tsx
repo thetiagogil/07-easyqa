@@ -50,6 +50,7 @@ export function AnswerForm({
           variant="plain"
           placeholder="Write your answer here..."
           value={content}
+          disabled={isPending}
           onChange={(event) => setContent(event.target.value)}
           slotProps={{ textarea: { maxLength: LIMITS.answerContent } }}
           sx={{

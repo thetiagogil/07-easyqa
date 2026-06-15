@@ -122,8 +122,8 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
         </Typography>
         <Typography level="body-sm" textColor="neutral.500">
           {mode === "signin"
-            ? "Use your email and password to continue."
-            : "Use email and password. Profile setup comes next."}
+            ? "Use your email and password to continue, or try the demo account."
+            : "Create your account first. Profile setup comes next."}
         </Typography>
       </Stack>
 
@@ -161,11 +161,11 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
             disabled={pending}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {mode === "signup" ? (
-            <FormHelperText>
-              Use a password you do not reuse elsewhere.
-            </FormHelperText>
-          ) : null}
+          <FormHelperText>
+            {mode === "signup"
+              ? `Use at least ${minimumPasswordLength} characters and avoid reused passwords.`
+              : `Password must be at least ${minimumPasswordLength} characters.`}
+          </FormHelperText>
         </FormControl>
 
         {mode === "signup" ? (
@@ -191,6 +191,18 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
           {mode === "signin" ? "log in" : "sign up"}
         </Button>
       </Stack>
+
+      <Typography level="body-sm" textAlign="center" textColor="neutral.500">
+        {mode === "signin" ? "Need an account?" : "Already have an account?"}{" "}
+        <Link
+          component="button"
+          type="button"
+          onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
+          sx={{ verticalAlign: "baseline" }}
+        >
+          {mode === "signin" ? "sign up" : "log in"}
+        </Link>
+      </Typography>
 
       {mode === "signin" ? (
         <Stack gap={3}>
@@ -220,18 +232,6 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
           </Stack>
         </Stack>
       ) : null}
-
-      <Typography level="body-sm" textAlign="center" textColor="neutral.500">
-        {mode === "signin" ? "Need an account?" : "Already have an account?"}{" "}
-        <Link
-          component="button"
-          type="button"
-          onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-          sx={{ verticalAlign: "baseline" }}
-        >
-          {mode === "signin" ? "sign up" : "log in"}
-        </Link>
-      </Typography>
     </Stack>
   );
 }

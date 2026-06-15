@@ -1,4 +1,7 @@
+"use client";
+
 import { Chip, Link, Stack, Typography } from "@mui/joy";
+import NextLink from "next/link";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Answer, CurrentUser, Question } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
@@ -48,7 +51,11 @@ export function TargetEntry({
       sx={notAcceptedAnswer ? { opacity: 0.5 } : undefined}
     >
       <Stack flexShrink={0}>
-        <Link component="a" href={`/profile/${author.id}`} underline="none">
+        <Link
+          component={NextLink}
+          href={`/profile/${author.id}`}
+          underline="none"
+        >
           <ProfileAvatar profile={author} size={sharedSize} />
         </Link>
       </Stack>
@@ -63,7 +70,7 @@ export function TargetEntry({
         >
           <Typography level="body-sm" noWrap minWidth={0}>
             <Link
-              component="a"
+              component={NextLink}
               href={`/profile/${author.id}`}
               color="primary"
               fontWeight={700}
@@ -88,13 +95,27 @@ export function TargetEntry({
         </Stack>
 
         {question ? (
-          <Link
-            component="a"
-            href={`/question/${question.id}`}
-            underline="none"
-          >
-            <Typography level="body-md">{question.title}</Typography>
-          </Link>
+          <Stack gap={0.5}>
+            <Link
+              component={NextLink}
+              href={`/question/${question.id}`}
+              underline="none"
+            >
+              <Typography level="title-sm">{question.title}</Typography>
+            </Link>
+            <Typography
+              level="body-sm"
+              textColor="neutral.500"
+              sx={{
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
+              }}
+            >
+              {question.content}
+            </Typography>
+          </Stack>
         ) : (
           <Typography level="body-sm" textAlign="justify" whiteSpace="pre-line">
             {target.content}
@@ -115,15 +136,21 @@ export function TargetEntry({
 
           <Stack direction="row" alignItems="center" gap={1}>
             {question ? (
-              <QuestionStatusChip
-                status={question.status}
-                openColor="primary"
-              />
+              <>
+                <Chip size="sm" variant="soft" color="neutral">
+                  {question.answerCount}{" "}
+                  {question.answerCount === 1 ? "answer" : "answers"}
+                </Chip>
+                <QuestionStatusChip
+                  status={question.status}
+                  openColor="primary"
+                />
+              </>
             ) : null}
 
             {answer?.accepted ? (
               <Chip size="sm" variant="outlined" color="success">
-                Accepted
+                Accepted answer
               </Chip>
             ) : null}
 

@@ -94,27 +94,39 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
       zIndex={10}
     >
       <Stack component="nav" direction="row" py={0.75}>
-        {footerItems.map((item) => (
-          <Link
-            key={item.path}
-            component={NextLink}
-            href={item.path}
-            aria-label={item.label}
-            sx={{
-              color: pathname === item.path ? "primary.400" : "neutral.500",
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: 46,
-              "&:hover": {
-                color: "primary.300",
-              },
-            }}
-          >
-            {item.icon}
-          </Link>
-        ))}
+        {footerItems.map((item) => {
+          const isActive = isFooterItemActive(pathname, item.path);
+
+          return (
+            <Link
+              key={item.path}
+              component={NextLink}
+              href={item.path}
+              aria-label={item.label}
+              aria-current={isActive ? "page" : undefined}
+              sx={{
+                color: isActive ? "primary.400" : "neutral.500",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: 46,
+                "&:hover": {
+                  color: "primary.300",
+                },
+              }}
+            >
+              {item.icon}
+            </Link>
+          );
+        })}
       </Stack>
     </Stack>
   );
+}
+
+function isFooterItemActive(pathname: string, itemPath: string) {
+  if (itemPath === "/") return pathname === "/";
+  if (itemPath === "/question/add") return pathname.startsWith("/question");
+
+  return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
 }

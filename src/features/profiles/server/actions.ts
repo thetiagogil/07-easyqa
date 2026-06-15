@@ -63,7 +63,12 @@ export async function updateProfileAction(
   redirect(`/profile/${user.id}`);
 }
 
-export async function followProfileAction(profileId: string, returnTo: string) {
+export async function followProfileAction(
+  profileId: string,
+  returnTo: string,
+  _state: ActionState = emptyState,
+): Promise<ActionState> {
+  void _state;
   const client = await createClient();
   await requireReadyProfile(client);
 
@@ -71,15 +76,18 @@ export async function followProfileAction(profileId: string, returnTo: string) {
     p_profile_id: profileId,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
 
   revalidatePath(returnTo);
+  return { success: "Followed." };
 }
 
 export async function unfollowProfileAction(
   profileId: string,
   returnTo: string,
-) {
+  _state: ActionState = emptyState,
+): Promise<ActionState> {
+  void _state;
   const client = await createClient();
   await requireReadyProfile(client);
 
@@ -87,7 +95,8 @@ export async function unfollowProfileAction(
     p_profile_id: profileId,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
 
   revalidatePath(returnTo);
+  return { success: "Unfollowed." };
 }

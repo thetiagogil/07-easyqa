@@ -1,12 +1,15 @@
 import InboxIcon from "@mui/icons-material/Inbox";
 import { Stack, Typography } from "@mui/joy";
+import type { ReactNode } from "react";
 
 export function NoData({
   title = "Nothing here yet",
   description,
+  action,
 }: {
   title?: string;
   description?: string;
+  action?: ReactNode;
 }) {
   return (
     <Stack
@@ -23,6 +26,7 @@ export function NoData({
           {description}
         </Typography>
       ) : null}
+      {action ? <Stack pt={1}>{action}</Stack> : null}
     </Stack>
   );
 }

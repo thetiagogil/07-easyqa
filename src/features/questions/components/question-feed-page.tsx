@@ -25,8 +25,8 @@ export async function QuestionFeedPage({
         value={sort}
         sticky
         tabs={[
-          { label: "new", href: "/?sort=new", value: "new" },
-          { label: "top", href: "/?sort=top", value: "top" },
+          { label: "Newest", href: "/?sort=new", value: "new" },
+          { label: "Top", href: "/?sort=top", value: "top" },
         ]}
       />
 

@@ -1,12 +1,16 @@
+"use client";
+
 import CheckIcon from "@mui/icons-material/Check";
 import {
   Box,
+  Chip,
   Link,
   ListItem,
   ListItemContent,
   Stack,
   Typography,
 } from "@mui/joy";
+import NextLink from "next/link";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Notification } from "@/types/easyqa";
 import { RelativeTime } from "@/shared/components/ui/relative-time";
@@ -55,8 +59,14 @@ export function NotificationRow({
           </Stack>
         </Stack>
 
-        <Stack color="neutral.500">
-          {notification.isRead ? <CheckIcon fontSize="small" /> : null}
+        <Stack alignItems="flex-end" color="neutral.500" flexShrink={0}>
+          {notification.isRead ? (
+            <CheckIcon fontSize="small" />
+          ) : (
+            <Chip size="sm" variant="soft" color="primary">
+              New
+            </Chip>
+          )}
         </Stack>
       </ListItemContent>
     </ListItem>
@@ -67,7 +77,7 @@ function renderNotification(notification: Notification) {
   const actorName = notification.actor?.displayName ?? "Someone";
   const actorLink = notification.actorId ? (
     <Link
-      component="a"
+      component={NextLink}
       href={`/profile/${notification.actorId}`}
       color="primary"
       fontWeight={700}
@@ -86,13 +96,17 @@ function renderNotification(notification: Notification) {
     return (
       <>
         {actorLink} accepted your{" "}
-        <Link
-          component="a"
-          href={`/question/${notification.questionId}`}
-          color="primary"
-        >
-          answer
-        </Link>
+        {notification.questionId ? (
+          <Link
+            component={NextLink}
+            href={`/question/${notification.questionId}`}
+            color="primary"
+          >
+            answer
+          </Link>
+        ) : (
+          "answer"
+        )}
         .
       </>
     );
@@ -101,13 +115,17 @@ function renderNotification(notification: Notification) {
   return (
     <>
       {actorLink} answered your{" "}
-      <Link
-        component="a"
-        href={`/question/${notification.questionId}`}
-        color="primary"
-      >
-        question
-      </Link>
+      {notification.questionId ? (
+        <Link
+          component={NextLink}
+          href={`/question/${notification.questionId}`}
+          color="primary"
+        >
+          question
+        </Link>
+      ) : (
+        "question"
+      )}
       .
     </>
   );

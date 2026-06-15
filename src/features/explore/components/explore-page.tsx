@@ -1,6 +1,15 @@
-import { Box, List, ListItem, ListItemContent, Typography } from "@mui/joy";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemContent,
+  Stack,
+  Typography,
+} from "@mui/joy";
+import NextLink from "next/link";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { NoData } from "@/shared/components/ui/no-data";
+import { LinkButton } from "@/shared/components/ui/link-button";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import { searchExploreProfiles } from "@/features/explore/server/queries";
@@ -12,6 +21,7 @@ type ExplorePageProps = {
 
 export async function ExplorePage({ searchParams }: ExplorePageProps) {
   const { q } = await searchParams;
+  const searchTerm = q?.trim() ?? "";
   const profiles = await searchExploreProfiles(q);
 
   return (
@@ -30,58 +40,80 @@ export async function ExplorePage({ searchParams }: ExplorePageProps) {
               key={profile.id}
               sx={{ borderBottom: MAIN_BORDERS, p: 0 }}
             >
-              <ListItemContent
-                component="a"
+              <NextLink
                 href={`/profile/${profile.id}`}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  p: { xs: 2, sm: 2.5 },
-                  gap: 2,
+                style={{
+                  color: "inherit",
+                  display: "block",
                   textDecoration: "none",
-                  backgroundColor: "transparent",
-                  transition: "0.3s",
-                  "&:hover": {
-                    backgroundColor: "background.level1",
-                  },
+                  width: "100%",
                 }}
               >
-                <ProfileAvatar profile={profile} size={32} />
-
-                <Box
+                <ListItemContent
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    p: { xs: 2, sm: 2.5 },
                     gap: 2,
-                    minWidth: 0,
-                    width: "100%",
+                    textDecoration: "none",
+                    backgroundColor: "transparent",
+                    transition: "0.3s",
+                    "&:hover": {
+                      backgroundColor: "background.level1",
+                    },
                   }}
                 >
-                  <Typography
-                    level="title-sm"
-                    color="primary"
-                    fontWeight={700}
-                    noWrap
-                    sx={{ flexShrink: 0, maxWidth: { xs: "62%", sm: "68%" } }}
-                  >
-                    {profile.displayName}
-                  </Typography>
-                  <Typography
-                    level="body-sm"
-                    noWrap
-                    sx={{ flex: 1, minWidth: 0 }}
-                  >
-                    {profile.bio ?? profile.username}
-                  </Typography>
-                </Box>
-              </ListItemContent>
+                  <ProfileAvatar profile={profile} size={32} />
+
+                  <Stack minWidth={0} gap={0.25}>
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      gap={1}
+                      minWidth={0}
+                    >
+                      <Typography
+                        level="title-sm"
+                        color="primary"
+                        fontWeight={700}
+                        noWrap
+                      >
+                        {profile.displayName}
+                      </Typography>
+                      {profile.username ? (
+                        <Typography
+                          level="body-xs"
+                          textColor="neutral.500"
+                          noWrap
+                        >
+                          @{profile.username}
+                        </Typography>
+                      ) : null}
+                    </Box>
+                    <Typography level="body-sm" textColor="neutral.500" noWrap>
+                      {profile.bio ?? "No bio yet."}
+                    </Typography>
+                  </Stack>
+                </ListItemContent>
+              </NextLink>
             </ListItem>
           ))}
         </List>
       ) : (
         <NoData
-          title="No profiles found"
-          description="Try another name or username."
+          title={searchTerm ? "No profiles found" : "No profiles yet"}
+          description={
+            searchTerm
+              ? `No results for "${searchTerm}". Try another name or username.`
+              : "Profiles will appear here as people join EasyQA."
+          }
+          action={
+            searchTerm ? (
+              <LinkButton href="/explore" size="sm">
+                Clear search
+              </LinkButton>
+            ) : null
+          }
         />
       )}
     </MainContainer>

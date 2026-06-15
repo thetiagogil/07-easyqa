@@ -68,7 +68,12 @@ export async function createAnswerAction(
   return { success: "Answer posted." };
 }
 
-export async function acceptAnswerAction(answerId: number, questionId: number) {
+export async function acceptAnswerAction(
+  answerId: number,
+  questionId: number,
+  _state: ActionState = emptyState,
+): Promise<ActionState> {
+  void _state;
   const client = await createClient();
   await requireReadyProfile(client);
 
@@ -76,17 +81,18 @@ export async function acceptAnswerAction(answerId: number, questionId: number) {
     p_answer_id: answerId,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
 
   revalidatePath("/");
   revalidatePath(`/question/${questionId}`);
+  return { success: "Answer accepted." };
 }
 
 export async function submitVoteAction(
   targetType: TargetType,
   targetId: number,
   value: VoteValue,
-) {
+): Promise<ActionState> {
   const client = await createClient();
   await requireReadyProfile(client);
 
@@ -96,8 +102,9 @@ export async function submitVoteAction(
     p_value: value,
   });
 
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
   // Do not revalidate list/detail routes here. Vote score changes should not
   // resort the visible feed while the user is reading it; fresh ordering is
   // picked up on navigation or the next explicit route fetch.
+  return {};
 }

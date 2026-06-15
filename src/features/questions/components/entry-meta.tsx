@@ -1,4 +1,7 @@
+"use client";
+
 import { Box, Link, Stack, Typography } from "@mui/joy";
+import NextLink from "next/link";
 import type { Profile } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { RelativeTime } from "@/shared/components/ui/relative-time";
@@ -25,7 +28,7 @@ export function EntryMeta({
       minWidth={0}
     >
       <Link
-        component="a"
+        component={NextLink}
         href={`/profile/${profile.id}`}
         underline="none"
         flexShrink={0}
@@ -35,7 +38,7 @@ export function EntryMeta({
 
       <Typography level="body-sm" noWrap minWidth={0}>
         <Link
-          component="a"
+          component={NextLink}
           href={`/profile/${profile.id}`}
           color="primary"
           fontWeight={700}

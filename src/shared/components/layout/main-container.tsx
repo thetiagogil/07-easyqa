@@ -39,11 +39,16 @@ export async function MainContainer({
       borderLeft={{ xs: "none", sm: MAIN_BORDERS }}
       bgcolor="background.body"
       margin="auto"
+      overflow="hidden"
+      boxSizing="border-box"
     >
       <Navbar {...navbarProps} currentUser={currentUser} />
       <Stack
         component="main"
         flexGrow={1}
+        width="100%"
+        minWidth={0}
+        boxSizing="border-box"
         p={noPad ? 0 : { xs: 2, sm: 2.5 }}
         sx={sx}
       >

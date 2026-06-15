@@ -1,5 +1,6 @@
 import type {
   AnswerRow,
+  ProfileRow,
   QuestionRow,
   TargetType,
   VoteValue,
@@ -28,9 +29,10 @@ export async function hydrateQuestions(
     rows.map((q) => q.id),
   );
 
-  return rows.flatMap((question) => {
-    const author = profilesById.get(question.user_id);
-    if (!author) return [];
+  return rows.map((question) => {
+    const author =
+      profilesById.get(question.user_id) ??
+      createFallbackProfile(question.user_id, question.created_at);
     return mapQuestion(
       question,
       author,
@@ -55,11 +57,24 @@ export async function hydrateAnswers(
     rows.map((a) => a.id),
   );
 
-  return rows.flatMap((answer) => {
-    const author = profilesById.get(answer.user_id);
-    if (!author) return [];
+  return rows.map((answer) => {
+    const author =
+      profilesById.get(answer.user_id) ??
+      createFallbackProfile(answer.user_id, answer.created_at);
     return mapAnswer(answer, author, votesByTargetId.get(answer.id) ?? null);
   });
+}
+
+function createFallbackProfile(userId: string, timestamp: string): ProfileRow {
+  return {
+    id: userId,
+    display_name: null,
+    username: null,
+    bio: null,
+    avatar_url: null,
+    created_at: timestamp,
+    updated_at: timestamp,
+  };
 }
 
 async function getViewerVotes(

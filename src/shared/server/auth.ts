@@ -47,7 +47,10 @@ export async function requireProfile() {
 export async function getCurrentAuthUser(client: AppSupabaseClient) {
   const {
     data: { user },
+    error,
   } = await client.auth.getUser();
+
+  if (error) return null;
 
   return user;
 }
