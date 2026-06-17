@@ -13,11 +13,11 @@ import {
 } from "@/features/questions/server/mappers";
 import { easyqa, type AppSupabaseClient } from "@/lib/database/schemas";
 
-export async function hydrateQuestions(
+export const hydrateQuestions = async (
   client: AppSupabaseClient,
   rows: QuestionRow[],
   viewerId: string | null,
-) {
+) => {
   const { profilesById } = await getProfilesByIds(
     client,
     rows.map((question) => question.user_id),
@@ -39,13 +39,13 @@ export async function hydrateQuestions(
       votesByTargetId.get(question.id) ?? null,
     );
   });
-}
+};
 
-export async function hydrateAnswers(
+export const hydrateAnswers = async (
   client: AppSupabaseClient,
   rows: AnswerRow[],
   viewerId: string | null,
-) {
+) => {
   const { profilesById } = await getProfilesByIds(
     client,
     rows.map((answer) => answer.user_id),
@@ -63,7 +63,7 @@ export async function hydrateAnswers(
       createFallbackProfile(answer.user_id, answer.created_at);
     return mapAnswer(answer, author, votesByTargetId.get(answer.id) ?? null);
   });
-}
+};
 
 function createFallbackProfile(userId: string, timestamp: string): ProfileRow {
   return {

@@ -12,7 +12,7 @@ type ProfileHeaderProps = {
   profileId: string;
 };
 
-export async function ProfileHeader({ profileId }: ProfileHeaderProps) {
+export const ProfileHeader = async ({ profileId }: ProfileHeaderProps) => {
   const [currentUser, profile] = await Promise.all([
     getCurrentUser(),
     getProfileById(profileId),
@@ -65,4 +65,4 @@ export async function ProfileHeader({ profileId }: ProfileHeaderProps) {
       </Stack>
     </PageStack>
   );
-}
+};

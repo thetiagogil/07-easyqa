@@ -8,7 +8,9 @@ type QuestionFeedContentProps = {
   sort: QuestionSort;
 };
 
-export async function QuestionFeedContent({ sort }: QuestionFeedContentProps) {
+export const QuestionFeedContent = async ({
+  sort,
+}: QuestionFeedContentProps) => {
   const questions = await getQuestions(sort);
 
   if (!questions.length) {
@@ -28,4 +30,4 @@ export async function QuestionFeedContent({ sort }: QuestionFeedContentProps) {
   return questions.map((question) => (
     <TargetEntry key={question.id} targetType="question" target={question} />
   ));
-}
+};

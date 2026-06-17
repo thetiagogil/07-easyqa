@@ -11,7 +11,10 @@ type ProfilePageProps = {
   searchParams: Promise<{ tab?: string }>;
 };
 
-export async function ProfilePage({ params, searchParams }: ProfilePageProps) {
+export const ProfilePage = async ({
+  params,
+  searchParams,
+}: ProfilePageProps) => {
   const [{ id }, query] = await Promise.all([params, searchParams]);
   const tab: ProfileTab = query.tab === "answers" ? "answers" : "questions";
 
@@ -48,4 +51,4 @@ export async function ProfilePage({ params, searchParams }: ProfilePageProps) {
       </Suspense>
     </MainContainer>
   );
-}
+};

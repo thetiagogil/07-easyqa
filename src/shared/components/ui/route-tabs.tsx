@@ -10,7 +10,7 @@ type RouteTab = {
   value: string;
 };
 
-export function RouteTabs({
+export const RouteTabs = ({
   value,
   tabs,
   sticky,
@@ -18,7 +18,7 @@ export function RouteTabs({
   value: string;
   tabs: RouteTab[];
   sticky?: boolean;
-}) {
+}) => {
   return (
     <Tabs value={value} sx={{ bgcolor: "transparent" }}>
       <TabList
@@ -55,4 +55,4 @@ export function RouteTabs({
       </TabList>
     </Tabs>
   );
-}
+};

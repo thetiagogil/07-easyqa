@@ -2,7 +2,7 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import { Stack, Typography } from "@mui/joy";
 import type { ReactNode } from "react";
 
-export function NoData({
+export const NoData = ({
   title = "Nothing here yet",
   description,
   action,
@@ -10,7 +10,7 @@ export function NoData({
   title?: string;
   description?: string;
   action?: ReactNode;
-}) {
+}) => {
   return (
     <Stack
       alignItems="center"
@@ -29,4 +29,4 @@ export function NoData({
       {action ? <Stack pt={1}>{action}</Stack> : null}
     </Stack>
   );
-}
+};

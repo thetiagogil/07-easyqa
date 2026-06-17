@@ -9,10 +9,10 @@ import { emptyState } from "@/shared/server/action-state";
 import { requireAuthUser, requireReadyProfile } from "@/shared/server/auth";
 import type { ActionState } from "@/shared/types";
 
-export async function updateProfileAction(
+export const updateProfileAction = async (
   _state: ActionState = emptyState,
   formData: FormData,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   const user = await requireAuthUser(client);
@@ -61,13 +61,13 @@ export async function updateProfileAction(
   revalidatePath("/");
   revalidatePath(`/profile/${user.id}`);
   redirect(`/profile/${user.id}`);
-}
+};
 
-export async function followProfileAction(
+export const followProfileAction = async (
   profileId: string,
   returnTo: string,
   _state: ActionState = emptyState,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -80,13 +80,13 @@ export async function followProfileAction(
 
   revalidatePath(returnTo);
   return { success: "Followed." };
-}
+};
 
-export async function unfollowProfileAction(
+export const unfollowProfileAction = async (
   profileId: string,
   returnTo: string,
   _state: ActionState = emptyState,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -99,4 +99,4 @@ export async function unfollowProfileAction(
 
   revalidatePath(returnTo);
   return { success: "Unfollowed." };
-}
+};

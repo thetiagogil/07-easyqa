@@ -7,7 +7,7 @@ import { getProfilesByIds } from "@/features/profiles/server/lookups";
 import { mapNotification } from "@/features/notifications/server/mappers";
 import { getCurrentUser, requireProfile } from "@/shared/server/auth";
 
-export async function getNotifications(): Promise<Notification[]> {
+export const getNotifications = async (): Promise<Notification[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const currentUser = await requireProfile();
@@ -38,11 +38,11 @@ export async function getNotifications(): Promise<Notification[]> {
         : null,
     ),
   );
-}
+};
 
-export async function getUnreadNotificationCount(
+export const getUnreadNotificationCount = async (
   userId?: string,
-): Promise<number> {
+): Promise<number> => {
   if (!isSupabaseConfigured()) return 0;
 
   const resolvedUserId = userId ?? (await getCurrentUser())?.id;
@@ -58,4 +58,4 @@ export async function getUnreadNotificationCount(
   if (error) throw error;
 
   return count ?? 0;
-}
+};

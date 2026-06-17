@@ -16,7 +16,7 @@ import { createQuestionAction } from "@/features/questions/server/actions";
 import type { ActionState } from "@/shared/types";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
-export function QuestionForm() {
+export const QuestionForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
@@ -83,4 +83,4 @@ export function QuestionForm() {
       </SubmitButton>
     </Stack>
   );
-}
+};

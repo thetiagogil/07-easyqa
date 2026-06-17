@@ -7,7 +7,7 @@ import { ActionStatus } from "@/shared/components/action-status";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 import type { ActionState } from "@/shared/types";
 
-export function AcceptAnswerButton({
+export const AcceptAnswerButton = ({
   answerId,
   questionId,
   children = "Accept",
@@ -17,7 +17,7 @@ export function AcceptAnswerButton({
   questionId: number;
   children?: ReactNode;
   color?: "neutral" | "success";
-}) {
+}) => {
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     acceptAnswerAction.bind(null, answerId, questionId),
     {},
@@ -42,4 +42,4 @@ export function AcceptAnswerButton({
       />
     </form>
   );
-}
+};

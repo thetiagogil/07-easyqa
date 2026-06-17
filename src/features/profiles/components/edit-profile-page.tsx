@@ -4,7 +4,7 @@ import { PageStack } from "@/shared/components/ui/page-stack";
 import { SectionHeading } from "@/shared/components/ui/section-heading";
 import { requireProfile } from "@/shared/server/auth";
 
-export async function EditProfilePage() {
+export const EditProfilePage = async () => {
   const currentUser = await requireProfile();
 
   return (
@@ -21,4 +21,4 @@ export async function EditProfilePage() {
       </PageStack>
     </MainContainer>
   );
-}
+};

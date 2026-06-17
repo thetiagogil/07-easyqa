@@ -9,7 +9,7 @@ type AuthPageProps = {
   searchParams: Promise<{ error?: string; next?: string }>;
 };
 
-export async function AuthPage({ searchParams }: AuthPageProps) {
+export const AuthPage = async ({ searchParams }: AuthPageProps) => {
   const currentUser = await getCurrentUser();
   if (currentUser?.profile?.hasDisplayName) redirect("/");
   if (currentUser && !currentUser.profile?.hasDisplayName) redirect("/setup");
@@ -23,4 +23,4 @@ export async function AuthPage({ searchParams }: AuthPageProps) {
       </PageStack>
     </MainContainer>
   );
-}
+};

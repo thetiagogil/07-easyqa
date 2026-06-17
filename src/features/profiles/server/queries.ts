@@ -8,7 +8,7 @@ import { getCurrentAuthUser } from "@/shared/server/auth";
 import { hydrateQuestions } from "@/features/questions/server/hydration";
 import { mapProfile } from "@/shared/server/mappers";
 
-export async function getProfileById(id: string): Promise<Profile> {
+export const getProfileById = async (id: string): Promise<Profile> => {
   if (!isSupabaseConfigured()) notFound();
 
   const client = await createClient();
@@ -37,11 +37,11 @@ export async function getProfileById(id: string): Promise<Profile> {
   }
 
   return profile;
-}
+};
 
-export async function getQuestionsByProfile(
+export const getQuestionsByProfile = async (
   profileId: string,
-): Promise<Question[]> {
+): Promise<Question[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -58,11 +58,11 @@ export async function getQuestionsByProfile(
   if (!data?.length) return [];
 
   return hydrateQuestions(client, data, viewer?.id ?? null);
-}
+};
 
-export async function getAnsweredQuestionsByProfile(
+export const getAnsweredQuestionsByProfile = async (
   profileId: string,
-): Promise<Question[]> {
+): Promise<Question[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -90,4 +90,4 @@ export async function getAnsweredQuestionsByProfile(
   if (questionsError) throw questionsError;
 
   return hydrateQuestions(client, questions ?? [], viewer?.id ?? null);
-}
+};

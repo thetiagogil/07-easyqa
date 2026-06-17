@@ -17,7 +17,7 @@ type FooterProps = {
   unreadCount: number;
 };
 
-export function Footer({ currentUser, unreadCount }: FooterProps) {
+export const Footer = ({ currentUser, unreadCount }: FooterProps) => {
   const pathname = usePathname();
   const profile = currentUser?.profile?.hasDisplayName
     ? currentUser.profile
@@ -122,7 +122,7 @@ export function Footer({ currentUser, unreadCount }: FooterProps) {
       </Stack>
     </Stack>
   );
-}
+};
 
 function isFooterItemActive(pathname: string, itemPath: string) {
   if (itemPath === "/") return pathname === "/";

@@ -19,7 +19,9 @@ type QuestionDetailPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export async function QuestionDetailPage({ params }: QuestionDetailPageProps) {
+export const QuestionDetailPage = async ({
+  params,
+}: QuestionDetailPageProps) => {
   const { id } = await params;
   const questionId = Number(id);
   if (!Number.isSafeInteger(questionId) || questionId <= 0) {
@@ -105,7 +107,7 @@ export async function QuestionDetailPage({ params }: QuestionDetailPageProps) {
       )}
     </MainContainer>
   );
-}
+};
 
 function getAnswerRestrictionMessage(
   currentUser: CurrentUser | null,

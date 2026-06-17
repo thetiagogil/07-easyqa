@@ -9,11 +9,11 @@ import type {
   VoteValue,
 } from "@/types/easyqa";
 
-export function mapQuestion(
+export const mapQuestion = (
   row: QuestionRow,
   author: ProfileRow,
   viewerVoteValue: VoteValue | null,
-): Question {
+): Question => {
   return {
     id: row.id,
     userId: row.user_id,
@@ -27,13 +27,13 @@ export function mapQuestion(
     author: mapProfile(author),
     viewerVoteValue,
   };
-}
+};
 
-export function mapAnswer(
+export const mapAnswer = (
   row: AnswerRow,
   author: ProfileRow,
   viewerVoteValue: VoteValue | null,
-): Answer {
+): Answer => {
   return {
     id: row.id,
     questionId: row.question_id,
@@ -46,14 +46,14 @@ export function mapAnswer(
     author: mapProfile(author),
     viewerVoteValue,
   };
-}
+};
 
-export function normalizeVoteValue(
+export const normalizeVoteValue = (
   value: number | null | undefined,
-): VoteValue | null {
+): VoteValue | null => {
   if (value === 1 || value === -1) return value;
   return null;
-}
+};
 
 function normalizeQuestionStatus(value: string): QuestionStatus {
   return value === "closed" ? "closed" : "open";

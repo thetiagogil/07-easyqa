@@ -9,13 +9,13 @@ type LoadingProps = {
   message?: string;
 };
 
-export function Loading({
+export const Loading = ({
   isLoading = true,
   minHeight = 80,
   justifyContent = "flex-start",
   variant,
   message,
-}: LoadingProps) {
+}: LoadingProps) => {
   if (!isLoading) return null;
 
   if (variant === "overlay") {
@@ -65,4 +65,4 @@ export function Loading({
       ) : null}
     </Stack>
   );
-}
+};

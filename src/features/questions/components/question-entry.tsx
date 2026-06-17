@@ -9,7 +9,7 @@ type QuestionEntryProps = {
   question: Question;
 };
 
-export function QuestionEntry({ question }: QuestionEntryProps) {
+export const QuestionEntry = ({ question }: QuestionEntryProps) => {
   const isClosed = question.status === "closed";
 
   return (
@@ -45,4 +45,4 @@ export function QuestionEntry({ question }: QuestionEntryProps) {
       </Stack>
     </Stack>
   );
-}
+};

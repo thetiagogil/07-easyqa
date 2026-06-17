@@ -15,11 +15,11 @@ import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Notification } from "@/types/easyqa";
 import { RelativeTime } from "@/shared/components/ui/relative-time";
 
-export function NotificationRow({
+export const NotificationRow = ({
   notification,
 }: {
   notification: Notification;
-}) {
+}) => {
   return (
     <ListItem
       sx={{
@@ -71,7 +71,7 @@ export function NotificationRow({
       </ListItemContent>
     </ListItem>
   );
-}
+};
 
 function renderNotification(notification: Notification) {
   const actorName = notification.actor?.displayName ?? "Someone";

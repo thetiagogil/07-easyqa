@@ -13,12 +13,12 @@ type EntryMetaProps = {
   avatarSize?: number;
 };
 
-export function EntryMeta({
+export const EntryMeta = ({
   profile,
   action,
   createdAt,
   avatarSize = 32,
-}: EntryMetaProps) {
+}: EntryMetaProps) => {
   return (
     <Stack
       direction="row"
@@ -69,4 +69,4 @@ export function EntryMeta({
       ) : null}
     </Stack>
   );
-}
+};

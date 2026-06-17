@@ -1,7 +1,7 @@
-export function safeRedirectPath(
+export const safeRedirectPath = (
   value: string | null | undefined,
   fallback = "/",
-) {
+) => {
   const trimmed = value?.trim();
 
   if (
@@ -21,18 +21,18 @@ export function safeRedirectPath(
   } catch {
     return fallback;
   }
-}
+};
 
 type OriginRequest = {
   headers: Headers;
   url: string;
 };
 
-function firstHeaderValue(value: string | null) {
+const firstHeaderValue = (value: string | null) => {
   return value?.split(",")[0]?.trim() || null;
-}
+};
 
-export function getRequestOrigin(request: OriginRequest) {
+export const getRequestOrigin = (request: OriginRequest) => {
   const requestUrl = new URL(request.url);
   const host =
     firstHeaderValue(request.headers.get("host")) ??
@@ -50,4 +50,4 @@ export function getRequestOrigin(request: OriginRequest) {
   } catch {
     return requestUrl.origin;
   }
-}
+};

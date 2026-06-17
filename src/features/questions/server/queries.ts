@@ -10,9 +10,9 @@ import {
 } from "@/features/questions/server/hydration";
 import type { Answer, Question, QuestionSort } from "@/types/easyqa";
 
-export async function getQuestions(
+export const getQuestions = async (
   sort: QuestionSort = "new",
-): Promise<Question[]> {
+): Promise<Question[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -30,9 +30,9 @@ export async function getQuestions(
   if (!data?.length) return [];
 
   return hydrateQuestions(client, data, viewer?.id ?? null);
-}
+};
 
-export async function getQuestionById(id: number): Promise<Question> {
+export const getQuestionById = async (id: number): Promise<Question> => {
   if (!isSupabaseConfigured()) notFound();
 
   const client = await createClient();
@@ -51,11 +51,11 @@ export async function getQuestionById(id: number): Promise<Question> {
   if (!question) notFound();
 
   return question;
-}
+};
 
-export async function getAnswersForQuestion(
+export const getAnswersForQuestion = async (
   questionId: number,
-): Promise<Answer[]> {
+): Promise<Answer[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -73,4 +73,4 @@ export async function getAnswersForQuestion(
   if (!data?.length) return [];
 
   return hydrateAnswers(client, data, viewer?.id ?? null);
-}
+};

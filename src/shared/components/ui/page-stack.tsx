@@ -1,6 +1,6 @@
 import { Stack, type StackProps } from "@mui/joy";
 
-export function PageStack({ sx, ...props }: StackProps) {
+export const PageStack = ({ sx, ...props }: StackProps) => {
   const baseSx = {
     width: "100%",
     boxSizing: "border-box",
@@ -14,4 +14,4 @@ export function PageStack({ sx, ...props }: StackProps) {
       {...props}
     />
   );
-}
+};

@@ -9,7 +9,7 @@ import { SectionHeading } from "@/shared/components/ui/section-heading";
 import { APP_RADIUS, MAIN_BORDERS } from "@/shared/constants/app";
 import { requireProfile } from "@/shared/server/auth";
 
-export async function SettingsPage() {
+export const SettingsPage = async () => {
   const currentUser = await requireProfile();
 
   return (
@@ -98,4 +98,4 @@ export async function SettingsPage() {
       </PageStack>
     </MainContainer>
   );
-}
+};

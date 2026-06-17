@@ -7,9 +7,9 @@ import { requireReadyProfile } from "@/shared/server/auth";
 import { emptyState } from "@/shared/server/action-state";
 import type { ActionState } from "@/shared/types";
 
-export async function markNotificationsReadAction(
+export const markNotificationsReadAction = async (
   _state: ActionState = emptyState,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -20,4 +20,4 @@ export async function markNotificationsReadAction(
 
   revalidatePath("/notifications");
   return { success: "Notifications marked read." };
-}
+};

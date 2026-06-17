@@ -5,7 +5,7 @@ import type { CurrentUser, Profile } from "@/types/easyqa";
 import { core, type AppSupabaseClient } from "@/lib/database/schemas";
 import { mapProfile } from "@/shared/server/mappers";
 
-export async function getCurrentUser(): Promise<CurrentUser | null> {
+export const getCurrentUser = async (): Promise<CurrentUser | null> => {
   if (!isSupabaseConfigured()) return null;
 
   const client = await createClient();
@@ -26,23 +26,23 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     email: user.email ?? null,
     profile: profile ? mapProfile(profile) : null,
   };
-}
+};
 
-export async function requireUser() {
+export const requireUser = async () => {
   const currentUser = await getCurrentUser();
   if (!currentUser) redirect("/auth");
 
   return currentUser;
-}
+};
 
-export async function requireProfile() {
+export const requireProfile = async () => {
   const currentUser = await requireUser();
   if (!currentUser.profile?.hasDisplayName) {
     redirect("/setup");
   }
 
   return currentUser as CurrentUser & { profile: Profile };
-}
+};
 
 export async function getCurrentAuthUser(client: AppSupabaseClient) {
   const {
@@ -55,7 +55,7 @@ export async function getCurrentAuthUser(client: AppSupabaseClient) {
   return user;
 }
 
-export async function requireAuthUser(client: AppSupabaseClient) {
+export const requireAuthUser = async (client: AppSupabaseClient) => {
   const {
     data: { user },
     error,
@@ -64,9 +64,9 @@ export async function requireAuthUser(client: AppSupabaseClient) {
   if (error || !user) redirect("/auth");
 
   return user;
-}
+};
 
-export async function requireReadyProfile(client: AppSupabaseClient) {
+export const requireReadyProfile = async (client: AppSupabaseClient) => {
   const user = await requireAuthUser(client);
   const { data: profile, error } = await core(client)
     .from("profiles")
@@ -78,4 +78,4 @@ export async function requireReadyProfile(client: AppSupabaseClient) {
   if (!profile?.display_name) redirect("/setup");
 
   return { user, profile };
-}
+};

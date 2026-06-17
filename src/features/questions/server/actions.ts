@@ -10,10 +10,10 @@ import { requireReadyProfile } from "@/shared/server/auth";
 import type { ActionState } from "@/shared/types";
 import type { TargetType, VoteValue } from "@/types/easyqa";
 
-export async function createQuestionAction(
+export const createQuestionAction = async (
   _state: ActionState = emptyState,
   formData: FormData,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -40,13 +40,13 @@ export async function createQuestionAction(
 
   revalidatePath("/");
   redirect(`/question/${data.id}`);
-}
+};
 
-export async function createAnswerAction(
+export const createAnswerAction = async (
   questionId: number,
   _state: ActionState = emptyState,
   formData: FormData,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -66,13 +66,13 @@ export async function createAnswerAction(
   revalidatePath("/");
   revalidatePath(`/question/${questionId}`);
   return { success: "Answer posted." };
-}
+};
 
-export async function acceptAnswerAction(
+export const acceptAnswerAction = async (
   answerId: number,
   questionId: number,
   _state: ActionState = emptyState,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   void _state;
   const client = await createClient();
   await requireReadyProfile(client);
@@ -86,13 +86,13 @@ export async function acceptAnswerAction(
   revalidatePath("/");
   revalidatePath(`/question/${questionId}`);
   return { success: "Answer accepted." };
-}
+};
 
-export async function submitVoteAction(
+export const submitVoteAction = async (
   targetType: TargetType,
   targetId: number,
   value: VoteValue,
-): Promise<ActionState> {
+): Promise<ActionState> => {
   const client = await createClient();
   await requireReadyProfile(client);
 
@@ -107,4 +107,4 @@ export async function submitVoteAction(
   // resort the visible feed while the user is reading it; fresh ordering is
   // picked up on navigation or the next explicit route fetch.
   return {};
-}
+};

@@ -9,13 +9,13 @@ import { ActionStatus } from "@/shared/components/action-status";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 import type { ActionState } from "@/shared/types";
 
-export function FollowButton({
+export const FollowButton = ({
   profileId,
   isFollowing,
 }: {
   profileId: string;
   isFollowing: boolean;
-}) {
+}) => {
   const action = isFollowing
     ? unfollowProfileAction.bind(null, profileId, `/profile/${profileId}`)
     : followProfileAction.bind(null, profileId, `/profile/${profileId}`);
@@ -44,4 +44,4 @@ export function FollowButton({
       />
     </form>
   );
-}
+};

@@ -4,7 +4,7 @@ import { requireUser } from "@/shared/server/auth";
 import { Stack, Typography } from "@mui/joy";
 import { redirect } from "next/navigation";
 
-export async function ProfileSetupPage() {
+export const ProfileSetupPage = async () => {
   const currentUser = await requireUser();
   if (currentUser.profile?.hasDisplayName) redirect("/");
 
@@ -24,4 +24,4 @@ export async function ProfileSetupPage() {
       </Stack>
     </Stack>
   );
-}
+};

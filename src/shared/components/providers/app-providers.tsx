@@ -28,7 +28,7 @@ const globalStyles = {
   },
 };
 
-export function Providers({ children }: { children: ReactNode }) {
+export const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeRegistry options={{ key: "joy" }}>
       <CssVarsProvider
@@ -42,4 +42,4 @@ export function Providers({ children }: { children: ReactNode }) {
       </CssVarsProvider>
     </ThemeRegistry>
   );
-}
+};

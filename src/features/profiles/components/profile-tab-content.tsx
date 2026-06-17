@@ -13,10 +13,10 @@ type ProfileTabContentProps = {
   tab: ProfileTab;
 };
 
-export async function ProfileTabContent({
+export const ProfileTabContent = async ({
   profileId,
   tab,
-}: ProfileTabContentProps) {
+}: ProfileTabContentProps) => {
   const [currentUser, questions] = await Promise.all([
     getCurrentUser(),
     tab === "answers"
@@ -48,4 +48,4 @@ export async function ProfileTabContent({
   return questions.map((question) => (
     <TargetEntry key={question.id} targetType="question" target={question} />
   ));
-}
+};

@@ -6,7 +6,7 @@ import { ActionStatus } from "@/shared/components/action-status";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 import type { ActionState } from "@/shared/types";
 
-export function MarkReadButton({ disabled }: { disabled?: boolean }) {
+export const MarkReadButton = ({ disabled }: { disabled?: boolean }) => {
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     markNotificationsReadAction,
     {},
@@ -32,4 +32,4 @@ export function MarkReadButton({ disabled }: { disabled?: boolean }) {
       />
     </form>
   );
-}
+};

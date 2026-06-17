@@ -8,11 +8,11 @@ type RouteFeedbackProps = {
   children?: ReactNode;
 };
 
-export function RouteFeedback({
+export const RouteFeedback = ({
   title,
   description,
   children,
-}: RouteFeedbackProps) {
+}: RouteFeedbackProps) => {
   return (
     <Stack
       component="main"
@@ -42,4 +42,4 @@ export function RouteFeedback({
       {children}
     </Stack>
   );
-}
+};

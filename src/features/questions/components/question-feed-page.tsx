@@ -12,9 +12,9 @@ type QuestionFeedPageProps = {
   searchParams: Promise<{ sort?: string }>;
 };
 
-export async function QuestionFeedPage({
+export const QuestionFeedPage = async ({
   searchParams,
-}: QuestionFeedPageProps) {
+}: QuestionFeedPageProps) => {
   const params = await searchParams;
   const sort: QuestionSort = params.sort === "top" ? "top" : "new";
   const isConfigured = isSupabaseConfigured();
@@ -49,4 +49,4 @@ export async function QuestionFeedPage({
       </Suspense>
     </MainContainer>
   );
-}
+};

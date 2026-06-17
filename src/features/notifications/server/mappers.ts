@@ -6,10 +6,10 @@ import type {
   ProfileRow,
 } from "@/types/easyqa";
 
-export function mapNotification(
+export const mapNotification = (
   row: NotificationRow,
   actor: ProfileRow | null,
-): Notification {
+): Notification => {
   return {
     id: row.id,
     type: normalizeNotificationType(row.type),
@@ -20,7 +20,7 @@ export function mapNotification(
     isRead: row.is_read,
     createdAt: row.created_at,
   };
-}
+};
 
 function normalizeNotificationType(value: string): NotificationType {
   if (value === "answer_accepted" || value === "followed") return value;

@@ -60,7 +60,7 @@ const BackButton = ({ sx }: { sx?: SxProps }) => {
   );
 };
 
-export function Navbar({
+export const Navbar = ({
   title,
   startItem,
   centerItem,
@@ -69,7 +69,7 @@ export function Navbar({
   hasBackButton,
   showLoginButton,
   currentUser,
-}: NavbarComponentProps) {
+}: NavbarComponentProps) => {
   const profile = currentUser?.profile?.hasDisplayName
     ? currentUser.profile
     : null;
@@ -159,4 +159,4 @@ export function Navbar({
       </Stack>
     </NavbarContainer>
   );
-}
+};

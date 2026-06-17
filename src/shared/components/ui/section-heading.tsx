@@ -1,12 +1,12 @@
 import { Stack, Typography } from "@mui/joy";
 
-export function SectionHeading({
+export const SectionHeading = ({
   title,
   description,
 }: {
   title: string;
   description?: string;
-}) {
+}) => {
   return (
     <Stack gap={0.5}>
       <Typography level="title-md">{title}</Typography>
@@ -17,4 +17,4 @@ export function SectionHeading({
       ) : null}
     </Stack>
   );
-}
+};

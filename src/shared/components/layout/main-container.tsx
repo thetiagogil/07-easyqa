@@ -15,12 +15,12 @@ type MainContainerProps = {
   sx?: SxProps;
 };
 
-export async function MainContainer({
+export const MainContainer = async ({
   children,
   navbarProps,
   noPad,
   sx,
-}: MainContainerProps) {
+}: MainContainerProps) => {
   const currentUser = await getCurrentUser();
   if (currentUser && !currentUser.profile?.hasDisplayName) {
     redirect("/setup");
@@ -57,4 +57,4 @@ export async function MainContainer({
       <Footer currentUser={currentUser} unreadCount={unreadCount} />
     </Stack>
   );
-}
+};

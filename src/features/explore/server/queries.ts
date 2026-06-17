@@ -5,9 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 import { mapProfile } from "@/shared/server/mappers";
 import type { Profile } from "@/types/easyqa";
 
-export async function searchExploreProfiles(
+export const searchExploreProfiles = async (
   search?: string,
-): Promise<Profile[]> {
+): Promise<Profile[]> => {
   if (!isSupabaseConfigured()) return [];
 
   const client = await createClient();
@@ -29,4 +29,4 @@ export async function searchExploreProfiles(
   if (error) throw error;
 
   return (data ?? []).map(mapProfile);
-}
+};

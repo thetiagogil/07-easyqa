@@ -8,13 +8,13 @@ type ActionStatusProps = {
   compact?: boolean;
 };
 
-export function ActionStatus({
+export const ActionStatus = ({
   error,
   success,
   pending,
   pendingMessage = "Working...",
   compact = false,
-}: ActionStatusProps) {
+}: ActionStatusProps) => {
   if (pending) {
     if (compact) {
       return (
@@ -81,4 +81,4 @@ export function ActionStatus({
   }
 
   return null;
-}
+};

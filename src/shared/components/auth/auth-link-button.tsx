@@ -17,14 +17,14 @@ type AuthLinkButtonProps = Omit<
   href?: string;
 };
 
-export function AuthLinkButton({
+export const AuthLinkButton = ({
   children = "log in",
   href = "/auth",
   ...props
-}: AuthLinkButtonProps) {
+}: AuthLinkButtonProps) => {
   return (
     <Button {...AUTH_BUTTON_PROPS} {...props} component={NextLink} href={href}>
       {children}
     </Button>
   );
-}
+};

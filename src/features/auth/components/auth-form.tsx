@@ -26,7 +26,10 @@ type AuthFormProps = {
   next?: string;
 };
 
-export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
+export const AuthForm = ({
+  initialError = null,
+  next = "/",
+}: AuthFormProps) => {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
@@ -234,4 +237,4 @@ export function AuthForm({ initialError = null, next = "/" }: AuthFormProps) {
       ) : null}
     </Stack>
   );
-}
+};

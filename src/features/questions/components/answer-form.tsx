@@ -10,13 +10,13 @@ import type { Profile } from "@/types/easyqa";
 import { ProfileAvatar } from "@/shared/components/ui/profile-avatar";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
-export function AnswerForm({
+export const AnswerForm = ({
   questionId,
   profile,
 }: {
   questionId: number;
   profile?: Profile | null;
-}) {
+}) => {
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     createAnswerAction.bind(null, questionId),
     {},
@@ -101,4 +101,4 @@ export function AnswerForm({
       ) : null}
     </Stack>
   );
-}
+};

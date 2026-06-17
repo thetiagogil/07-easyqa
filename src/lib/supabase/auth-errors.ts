@@ -1,4 +1,4 @@
-export function isStaleAuthSessionError(error: unknown) {
+export const isStaleAuthSessionError = (error: unknown) => {
   if (!error || typeof error !== "object") return false;
 
   const authError = error as {
@@ -13,4 +13,4 @@ export function isStaleAuthSessionError(error: unknown) {
     typeof authError.message === "string" &&
     authError.message.includes("Invalid Refresh Token")
   );
-}
+};

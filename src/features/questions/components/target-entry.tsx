@@ -17,12 +17,12 @@ type TargetEntryProps = {
   currentUser?: CurrentUser | null;
 };
 
-export function TargetEntry({
+export const TargetEntry = ({
   targetType,
   target,
   answeredQuestion,
   currentUser,
-}: TargetEntryProps) {
+}: TargetEntryProps) => {
   const question = targetType === "question" ? (target as Question) : null;
   const answer = targetType === "answer" ? (target as Answer) : null;
   const author = question?.author ?? answer?.author;
@@ -168,4 +168,4 @@ export function TargetEntry({
       </Stack>
     </Stack>
   );
-}
+};

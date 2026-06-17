@@ -6,7 +6,7 @@ import type { Database } from "@/types/database.types";
 
 let browserClient: SupabaseClient<Database> | null = null;
 
-export function createClient() {
+export const createClient = () => {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publishableKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
@@ -21,4 +21,4 @@ export function createClient() {
   }
 
   return browserClient;
-}
+};

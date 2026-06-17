@@ -3,7 +3,7 @@ import { QuestionForm } from "@/features/questions/components/question-form";
 import { PageStack } from "@/shared/components/ui/page-stack";
 import { SectionHeading } from "@/shared/components/ui/section-heading";
 
-export function AddQuestionPage() {
+export const AddQuestionPage = () => {
   return (
     <MainContainer
       navbarProps={{ title: "add question", hasBackButton: true }}
@@ -18,4 +18,4 @@ export function AddQuestionPage() {
       </PageStack>
     </MainContainer>
   );
-}
+};

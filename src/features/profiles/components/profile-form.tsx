@@ -17,13 +17,13 @@ import type { ActionState } from "@/shared/types";
 import type { Profile } from "@/types/easyqa";
 import { SubmitButton } from "@/shared/components/ui/submit-button";
 
-export function ProfileForm({
+export const ProfileForm = ({
   profile,
   submitLabel = "Confirm",
 }: {
   profile?: Profile | null;
   submitLabel?: string;
-}) {
+}) => {
   const [displayName, setDisplayName] = useState(
     profile?.hasDisplayName ? profile.displayName : "",
   );
@@ -115,4 +115,4 @@ export function ProfileForm({
       </SubmitButton>
     </Stack>
   );
-}
+};

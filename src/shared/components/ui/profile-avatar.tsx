@@ -2,13 +2,13 @@ import { Avatar } from "@mui/joy";
 import { MAIN_BORDERS } from "@/shared/constants/app";
 import type { Profile } from "@/types/easyqa";
 
-export function ProfileAvatar({
+export const ProfileAvatar = ({
   profile,
   size = 32,
 }: {
   profile: Pick<Profile, "displayName" | "avatarUrl">;
   size?: number;
-}) {
+}) => {
   return (
     <Avatar
       src={profile.avatarUrl ?? undefined}
@@ -26,7 +26,7 @@ export function ProfileAvatar({
       {initials(profile.displayName)}
     </Avatar>
   );
-}
+};
 
 function initials(name: string) {
   return name

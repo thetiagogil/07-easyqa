@@ -8,11 +8,11 @@ type SubmitButtonProps = ButtonProps & {
   pendingLabel?: ReactNode;
 };
 
-export function SubmitButton({
+export const SubmitButton = ({
   children,
   pendingLabel,
   ...props
-}: SubmitButtonProps) {
+}: SubmitButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
@@ -26,4 +26,4 @@ export function SubmitButton({
       {pending && pendingLabel ? pendingLabel : children}
     </Button>
   );
-}
+};

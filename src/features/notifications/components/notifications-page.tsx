@@ -8,7 +8,7 @@ import {
   getUnreadNotificationCount,
 } from "@/features/notifications/server/queries";
 
-export async function NotificationsPage() {
+export const NotificationsPage = async () => {
   const [notifications, unreadCount] = await Promise.all([
     getNotifications(),
     getUnreadNotificationCount(),
@@ -40,4 +40,4 @@ export async function NotificationsPage() {
       )}
     </MainContainer>
   );
-}
+};

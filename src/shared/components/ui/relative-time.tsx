@@ -1,6 +1,6 @@
-export function RelativeTime({ value }: { value: string }) {
+export const RelativeTime = ({ value }: { value: string }) => {
   return <>{formatRelativeTime(value)}</>;
-}
+};
 
 export function formatRelativeTime(value: string) {
   const date = new Date(value);

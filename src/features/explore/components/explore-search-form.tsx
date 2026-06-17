@@ -5,7 +5,7 @@ type ExploreSearchFormProps = {
   defaultValue: string;
 };
 
-export function ExploreSearchForm({ defaultValue }: ExploreSearchFormProps) {
+export const ExploreSearchForm = ({ defaultValue }: ExploreSearchFormProps) => {
   return (
     <Box component="form" action="/explore" width="100%">
       <Input
@@ -18,4 +18,4 @@ export function ExploreSearchForm({ defaultValue }: ExploreSearchFormProps) {
       />
     </Box>
   );
-}
+};

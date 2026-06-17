@@ -12,7 +12,7 @@ type ThemeRegistryProps = {
   options: EmotionCacheOptions;
 };
 
-export function ThemeRegistry({ children, options }: ThemeRegistryProps) {
+export const ThemeRegistry = ({ children, options }: ThemeRegistryProps) => {
   const [{ cache, flush }] = useState(() => {
     const cache = createCache(options);
     cache.compat = true;
@@ -62,4 +62,4 @@ export function ThemeRegistry({ children, options }: ThemeRegistryProps) {
   });
 
   return <CacheProvider value={cache}>{children}</CacheProvider>;
-}
+};

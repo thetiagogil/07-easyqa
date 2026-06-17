@@ -18,10 +18,10 @@ type LinkIconButtonProps = Omit<
   href: string;
 };
 
-export function LinkButton({ href, ...props }: LinkButtonProps) {
+export const LinkButton = ({ href, ...props }: LinkButtonProps) => {
   return <Button component={NextLink} href={href} {...props} />;
-}
+};
 
-export function LinkIconButton({ href, ...props }: LinkIconButtonProps) {
+export const LinkIconButton = ({ href, ...props }: LinkIconButtonProps) => {
   return <IconButton component={NextLink} href={href} {...props} />;
-}
+};

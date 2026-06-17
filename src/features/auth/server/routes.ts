@@ -3,7 +3,7 @@ import { getRequestOrigin, safeRedirectPath } from "@/lib/routing/redirect";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/shared/server/auth";
 
-export async function handleAuthCallback(request: NextRequest) {
+export const handleAuthCallback = async (request: NextRequest) => {
   const requestUrl = new URL(request.url);
   const requestOrigin = getRequestOrigin(request);
   const code = requestUrl.searchParams.get("code");
@@ -18,9 +18,9 @@ export async function handleAuthCallback(request: NextRequest) {
   }
 
   return NextResponse.redirect(new URL(next, requestOrigin));
-}
+};
 
-export async function handleAuthContinue(request: NextRequest) {
+export const handleAuthContinue = async (request: NextRequest) => {
   const requestUrl = new URL(request.url);
   const requestOrigin = getRequestOrigin(request);
   const next = safeRedirectPath(requestUrl.searchParams.get("next"), "/");
@@ -37,4 +37,4 @@ export async function handleAuthContinue(request: NextRequest) {
   }
 
   return NextResponse.redirect(new URL(next, requestOrigin));
-}
+};

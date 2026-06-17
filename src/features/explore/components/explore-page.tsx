@@ -19,7 +19,7 @@ type ExplorePageProps = {
   searchParams: Promise<{ q?: string }>;
 };
 
-export async function ExplorePage({ searchParams }: ExplorePageProps) {
+export const ExplorePage = async ({ searchParams }: ExplorePageProps) => {
   const { q } = await searchParams;
   const searchTerm = q?.trim() ?? "";
   const profiles = await searchExploreProfiles(q);
@@ -118,4 +118,4 @@ export async function ExplorePage({ searchParams }: ExplorePageProps) {
       )}
     </MainContainer>
   );
-}
+};

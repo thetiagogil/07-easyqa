@@ -15,11 +15,11 @@ type VoteControlsProps = {
   disabled?: boolean;
 };
 
-export function VoteControls({
+export const VoteControls = ({
   targetType,
   target,
   disabled,
-}: VoteControlsProps) {
+}: VoteControlsProps) => {
   const [isPending, startTransition] = useTransition();
   const [voteState, setVoteState] = useState<VoteState>({
     voteScore: target.voteScore,
@@ -119,7 +119,7 @@ export function VoteControls({
       <ActionStatus compact error={error ?? undefined} />
     </Stack>
   );
-}
+};
 
 type VoteState = {
   voteScore: number;
