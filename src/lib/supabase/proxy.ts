@@ -44,18 +44,18 @@ export const updateSession = async (request: NextRequest) => {
   return response;
 };
 
-function clearSupabaseAuthCookies(
+const clearSupabaseAuthCookies = (
   request: NextRequest,
   response: NextResponse,
-) {
+) => {
   request.cookies.getAll().forEach(({ name }) => {
     if (!isSupabaseAuthCookie(name)) return;
 
     request.cookies.delete(name);
     response.cookies.delete(name);
   });
-}
+};
 
-function isSupabaseAuthCookie(name: string) {
+const isSupabaseAuthCookie = (name: string) => {
   return name.startsWith("sb-") && name.includes("-auth-token");
-}
+};

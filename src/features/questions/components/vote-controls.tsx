@@ -6,6 +6,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import { IconButton, Stack, Typography } from "@mui/joy";
 import { useState, useTransition } from "react";
 import { submitVoteAction } from "@/features/questions/server/actions";
+import { applyVote, type VoteState } from "@/features/questions/lib/vote-state";
 import { ActionStatus } from "@/shared/components/action-status";
 import type { Answer, Question, TargetType, VoteValue } from "@/types/easyqa";
 
@@ -120,29 +121,3 @@ export const VoteControls = ({
     </Stack>
   );
 };
-
-type VoteState = {
-  voteScore: number;
-  viewerVoteValue: VoteValue | null;
-};
-
-function applyVote(current: VoteState, selectedValue: VoteValue): VoteState {
-  if (current.viewerVoteValue === selectedValue) {
-    return {
-      voteScore: current.voteScore - selectedValue,
-      viewerVoteValue: null,
-    };
-  }
-
-  if (current.viewerVoteValue === null) {
-    return {
-      voteScore: current.voteScore + selectedValue,
-      viewerVoteValue: selectedValue,
-    };
-  }
-
-  return {
-    voteScore: current.voteScore + selectedValue * 2,
-    viewerVoteValue: selectedValue,
-  };
-}

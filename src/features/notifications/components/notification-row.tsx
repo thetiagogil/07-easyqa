@@ -73,7 +73,7 @@ export const NotificationRow = ({
   );
 };
 
-function renderNotification(notification: Notification) {
+const renderNotification = (notification: Notification) => {
   const actorName = notification.actor?.displayName ?? "Someone";
   const actorLink = notification.actorId ? (
     <Link
@@ -129,4 +129,4 @@ function renderNotification(notification: Notification) {
       .
     </>
   );
-}
+};

@@ -1,4 +1,4 @@
-import { AuthPage } from "@/features/auth/components/auth-page";
+import { AuthPage } from "./_components/auth-page";
 
 export const dynamic = "force-dynamic";
 

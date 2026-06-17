@@ -89,5 +89,14 @@ export const getAnsweredQuestionsByProfile = async (
 
   if (questionsError) throw questionsError;
 
-  return hydrateQuestions(client, questions ?? [], viewer?.id ?? null);
+  const questionOrder = new Map(
+    questionIds.map((questionId, index) => [questionId, index]),
+  );
+  const orderedQuestions = [...(questions ?? [])].sort(
+    (first, second) =>
+      (questionOrder.get(first.id) ?? Number.MAX_SAFE_INTEGER) -
+      (questionOrder.get(second.id) ?? Number.MAX_SAFE_INTEGER),
+  );
+
+  return hydrateQuestions(client, orderedQuestions, viewer?.id ?? null);
 };

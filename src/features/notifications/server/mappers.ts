@@ -22,7 +22,7 @@ export const mapNotification = (
   };
 };
 
-function normalizeNotificationType(value: string): NotificationType {
+const normalizeNotificationType = (value: string): NotificationType => {
   if (value === "answer_accepted" || value === "followed") return value;
   return "answer_received";
-}
+};

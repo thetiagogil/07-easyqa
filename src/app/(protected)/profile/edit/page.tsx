@@ -1,4 +1,4 @@
-import { EditProfilePage } from "@/features/profiles/components/edit-profile-page";
+import { EditProfilePage } from "./_components/edit-profile-page";
 
 export const dynamic = "force-dynamic";
 

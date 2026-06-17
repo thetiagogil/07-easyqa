@@ -1,6 +1,6 @@
 import { Alert } from "@mui/joy";
 import { Suspense } from "react";
-import { QuestionFeedContent } from "@/features/questions/components/question-feed-content";
+import { QuestionFeedContent } from "./question-feed-content";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { Loading } from "@/shared/components/ui/loading";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";

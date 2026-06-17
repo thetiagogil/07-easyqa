@@ -65,7 +65,10 @@ export const hydrateAnswers = async (
   });
 };
 
-function createFallbackProfile(userId: string, timestamp: string): ProfileRow {
+const createFallbackProfile = (
+  userId: string,
+  timestamp: string,
+): ProfileRow => {
   return {
     id: userId,
     display_name: null,
@@ -75,14 +78,14 @@ function createFallbackProfile(userId: string, timestamp: string): ProfileRow {
     created_at: timestamp,
     updated_at: timestamp,
   };
-}
+};
 
-async function getViewerVotes(
+const getViewerVotes = async (
   client: AppSupabaseClient,
   viewerId: string | null,
   targetType: TargetType,
   targetIds: number[],
-) {
+) => {
   if (!viewerId || !targetIds.length)
     return new Map<number, VoteValue | null>();
 
@@ -101,4 +104,4 @@ async function getViewerVotes(
       normalizeVoteValue(vote.value),
     ]),
   );
-}
+};

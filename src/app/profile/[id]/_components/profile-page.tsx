@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { ProfileHeader } from "@/features/profiles/components/profile-header";
-import { ProfileTabContent } from "@/features/profiles/components/profile-tab-content";
+import { ProfileHeader } from "./profile-header";
+import { ProfileTabContent } from "./profile-tab-content";
 import { MainContainer } from "@/shared/components/layout/main-container";
 import { Loading } from "@/shared/components/ui/loading";
 import { RouteTabs } from "@/shared/components/ui/route-tabs";

@@ -1,4 +1,4 @@
-import { QuestionFeedPage } from "@/features/questions/components/question-feed-page";
+import { QuestionFeedPage } from "./_components/question-feed-page";
 
 export const dynamic = "force-dynamic";
 

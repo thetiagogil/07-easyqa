@@ -1,4 +1,4 @@
-import { QuestionDetailPage } from "@/features/questions/components/question-detail-page";
+import { QuestionDetailPage } from "./_components/question-detail-page";
 
 export const dynamic = "force-dynamic";
 

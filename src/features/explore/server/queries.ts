@@ -3,6 +3,7 @@ import { isSupabaseConfigured } from "@/lib/env";
 import { core } from "@/lib/database/schemas";
 import { createClient } from "@/lib/supabase/server";
 import { mapProfile } from "@/shared/server/mappers";
+import { createIlikeContainsFilter } from "@/lib/supabase/postgrest-filter";
 import type { Profile } from "@/types/easyqa";
 
 export const searchExploreProfiles = async (
@@ -20,8 +21,10 @@ export const searchExploreProfiles = async (
     .limit(LIMITS.pageSize);
 
   if (searchTerm) {
+    const searchFilter = createIlikeContainsFilter(searchTerm);
+
     query = query.or(
-      `display_name.ilike.%${searchTerm}%,username.ilike.%${searchTerm}%`,
+      `display_name.ilike.${searchFilter},username.ilike.${searchFilter}`,
     );
   }
 

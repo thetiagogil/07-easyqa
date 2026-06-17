@@ -109,11 +109,11 @@ export const QuestionDetailPage = async ({
   );
 };
 
-function getAnswerRestrictionMessage(
+const getAnswerRestrictionMessage = (
   currentUser: CurrentUser | null,
   question: Question,
   hasAnswered: boolean,
-) {
+) => {
   if (!currentUser) return null;
   if (question.status === "closed") {
     return "This question is closed, so new answers are disabled.";
@@ -126,4 +126,4 @@ function getAnswerRestrictionMessage(
   }
 
   return null;
-}
+};

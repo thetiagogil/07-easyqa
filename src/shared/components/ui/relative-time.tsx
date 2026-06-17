@@ -2,7 +2,7 @@ export const RelativeTime = ({ value }: { value: string }) => {
   return <>{formatRelativeTime(value)}</>;
 };
 
-export function formatRelativeTime(value: string) {
+export const formatRelativeTime = (value: string) => {
   const date = new Date(value);
   const diffMs = date.getTime() - Date.now();
   const absMs = Math.abs(diffMs);
@@ -24,4 +24,4 @@ export function formatRelativeTime(value: string) {
     valueInUnit,
     unit,
   );
-}
+};

@@ -1,4 +1,4 @@
-import { ExplorePage as ExploreFeaturePage } from "@/features/explore/components/explore-page";
+import { ExplorePage as ExploreFeaturePage } from "./_components/explore-page";
 
 export const dynamic = "force-dynamic";
 

@@ -55,6 +55,6 @@ export const normalizeVoteValue = (
   return null;
 };
 
-function normalizeQuestionStatus(value: string): QuestionStatus {
+const normalizeQuestionStatus = (value: string): QuestionStatus => {
   return value === "closed" ? "closed" : "open";
-}
+};

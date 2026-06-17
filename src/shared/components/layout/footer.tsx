@@ -124,9 +124,9 @@ export const Footer = ({ currentUser, unreadCount }: FooterProps) => {
   );
 };
 
-function isFooterItemActive(pathname: string, itemPath: string) {
+const isFooterItemActive = (pathname: string, itemPath: string) => {
   if (itemPath === "/") return pathname === "/";
   if (itemPath === "/question/add") return pathname.startsWith("/question");
 
   return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
-}
+};

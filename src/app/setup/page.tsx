@@ -1,4 +1,4 @@
-import { ProfileSetupPage } from "@/features/profiles/components/profile-setup-page";
+import { ProfileSetupPage } from "./_components/profile-setup-page";
 
 export const dynamic = "force-dynamic";
 

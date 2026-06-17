@@ -44,7 +44,7 @@ export const requireProfile = async () => {
   return currentUser as CurrentUser & { profile: Profile };
 };
 
-export async function getCurrentAuthUser(client: AppSupabaseClient) {
+export const getCurrentAuthUser = async (client: AppSupabaseClient) => {
   const {
     data: { user },
     error,
@@ -53,7 +53,7 @@ export async function getCurrentAuthUser(client: AppSupabaseClient) {
   if (error) return null;
 
   return user;
-}
+};
 
 export const requireAuthUser = async (client: AppSupabaseClient) => {
   const {
